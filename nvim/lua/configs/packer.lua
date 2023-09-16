@@ -7,6 +7,8 @@ return require('packer').startup(function(use)
             'nvim-telescope/telescope.nvim', tag = '0.1.3',
             requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use "vim-airline/vim-airline"
+
 
     use { "catppuccin/nvim", as = "catppuccin" }
 
@@ -57,5 +59,7 @@ return require('packer').startup(function(use)
     })
 
     use 'nvim-tree/nvim-web-devicons'
+
+    use "github/copilot.vim"
 end)
 

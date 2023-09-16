@@ -9,7 +9,7 @@ vim.opt.undofile = true
 
 vim.opt.ignorecase = true
 vim.opt.autoindent = true
-vim.opt.shiftwidth=4
+vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.smarttab = true
 vim.opt.softtabstop= 4
