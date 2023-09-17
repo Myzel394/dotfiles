@@ -26,4 +26,5 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("i", "<C-j>", "copilot#Next()", {expr=true, silent=true})
 vim.keymap.set("i", "<C-k>", "copilot#Previous()", {expr=true, silent=true})
 vim.keymap.set("i", "<Tab>", "copilot#Accept('<CR>')", {expr=true, silent=true, noremap=true, replace_keycodes=false})
+vim.keymap.set("i", "<C-o>", "copilot#Accept('<CR>')", {expr=true, silent=true, noremap=true, replace_keycodes=false})
 
