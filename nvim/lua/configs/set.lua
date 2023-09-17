@@ -1,7 +1,7 @@
 vim.opt.relativenumber = true
 vim.opt.nu = true
 
-vim.opt.showmatch = true
+vim.opt.showmatch = false
 vim.opt.hlsearch = true
 
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -21,5 +21,8 @@ vim.opt.showmatch = true
 vim.opt.history = 9999
 
 vim.opt.scrolloff = 8
+
+vim.opt.updatetime = 50
+
 
 
