@@ -30,3 +30,11 @@ vim.keymap.set("i", "<S-Tab>", "copilot#Accept('<CR>')", {expr=true, silent=true
 
 -- Auto Save
 vim.api.nvim_set_keymap("n", "<leader>n", ":ASToggle<CR>", {})
+
+-- Copy paste
+vim.keymap.set("v", "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>p", [["+p]])
+
+-- NeoTree
+vim.keymap.set("n", "<leader>n", ":Neotree position=float<CR>")
+
