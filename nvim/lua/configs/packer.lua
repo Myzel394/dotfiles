@@ -28,7 +28,26 @@ return require("packer").startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {"neovim/nvim-lspconfig"},
+            {
+                "neovim/nvim-lspconfig",
+                opts = {
+                  servers = {
+                    lua_ls = {
+                      settings = {
+                        Lua = {
+                          format = {
+                            enable = false,
+                            defaultConfig = {
+                              indent_style = "space",
+                              indent_size = "4",
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+            },
             {"williamboman/mason.nvim"},
             {"williamboman/mason-lspconfig.nvim"},
 
@@ -70,6 +89,17 @@ return require("packer").startup(function(use)
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim"
         }
+    })
+
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
+    use({
+	"Pocco81/auto-save.nvim",
+	config = function()
+		 require("auto-save").setup {
+             enabled = false,
+		 }
+	end,
     })
 end)
 
