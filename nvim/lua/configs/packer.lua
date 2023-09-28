@@ -94,12 +94,26 @@ return require("packer").startup(function(use)
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
     use({
-	"Pocco81/auto-save.nvim",
-	config = function()
-		 require("auto-save").setup {
-             enabled = false,
-		 }
-	end,
+        "Pocco81/auto-save.nvim",
+        config = function()
+             require("auto-save").setup {
+                 enabled = false,
+             }
+        end,
     })
+
+    use {
+      "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = { 
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+          {
+            's1n7ax/nvim-window-picker',
+            version = '2.*',
+          },
+        },
+    }
 end)
 
