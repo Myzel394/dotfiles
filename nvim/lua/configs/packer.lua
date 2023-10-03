@@ -4,8 +4,8 @@ return require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
 
     use {
-            "nvim-telescope/telescope.nvim", tag = '0.1.3',
-            requires = { {"nvim-lua/plenary.nvim"} }
+        "nvim-telescope/telescope.nvim", tag = '0.1.3',
+        requires = { { "nvim-lua/plenary.nvim" } }
     }
     use "vim-airline/vim-airline"
 
@@ -14,11 +14,11 @@ return require("packer").startup(function(use)
 
 
     use {
-            "nvim-treesitter/nvim-treesitter",
-            run = function()
-                    local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-                    ts_update()
-            end,
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+            ts_update()
+        end,
     }
 
     use "mbbill/undotree"
@@ -31,30 +31,30 @@ return require("packer").startup(function(use)
             {
                 "neovim/nvim-lspconfig",
                 opts = {
-                  servers = {
-                    lua_ls = {
-                      settings = {
-                        Lua = {
-                          format = {
-                            enable = false,
-                            defaultConfig = {
-                              indent_style = "space",
-                              indent_size = "4",
+                    servers = {
+                        lua_ls = {
+                            settings = {
+                                Lua = {
+                                    format = {
+                                        enable = false,
+                                        defaultConfig = {
+                                            indent_style = "space",
+                                            indent_size = "4",
+                                        },
+                                    },
+                                },
                             },
-                          },
                         },
-                      },
                     },
-                  },
                 },
             },
-            {"williamboman/mason.nvim"},
-            {"williamboman/mason-lspconfig.nvim"},
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" },
 
             -- Autocompletion
-            {"hrsh7th/nvim-cmp"},
-            {"hrsh7th/cmp-nvim-lsp"},
-            {"L3MON4D3/LuaSnip"},
+            { "hrsh7th/nvim-cmp" },
+            { "hrsh7th/cmp-nvim-lsp" },
+            { "L3MON4D3/LuaSnip" },
         }
     }
 
@@ -91,19 +91,24 @@ return require("packer").startup(function(use)
         }
     })
 
-    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && npm install",
+        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+        ft = { "markdown" },
+    })
 
     use({
         "Pocco81/auto-save.nvim",
         config = function()
-             require("auto-save").setup {
-                 enabled = false,
-             }
+            require("auto-save").setup {
+                enabled = false,
+            }
         end,
     })
 
     use {
-      "nvim-neo-tree/neo-tree.nvim",
+        "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         requires = {
           "nvim-lua/plenary.nvim",
@@ -126,5 +131,18 @@ return require("packer").startup(function(use)
             "tpope/vim-repeat",
         }
     })
-end)
 
+    use "napmn/react-extract.nvim"
+
+    use({
+        "roobert/tailwindcss-colorizer-cmp.nvim",
+        -- optionally, override the default options:
+        config = function()
+            require("tailwindcss-colorizer-cmp").setup({
+                color_square_width = 2,
+            })
+        end
+    })
+
+    use "ThePrimeagen/harpoon"
+end)
