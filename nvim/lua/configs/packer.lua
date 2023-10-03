@@ -9,10 +9,6 @@ return require("packer").startup(function(use)
     }
     use "vim-airline/vim-airline"
 
-
-    use { "catppuccin/nvim", as = "catppuccin" }
-
-
     use {
         "nvim-treesitter/nvim-treesitter",
         run = function()
