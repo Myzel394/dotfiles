@@ -42,3 +42,10 @@ vim.keymap.set("n", "<leader>n", ":Neotree position=float<CR>")
 vim.keymap.set("n", "f", "$cb")
 vim.keymap.set("n", "F", "$cB")
 
+-- Auto format on save
+vim.api.nvim_create_autocmd("BufWritePost", {
+    callback = function()
+        vim.lsp.buf.format() 
+    end
+})
+

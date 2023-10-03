@@ -6,6 +6,6 @@ cmp.setup({
   },
   sources = {
       { name = 'path' }
-  }
+  },
+	formatting = { format = require("tailwindcss-colorizer-cmp").formatter },
 })
-
