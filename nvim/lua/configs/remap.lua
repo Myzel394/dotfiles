@@ -38,3 +38,7 @@ vim.keymap.set("n", "<leader>p", [["+p]])
 -- NeoTree
 vim.keymap.set("n", "<leader>n", ":Neotree position=float<CR>")
 
+-- Run: "$cb"
+vim.keymap.set("n", "f", "$cb")
+vim.keymap.set("n", "F", "$cB")
+
