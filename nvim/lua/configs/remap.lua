@@ -38,3 +38,10 @@ vim.keymap.set("n", "<leader>p", [["+p]])
 -- NeoTree
 vim.keymap.set("n", "<leader>n", ":Neotree position=float<CR>")
 
+-- Auto format on save
+vim.api.nvim_create_autocmd("BufWritePost", {
+    callback = function()
+        vim.lsp.buf.format() 
+    end
+})
+
