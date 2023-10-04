@@ -140,5 +140,7 @@ return require("packer").startup(function(use)
         end
     })
 
+    use "windwp/nvim-ts-autotag"
+
     use "ThePrimeagen/harpoon"
 end)
