@@ -24,26 +24,7 @@ return require("packer").startup(function(use)
         branch = 'v2.x',
         requires = {
             -- LSP Support
-            {
-                "neovim/nvim-lspconfig",
-                opts = {
-                    servers = {
-                        lua_ls = {
-                            settings = {
-                                Lua = {
-                                    format = {
-                                        enable = false,
-                                        defaultConfig = {
-                                            indent_style = "space",
-                                            indent_size = "4",
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                    },
-                },
-            },
+            { "neovim/nvim-lspconfig" },
             { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
 
@@ -107,13 +88,13 @@ return require("packer").startup(function(use)
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         requires = {
-          "nvim-lua/plenary.nvim",
-          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-          "MunifTanjim/nui.nvim",
-          {
-            's1n7ax/nvim-window-picker',
-            version = '2.*',
-          },
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            {
+                's1n7ax/nvim-window-picker',
+                version = '2.*',
+            },
         },
     }
 
@@ -141,6 +122,19 @@ return require("packer").startup(function(use)
     })
 
     use "windwp/nvim-ts-autotag"
+
+    use {
+        "amrbashir/nvim-docs-view",
+        opt = true,
+        cmd = { "DocsViewToggle" },
+        config = function()
+            require("docs-view").setup {
+                position = "bottom",
+            }
+        end
+    }
+
+    use "folke/neodev.nvim"
 
     use "ThePrimeagen/harpoon"
 end)
