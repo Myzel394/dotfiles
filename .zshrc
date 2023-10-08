@@ -6,9 +6,32 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+    colors
+    theme-neutral
+    git
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+    zsh-autocomplete
+    docker
+    ls
+    jsontools
+    per-directory-history
+    z
+    safe-paste
+    dircycle
+    # Might not be necessary as it's only required once when trying
+    # to use a command that is not installed
+    command-not-found
+)
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -72,21 +95,6 @@ ZSH_THEME="nord-extended/nord"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    zsh-syntax-highlighting
-    colors
-    theme-neutral
-    git
-    zsh-autosuggestions
-    docker
-    ls
-)
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -115,6 +123,7 @@ export ZSH="$HOME/.config/oh-my-zsh"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -145,3 +154,4 @@ if [[ "$(uname)" == "Linux" ]] then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme
