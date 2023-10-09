@@ -1,0 +1,36 @@
+[submodule "oh-my-zsh/plugins/zsh-autosuggestions"]
+	path = oh-my-zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "oh-my-zsh/plugins/zsh-syntax-highlighting"]
+	path = oh-my-zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "oh-my-zsh/plugins/fast-syntax-highlighting"]
+	path = oh-my-zsh/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+[submodule "oh-my-zsh/plugins/ls"]
+	path = oh-my-zsh/plugins/ls
+	url = https://github.com/zpm-zsh/ls
+[submodule "oh-my-zsh/plugins/nord-extended"]
+	path = oh-my-zsh/plugins/nord-extended
+	url = https://github.com/fxbrit/nord-extended
+[submodule "oh-my-zsh/plugins/zsh-autocomplete"]
+	path = oh-my-zsh/plugins/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete
+[submodule "oh-my-zsh/themes/--force"]
+	path = oh-my-zsh/themes/--force
+	url = https://github.com/fxbrit/nord-extended
+[submodule "nord-extended"]
+	path = nord-extended
+	url = https://github.com/fxbrit/nord-extended
+[submodule "oh-my-zsh/custom/themes/nord-extended"]
+	path = oh-my-zsh/custom/themes/nord-extended
+	url = https://github.com/fxbrit/nord-extended
+[submodule "oh-my-zsh/custom/themes/dircolors-neutral"]
+	path = oh-my-zsh/custom/themes/dircolors-neutral
+	url = https://github.com/zpm-zsh/dircolors-neutral
+[submodule "oh-my-zsh/custom/plugins/dircolors-neutral"]
+	path = oh-my-zsh/custom/plugins/dircolors-neutral
+	url = https://github.com/zpm-zsh/dircolors-neutral
+[submodule "oh-my-zsh/custom/plugins/theme-neutral"]
+	path = oh-my-zsh/custom/plugins/theme-neutral
+	url = https://github.com/zpm-zsh/theme-neutral
