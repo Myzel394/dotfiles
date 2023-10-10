@@ -13,8 +13,8 @@
 [submodule "oh-my-zsh/custom/plugins/zsh-autocomplete"]
 	path = oh-my-zsh/custom/plugins/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
-[submodule "oh-my-zsh/custom/themes/dircolors-neutral"]
-	path = oh-my-zsh/custom/themes/dircolors-neutral
+[submodule "oh-my-zsh/custom/plugins/dircolors-neutral"]
+	path = oh-my-zsh/custom/plugins/dircolors-neutral
 	url = https://github.com/zpm-zsh/dircolors-neutral
 [submodule "oh-my-zsh/custom/plugins/theme-neutral"]
 	path = oh-my-zsh/custom/plugins/theme-neutral
