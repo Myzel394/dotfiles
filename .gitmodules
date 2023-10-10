@@ -16,9 +16,6 @@
 [submodule "oh-my-zsh/plugins/zsh-autocomplete"]
 	path = oh-my-zsh/plugins/zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
-[submodule "oh-my-zsh/themes/--force"]
-	path = oh-my-zsh/themes/--force
-	url = https://github.com/fxbrit/nord-extended
 [submodule "nord-extended"]
 	path = nord-extended
 	url = https://github.com/fxbrit/nord-extended
