@@ -137,4 +137,6 @@ return require("packer").startup(function(use)
     use "folke/neodev.nvim"
 
     use "ThePrimeagen/harpoon"
+
+    use "gen740/SmoothCursor.nvim"
 end)
