@@ -59,3 +59,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         vim.lsp.buf.format()
     end
 })
+
+require("configs.easy-replacer")

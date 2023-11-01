@@ -139,4 +139,6 @@ return require("packer").startup(function(use)
     use "ThePrimeagen/harpoon"
 
     use "gen740/SmoothCursor.nvim"
+
+    use "Myzel394/easytables.nvim"
 end)
