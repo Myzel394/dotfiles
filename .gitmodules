@@ -19,3 +19,6 @@
 [submodule "oh-my-zsh/custom/plugins/theme-neutral"]
 	path = oh-my-zsh/custom/plugins/theme-neutral
 	url = https://github.com/zpm-zsh/theme-neutral
+[submodule "oh-my-zsh/custom/plugins/copy-pasta"]
+	path = oh-my-zsh/custom/plugins/copy-pasta
+	url = https://github.com/ChrisPenner/copy-pasta
