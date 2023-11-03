@@ -29,7 +29,6 @@ return require("packer").startup(function(use)
             { "williamboman/mason-lspconfig.nvim" },
 
             -- Autocompletion
-            { "hrsh7th/nvim-cmp" },
             { "hrsh7th/cmp-nvim-lsp" },
             { "L3MON4D3/LuaSnip" },
         }
@@ -109,8 +108,6 @@ return require("packer").startup(function(use)
         }
     })
 
-    use "napmn/react-extract.nvim"
-
     use({
         "roobert/tailwindcss-colorizer-cmp.nvim",
         -- optionally, override the default options:
@@ -123,22 +120,30 @@ return require("packer").startup(function(use)
 
     use "windwp/nvim-ts-autotag"
 
-    use {
-        "amrbashir/nvim-docs-view",
-        opt = true,
-        cmd = { "DocsViewToggle" },
-        config = function()
-            require("docs-view").setup {
-                position = "bottom",
-            }
-        end
-    }
-
-    use "folke/neodev.nvim"
-
     use "ThePrimeagen/harpoon"
 
     use "gen740/SmoothCursor.nvim"
 
     use "Myzel394/easytables.nvim"
+
+    use {
+        "L3MON4D3/LuaSnip",
+        dependencies = { "rafamadriz/friendly-snippets" },
+    }
+    use {
+        'hrsh7th/nvim-cmp',
+        config = function()
+            require 'cmp'.setup {
+                snippet = {
+                    expand = function(args)
+                        require 'luasnip'.lsp_expand(args.body)
+                    end
+                },
+                sources = {
+                    { name = 'luasnip' },
+                },
+            }
+        end
+    }
+    use { 'saadparwaiz1/cmp_luasnip' }
 end)
