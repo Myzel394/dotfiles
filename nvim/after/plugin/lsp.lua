@@ -2,8 +2,6 @@ local null_ls = require("null-ls")
 local mason_null_ls = require("mason-null-ls")
 local lsp = require('lsp-zero').preset("recommended")
 
-require("neodev").setup({})
-
 lsp.on_attach(function(client, bufnr)
     -- see :help lsp-zero-keybindings
     -- to learn the available actions
