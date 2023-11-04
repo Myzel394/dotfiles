@@ -120,32 +120,38 @@ export ZSH="$HOME/.config/oh-my-zsh"
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+paths=(
+    "$HOME/.local/bin" 
+    "$HOME/.local/share/JetBrains/Toolbox/scripts" 
+    "$HOME/.cargo/bin" 
+    "$HOME/bin" 
+    "$HOME/platform-tools"
+)
 
-PATH="$HOME/.cargo/bin:$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
-
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-export PATH
-
-source $ZSH/custom/plugins/LS_COLORS/lscolors.sh
+for new_path in $paths; do
+    if [[ -d "$new_path" ]] then
+        export PATH="$new_path:$PATH"
+    fi
+done
 
 export OPENSSL_CONF="/etc/ssl phantomjs"
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. "$HOME/.cargo/env"
 
-if [ -d "$HOME/platform-tools" ] ; then
-    export PATH="$HOME/platform-tools:$PATH"
-fi
+sources=(
+    "$ZSH/custom/plugins/LS_COLORS/lscolors.sh"
+    "$NVM_DIR/nvm.sh"
+    "$HOME/.cargo/env"
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    "$HOME/.p10k.zsh"
+)
 
+for new_source in $sources; do
+    if [ -f "$new_source" ]; then
+        source "$new_source"
+    fi
+done
 
-# Check if the current OS is linux
-if [[ "$(uname)" == "Linux" ]] then 
+if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
