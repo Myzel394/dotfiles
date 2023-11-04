@@ -103,9 +103,13 @@ require("lazy").setup({
     {
         "startup-nvim/startup.nvim",
         dependencies = {
-            "nvim-telescope/telescope.nvim", 
+            "nvim-telescope/telescope.nvim",
             "nvim-lua/plenary.nvim",
             "MaximilianLloyd/ascii.nvim",
         },
-    }
+    },
+    "numToStr/Comment.nvim",
+    "lukas-reineke/indent-blankline.nvim",
+    "gbprod/substitute.nvim",
+    "gbprod/yanky.nvim",
 })
