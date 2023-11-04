@@ -17,5 +17,4 @@ cmp.setup({
         { name = 'nvim_lua' },
         { name = 'luasnip', option = { show_autosnippets = true } },
     },
-    formatting = { format = require("tailwindcss-colorizer-cmp").formatter },
 })
