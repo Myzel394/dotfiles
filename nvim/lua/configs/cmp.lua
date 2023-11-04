@@ -17,4 +17,13 @@ cmp.setup({
         { name = 'nvim_lua' },
         { name = 'luasnip', option = { show_autosnippets = true } },
     },
+    snippet = {
+        expand = function(args)
+            local luasnip = prequire("luasnip")
+            if not luasnip then
+                return
+            end
+            luasnip.lsp_expand(args.body)
+        end,
+    }
 })
