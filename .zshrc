@@ -15,8 +15,6 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    colors
-    theme-neutral
     git
     zsh-syntax-highlighting
     zsh-autosuggestions
@@ -28,9 +26,6 @@ plugins=(
     z
     safe-paste
     dircycle
-    # Might not be necessary as it's only required once when trying
-    # to use a command that is not installed
-    command-not-found
 )
 
 
@@ -38,7 +33,7 @@ plugins=(
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="nord-extended/nord"
+# ZSH_THEME="nord-extended/nord"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -154,4 +149,3 @@ if [[ "$(uname)" == "Linux" ]] then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
