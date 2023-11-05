@@ -19,6 +19,7 @@ plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     zsh-autocomplete
+    sudo
     docker
     ls
     jsontools
@@ -26,6 +27,7 @@ plugins=(
     z
     safe-paste
     dircycle
+    copybuffer
 )
 
 
