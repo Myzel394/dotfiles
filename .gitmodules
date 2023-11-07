@@ -23,5 +23,5 @@
 	path = oh-my-zsh/custom/plugins/copy-pasta
 	url = https://github.com/ChrisPenner/copy-pasta
 [submodule "kitty/kitty-themes"]
-	path = kitty/kitty/kitty-themes
+	path = kitty/kitty-themes
 	url = https://github.com/dexpota/kitty-themes
