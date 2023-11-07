@@ -46,7 +46,7 @@ require("lazy").setup({
         end
     },
     --"nvim-tree/nvim-web-devicons",
-    "NvChad/norcalli/nvim-colorizer.lua",
+    "norcalli/nvim-colorizer.lua",
     "github/copilot.vim",
     {
         "jackMort/ChatGPT.nvim",
@@ -62,7 +62,7 @@ require("lazy").setup({
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
-        },
+    },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
