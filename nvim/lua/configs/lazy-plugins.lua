@@ -58,17 +58,11 @@ require("lazy").setup({
     },
     {
         "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
-        event = "VeryLazy",
-        setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-        ft = { "markdown" },
-    },
-    {
-        "Pocco81/auto-save.nvim",
-        enabled = function()
-            return not vim.g.is_mac
+        ft = "markdown",
+        build = function()
+            vim.fn["mkdp#util#install"]()
         end,
-    },
+        },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
