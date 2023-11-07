@@ -46,7 +46,7 @@ require("lazy").setup({
         end
     },
     --"nvim-tree/nvim-web-devicons",
-    "NvChad/nvim-colorizer.lua",
+    "NvChad/norcalli/nvim-colorizer.lua",
     "github/copilot.vim",
     {
         "jackMort/ChatGPT.nvim",
