@@ -1,2 +1,3 @@
 ./oh-my-zsh/cache/*
 ./nvim/plugin/*
+./scripts/node_modules/*

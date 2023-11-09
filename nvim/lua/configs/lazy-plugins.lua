@@ -104,6 +104,5 @@ require("lazy").setup({
     },
     "numToStr/Comment.nvim",
     "lukas-reineke/indent-blankline.nvim",
-    "gbprod/substitute.nvim",
     "gbprod/yanky.nvim",
 })
