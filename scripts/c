@@ -1,0 +1,8 @@
+#!/bin/bash
+cd "$1";
+
+if [ "$?" -eq 0 ]; then
+    echo -e '\033[3A';
+fi
+
+$SHELL
