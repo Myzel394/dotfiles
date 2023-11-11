@@ -1,3 +1,7 @@
---colorscheme catppuccin = " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha "
---vim.cmd.colorscheme "catppuccin"
+require("tokyonight").setup({
+    style = "moon",
+    transparent = true,
+})
+
+vim.cmd("colorscheme tokyonight-moon")
 
