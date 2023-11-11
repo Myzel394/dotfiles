@@ -103,6 +103,45 @@ require("lazy").setup({
         },
     },
     "numToStr/Comment.nvim",
-    "lukas-reineke/indent-blankline.nvim",
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        lazy = true,
+        event = "VeryLazy",
+    },
     "gbprod/yanky.nvim",
+    "rust-lang/rust.vim",
+    "xiyaowong/transparent.nvim",
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000
+    },
+    {
+        "nvimdev/lspsaga.nvim",
+        config = function()
+            require("lspsaga").setup({})
+        end,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        }
+    },
+    {
+        "HiPhish/rainbow-delimiters.nvim",
+        lazy = true,
+        event = "VeryLazy",
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 150
+        end,
+        opts = {}
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    }
 })
