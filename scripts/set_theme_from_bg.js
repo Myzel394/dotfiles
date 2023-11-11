@@ -12,8 +12,13 @@ function createTheme(colors) {
   const primary = tinyColor(colors.Muted.getHex());
   const secondary = tinyColor(colors.Vibrant.getHex());
 
+  const bgColor = tinyColor(colors.DarkMuted.getHex()).darken(20);
+
   return {
-    background: tinyColor(colors.DarkMuted.getHex()).darken(20).toHexString(),
+    background: (bgColor.getBrightness() <= 50
+      ? bgColor.lighten(5)
+      : bgColor
+    ).toHexString(),
     foreground: colors.LightMuted.getHex(),
     color2: primary.toHexString(),
     color3: primary.lighten(10).toHexString(),

@@ -27,7 +27,6 @@ plugins=(
     z
     safe-paste
     dircycle
-    copybuffer
 )
 
 
@@ -163,4 +162,6 @@ c() {
         echo -e "\033[3A"
     fi
 }
+
+alias n="nvim ."
 
