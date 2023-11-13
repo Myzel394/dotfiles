@@ -17,25 +17,6 @@ require("lazy").setup({
         end,
     },
     "mbbill/undotree",
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v2.x",
-        dependencies = {
-            -- LSP Support
-            { "neovim/nvim-lspconfig" },
-            { "williamboman/mason.nvim" },
-            { "williamboman/mason-lspconfig.nvim" },
-
-            -- Autocompletion
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "L3MON4D3/LuaSnip" },
-        }
-    },
-    {
-        "jose-elias-alvarez/null-ls.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    "jayp0521/mason-null-ls.nvim",
     "tyrannicaltoucan/vim-deep-space",
     {
         "kylechui/nvim-surround",
@@ -88,12 +69,7 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     "gen740/SmoothCursor.nvim",
     "Myzel394/easytables.nvim",
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = { "rafamadriz/friendly-snippets" },
-    },
-    "hrsh7th/nvim-cmp",
-    "saadparwaiz1/cmp_luasnip",
+    "onsails/lspkind.nvim",
     {
         "startup-nvim/startup.nvim",
         dependencies = {
@@ -143,5 +119,39 @@ require("lazy").setup({
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+
+    ----- LSP -----
+
+    {
+        'VonHeikemen/lsp-zero.nvim',
+        branch = 'v3.x',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
+            'neovim/nvim-lspconfig',
+            'hrsh7th/cmp-nvim-lsp',
+            'L3MON4D3/LuaSnip',
+        }
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        dependencies = {
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "L3MON4D3/LuaSnip",
+            "saadparwaiz1/cmp_luasnip",
+            "rafamadriz/friendly-snippets",
+            "onsails/lspkind.nvim",
+        },
+    },
+    {
+        "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            { "antosha417/nvim-lsp-file-operations", config = true },
+        },
     }
 })
