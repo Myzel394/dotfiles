@@ -20,9 +20,16 @@ require("mason-lspconfig").setup {
         "jsonls",
         "yamlls",
         "bashls",
-        "graphql",
         "lua_ls",
-        "ltex"
+        --"texlab",
+        "ltex",
+        "marksman",
+
+        ---- Python ----
+        -- Formatter
+        "ruff_lsp",
+        -- Linter
+        "jedi_language_server",
     }
 }
 
@@ -61,19 +68,6 @@ lspconfig["cssls"].setup({
     on_attach = on_attach,
 })
 
--- configure tailwindcss server
--- lspconfig["tailwindcss"].setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
--- })
-
--- configure graphql language server
-lspconfig["graphql"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-})
-
 -- configure graphql language server
 lspconfig["bashls"].setup({
     capabilities = capabilities,
@@ -110,6 +104,16 @@ lspconfig["rust_analyzer"].setup({
     on_attach = on_attach,
 })
 
+lspconfig["jedi_language_server"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+
+lspconfig["ruff_lsp"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+
 -- configure lua server (with special settings)
 lspconfig["lua_ls"].setup({
     capabilities = capabilities,
@@ -129,6 +133,16 @@ lspconfig["lua_ls"].setup({
             },
         },
     },
+})
+
+lspconfig["marksman"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+
+lspconfig["texlab"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
 })
 
 lspconfig["ltex"].setup {

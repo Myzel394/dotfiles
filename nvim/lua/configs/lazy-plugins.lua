@@ -113,7 +113,13 @@ require("lazy").setup({
     },
 
     ----- LSP -----
-
+    {
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+            ts_update()
+        end,
+    },
     {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v3.x',
@@ -144,21 +150,6 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
             { "antosha417/nvim-lsp-file-operations", config = true },
         },
-    },
-    {
-
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        config = function()
-            local configs = require("nvim-treesitter.configs")
-
-            configs.setup({
-                ensure_installed = { "latex" },
-                sync_install = true,
-                highlight = { enable = true },
-                indent = { enable = true },
-            })
-        end
     },
     {
         'lervag/vimtex',
