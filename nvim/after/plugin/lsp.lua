@@ -21,8 +21,8 @@ require("mason-lspconfig").setup {
         "yamlls",
         "bashls",
         "graphql",
-        "tailwindcss",
         "lua_ls",
+        "ltex"
     }
 }
 
@@ -62,10 +62,10 @@ lspconfig["cssls"].setup({
 })
 
 -- configure tailwindcss server
-lspconfig["tailwindcss"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
+-- lspconfig["tailwindcss"].setup({
+--     capabilities = capabilities,
+--     on_attach = on_attach,
+-- })
 
 -- configure graphql language server
 lspconfig["graphql"].setup({
@@ -131,6 +131,29 @@ lspconfig["lua_ls"].setup({
     },
 })
 
+lspconfig["ltex"].setup {
+    filetypes = { "markdown", "md", "tex", "plaintex" },
+    flags = { debounce_text_changes = 300 },
+    settings = {
+        ltex = {
+            enabled = true,
+            language = "de-DE",
+            setenceCacheSize = 2000,
+            additionalRules = {
+                enablePickyRules = true,
+            },
+            trace = { server = "verbose" },
+            disabledRules = {},
+            hiddenFalsePositives = {},
+            username = "x@y.z",
+            apiKey = "tete",
+        }
+    },
+    on_attach = on_attach,
+}
+
+
+
 ----- CMP -----
 
 local cmp = require("cmp")
@@ -151,7 +174,18 @@ cmp.setup({
         { name = "path" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
-        { name = "luasnip", option = { show_autosnippets = true } },
+        {
+            name = "luasnip",
+            option = {
+                show_autosnippets = true
+            }
+        },
+        {
+            name = "latex_symbols",
+            option = {
+                strategy = 2,
+            },
+        },
     },
     window = {
         completion = {

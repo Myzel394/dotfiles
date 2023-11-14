@@ -9,13 +9,6 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" }
     },
     "vim-airline/vim-airline",
-    {
-        "nvim-treesitter/nvim-treesitter",
-        run = function()
-            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-            ts_update()
-        end,
-    },
     "mbbill/undotree",
     "tyrannicaltoucan/vim-deep-space",
     {
@@ -69,7 +62,6 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     "gen740/SmoothCursor.nvim",
     "Myzel394/easytables.nvim",
-    "onsails/lspkind.nvim",
     {
         "startup-nvim/startup.nvim",
         dependencies = {
@@ -98,7 +90,6 @@ require("lazy").setup({
             require("lspsaga").setup({})
         end,
         dependencies = {
-            "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons"
         }
     },
@@ -136,7 +127,7 @@ require("lazy").setup({
     },
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        lazy = false,
         dependencies = {
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
@@ -144,14 +135,39 @@ require("lazy").setup({
             "saadparwaiz1/cmp_luasnip",
             "rafamadriz/friendly-snippets",
             "onsails/lspkind.nvim",
+            "kdheepak/cmp-latex-symbols",
         },
     },
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             { "antosha417/nvim-lsp-file-operations", config = true },
         },
+    },
+    {
+
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        config = function()
+            local configs = require("nvim-treesitter.configs")
+
+            configs.setup({
+                ensure_installed = { "latex" },
+                sync_install = true,
+                highlight = { enable = true },
+                indent = { enable = true },
+            })
+        end
+    },
+    {
+        'lervag/vimtex',
+        ft = { "tex", "plaintex", "markdown" },
+        config = function()
+            vim.g.vimtex_view_method = 'skim'
+            vim.g.vimtex_compiler_engine = 'lualatex'
+            vim.g.maplocalleader = ','
+        end,
+        enabled = false,
     }
 })
