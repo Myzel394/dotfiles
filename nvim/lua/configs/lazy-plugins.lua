@@ -8,7 +8,12 @@ require("lazy").setup({
         tag = "0.1.4",
         dependencies = { "nvim-lua/plenary.nvim" }
     },
-    "vim-airline/vim-airline",
+    {
+        "vim-airline/vim-airline",
+        dependencies = {
+            "vim-airline/vim-airline-themes",
+        }
+    },
     "mbbill/undotree",
     "tyrannicaltoucan/vim-deep-space",
     {
@@ -142,6 +147,7 @@ require("lazy").setup({
             "rafamadriz/friendly-snippets",
             "onsails/lspkind.nvim",
             "kdheepak/cmp-latex-symbols",
+            "uga-rosa/cmp-dictionary",
         },
     },
     {

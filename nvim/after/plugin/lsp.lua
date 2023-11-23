@@ -21,9 +21,13 @@ require("mason-lspconfig").setup {
         "yamlls",
         "bashls",
         "lua_ls",
+
         --"texlab",
         "ltex",
         "marksman",
+
+        "java_language_server",
+        "kotlin_language_server",
 
         ---- Python ----
         -- Formatter
@@ -166,10 +170,17 @@ lspconfig["ltex"].setup {
     on_attach = on_attach,
 }
 
+lspconfig["java_language_server"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 
+lspconfig["kotlin_language_server"].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 
------ CMP -----
-
+------- CMP -------
 local cmp = require("cmp")
 
 cmp.setup({
@@ -200,6 +211,10 @@ cmp.setup({
                 strategy = 2,
             },
         },
+        {
+            name = "dictionary",
+            keyword_length = 2,
+        }
     },
     window = {
         completion = {
@@ -220,6 +235,18 @@ cmp.setup({
         end,
     },
 })
+
+local dict = require("cmp_dictionary")
+
+dict.setup {
+}
+
+dict.switcher {
+    spelllang = {
+        en = "~/.config/nvim/dicts/english.dict",
+        de = "~/.config/nvim/dicts/german.dict",
+    }
+}
 
 -- Customization for Pmenu
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#282C34", fg = "NONE" })
