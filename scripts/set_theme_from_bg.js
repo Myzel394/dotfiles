@@ -15,10 +15,17 @@ function createTheme(colors) {
   const bgColor = tinyColor(colors.DarkMuted.getHex()).darken(20);
 
   return {
-    background: (bgColor.getBrightness() <= 50
-      ? bgColor.lighten(5)
-      : bgColor
-    ).toHexString(),
+    background: (() => {
+        if (bgColor.getBrightness() <= 20) {
+            return bgColor.lighten(5);
+        }
+
+        if (bgColor.getBrightness() >= 50) {
+            return bgColor.darken(10);
+        }
+
+        return bgColor;
+    })().toHexString(),
     foreground: colors.LightMuted.getHex(),
     color2: primary.toHexString(),
     color3: primary.lighten(10).toHexString(),
