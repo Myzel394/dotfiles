@@ -1,4 +1,3 @@
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -27,7 +26,10 @@ plugins=(
     z
     safe-paste
     dircycle
+    conda-zsh-completion
 )
+
+autoload -U compinit && compinit
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -144,6 +146,7 @@ sources=(
     "$HOME/.cargo/env"
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     "$HOME/.p10k.zsh"
+    "$HOME/anaconda3/bin/activate"
 )
 
 for new_source in $sources; do
@@ -156,6 +159,12 @@ if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Conda
+
+if type "$foobar_command_name" > /dev/null; then
+    conda init zsh
+fi
+
 c() {
     cd "$1"
     if [[ $? -eq 0 ]]; then
@@ -164,4 +173,20 @@ c() {
 }
 
 alias n="nvim ."
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "~/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="~/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
