@@ -15,7 +15,6 @@ require("lazy").setup({
         }
     },
     "mbbill/undotree",
-    "tyrannicaltoucan/vim-deep-space",
     {
         "kylechui/nvim-surround",
         version = "*",
@@ -24,7 +23,6 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end
     },
-    --"nvim-tree/nvim-web-devicons",
     "norcalli/nvim-colorizer.lua",
     "github/copilot.vim",
     {
@@ -85,11 +83,6 @@ require("lazy").setup({
     "rust-lang/rust.vim",
     "xiyaowong/transparent.nvim",
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1000
-    },
-    {
         "nvimdev/lspsaga.nvim",
         config = function()
             require("lspsaga").setup({})
@@ -126,14 +119,14 @@ require("lazy").setup({
         end,
     },
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v3.x",
         dependencies = {
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-            'neovim/nvim-lspconfig',
-            'hrsh7th/cmp-nvim-lsp',
-            'L3MON4D3/LuaSnip',
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
+            "hrsh7th/cmp-nvim-lsp",
+            "L3MON4D3/LuaSnip",
         }
     },
     {
@@ -158,13 +151,19 @@ require("lazy").setup({
         },
     },
     {
-        'lervag/vimtex',
+        "lervag/vimtex",
         ft = { "tex", "plaintex", "markdown" },
         config = function()
-            vim.g.vimtex_view_method = 'skim'
-            vim.g.vimtex_compiler_engine = 'lualatex'
-            vim.g.maplocalleader = ','
+            vim.g.vimtex_view_method = "skim"
+            vim.g.vimtex_compiler_engine = "lualatex"
+            vim.g.maplocalleader = ","
         end,
         enabled = false,
-    }
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+    },
+    "zhimsel/vim-stay"
 })
