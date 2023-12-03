@@ -47,8 +47,8 @@
   "vim-airline": { "branch": "master", "commit": "3b9e149e19ed58dee66e4842626751e329e1bd96" },
   "vim-airline-themes": { "branch": "master", "commit": "dd81554c2231e438f6d0e8056ea38fd0e80ac02a" },
   "vim-closer": { "branch": "master", "commit": "6007d9db0a35e983af246b667282606612076b07" },
-  "vim-deep-space": { "branch": "master", "commit": "126d52f4f77877385cd44d983709053d1aab6635" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
+  "vim-stay": { "branch": "master", "commit": "f1c494a688faa932603d18ec7d41196e9c117391" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
   "yanky.nvim": { "branch": "main", "commit": "9268018e92d02650a94e39dd5f5903c542f7ea11" }
 }
