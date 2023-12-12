@@ -14,7 +14,6 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
     zsh-syntax-highlighting
     zsh-autosuggestions
     zsh-autocomplete
@@ -24,7 +23,6 @@ plugins=(
     per-directory-history
     z
     safe-paste
-    dircycle
     conda-zsh-completion
     zsh-better-npm-completion
 )
@@ -123,23 +121,9 @@ export ZSH="$HOME/.config/oh-my-zsh"
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
-paths=(
-    "$HOME/.local/bin" 
-    "$HOME/.local/share/JetBrains/Toolbox/scripts" 
-    "$HOME/.cargo/bin" 
-    "$HOME/bin" 
-    "$HOME/platform-tools"
-    "/opt/homebrew/bin"
-)
-
-for new_path in $paths; do
-    if [[ -d "$new_path" ]] then
-        export PATH="$new_path:$PATH"
-    fi
-done
-
-export OPENSSL_CONF="/etc/ssl phantomjs"
-export NVM_DIR="$HOME/.nvm"
+# Docker completion
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 sources=(
     "$ZSH/custom/plugins/LS_COLORS/lscolors.sh"
