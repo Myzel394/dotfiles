@@ -42,7 +42,7 @@ require("neo-tree").setup({
         enable_character_fade = true
       },
       indent = {
-        indent_size = 2,
+        indent_size = 4,
         padding = 1, -- extra padding on left hand side
         -- indent guides
         with_markers = true,
@@ -177,11 +177,12 @@ require("neo-tree").setup({
     filesystem = {
       filtered_items = {
         visible = false, -- when true, they will just be displayed differently than normal items
-        hide_dotfiles = true,
-        hide_gitignored = true,
+        hide_dotfiles = false,
+        hide_gitignored = false,
         hide_hidden = true, -- only works on Windows for hidden files/directories
         hide_by_name = {
-          --"node_modules"
+          "node_modules",
+          ".git",
         },
         hide_by_pattern = { -- uses glob style patterns
           --"*.meta",
@@ -189,10 +190,11 @@ require("neo-tree").setup({
         },
         always_show = { -- remains visible even if other settings would normally hide it
           --".gitignored",
+          ".env"
         },
         never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-          --".DS_Store",
-          --"thumbs.db"
+          ".DS_Store",
+          "thumbs.db",
         },
         never_show_by_pattern = { -- uses glob style patterns
           --".null-ls_*",
