@@ -22,3 +22,9 @@
 [submodule "oh-my-zsh/custom/plugins/copy-pasta"]
 	path = oh-my-zsh/custom/plugins/copy-pasta
 	url = https://github.com/ChrisPenner/copy-pasta
+[submodule "oh-my-zsh/custom/plugins/conda-zsh-completion"]
+	path = oh-my-zsh/custom/plugins/conda-zsh-completion
+	url = https://github.com/esc/conda-zsh-completion
+[submodule "oh-my-zsh/custom/plugins/zsh-better-npm-completion"]
+	path = oh-my-zsh/custom/plugins/zsh-better-npm-completion
+	url = https://github.com/lukechilds/zsh-better-npm-completion

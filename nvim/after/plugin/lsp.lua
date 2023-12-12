@@ -26,7 +26,6 @@ require("mason-lspconfig").setup {
         "ltex",
         "marksman",
 
-        "java_language_server",
         "kotlin_language_server",
 
         ---- Python ----
@@ -169,11 +168,6 @@ lspconfig["ltex"].setup {
     },
     on_attach = on_attach,
 }
-
-lspconfig["java_language_server"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-})
 
 lspconfig["kotlin_language_server"].setup({
     capabilities = capabilities,
