@@ -50,14 +50,6 @@ vim.keymap.set("n", "F", "$cB")
 -- Fix paste
 vim.keymap.set("v", "p", '"_dP')
 
-
--- Auto format on save
-vim.api.nvim_create_autocmd("BufWritePost", {
-    callback = function()
-        vim.lsp.buf.format()
-    end
-})
-
 -- Yanky
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")

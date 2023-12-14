@@ -121,10 +121,7 @@ export ZSH="$HOME/.config/oh-my-zsh"
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
-# Docker completion
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
+# Sources
 sources=(
     "$ZSH/custom/plugins/LS_COLORS/lscolors.sh"
     "$NVM_DIR/nvm.sh"
@@ -140,21 +137,53 @@ for new_source in $sources; do
     fi
 done
 
+# Brew
 if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-# Conda
-
-if type "$foobar_command_name" > /dev/null; then
-    conda init zsh
+if [ -f "/opt/homebrew/bin/brew" ] ; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-c() {
-    cd "$1"
-    if [[ $? -eq 0 ]]; then
-        echo -e "\033[3A"
-    fi
-}
+# Paths
+paths=(
+    "$HOME/.local/bin" 
+    "$HOME/.cargo/bin"
+    "/usr/local/bin"
+    "$HOME/bin" 
+    # Toolbox
+    "$HOME/.local/share/JetBrains/Toolbox/scripts" 
+    "$HOME/platform-tools"
+    # MacOS Brew
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+)
 
-alias n="nvim ."
+for new_path in $paths; do
+    if [[ -d "$new_path" ]] then
+        export PATH="$new_path:$PATH"
+    fi
+done
+
+# Conda
+__conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "~/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="~/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+# Docker completion
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+
