@@ -13,6 +13,7 @@ require("mason-lspconfig").setup {
     ensure_installed = {
         "rust_analyzer",
         "tsserver",
+        "eslint",
         "dockerls",
         "docker_compose_language_service",
         "html",
@@ -45,6 +46,8 @@ end
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
+capabilities.documentFormattingProvider = false
+capabilities.documentRangeFormattingProvider = false
 
 -- Change the Diagnostic symbols in the sign column
 local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -63,6 +66,16 @@ lspconfig["html"].setup({
 lspconfig["tsserver"].setup({
     capabilities = capabilities,
     on_attach = on_attach,
+})
+
+lspconfig["eslint"].setup({
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            command = "EslintFixAll",
+        })
+    end,
 })
 
 -- configure css server
@@ -232,8 +245,7 @@ cmp.setup({
 
 local dict = require("cmp_dictionary")
 
-dict.setup {
-}
+dict.setup {}
 
 dict.switcher {
     spelllang = {

@@ -42,7 +42,7 @@ require("neo-tree").setup({
         enable_character_fade = true
       },
       indent = {
-        indent_size = 4,
+        indent_size = 2,
         padding = 1, -- extra padding on left hand side
         -- indent guides
         with_markers = true,
