@@ -170,5 +170,6 @@ require("lazy").setup({
         dependencies = {
             "kevinhwang91/nvim-hlslens",
         }
-    }
+    },
+    "vuki656/package-info.nvim"
 })
