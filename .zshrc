@@ -149,6 +149,7 @@ fi
 paths=(
     "$HOME/.local/bin" 
     "$HOME/.cargo/bin"
+    "$HOME/.config/scripts"
     "/usr/local/bin"
     "$HOME/bin" 
     # Toolbox
