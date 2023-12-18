@@ -165,5 +165,10 @@ require("lazy").setup({
         lazy = false,
         priority = 1000,
     },
-    "zhimsel/vim-stay"
+    {
+        "petertriho/nvim-scrollbar",
+        dependencies = {
+            "kevinhwang91/nvim-hlslens",
+        }
+    }
 })

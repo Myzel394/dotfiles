@@ -190,19 +190,7 @@ lspconfig["kotlin_language_server"].setup({
 ------- CMP -------
 local cmp = require("cmp")
 
-cmp.setup({
-    preselect = "item",
-    mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<CR>"] = cmp.mapping.confirm({ select = false })
-    }),
-    snippet = {
-        expand = function(args)
-            require "luasnip".lsp_expand(args.body)
-        end
-    },
-    sources = {
+local default_sources = cmp.config.sources {
         { name = "path" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
@@ -218,10 +206,19 @@ cmp.setup({
                 strategy = 2,
             },
         },
-        {
-            name = "dictionary",
-            keyword_length = 2,
-        }
+    }
+
+cmp.setup({
+    preselect = "item",
+    mapping = cmp.mapping.preset.insert({
+        ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<CR>"] = cmp.mapping.confirm({ select = false })
+    }),
+    snippet = {
+        expand = function(args)
+            require "luasnip".lsp_expand(args.body)
+        end
     },
     window = {
         completion = {
@@ -241,6 +238,49 @@ cmp.setup({
             return kind
         end,
     },
+})
+
+local ALLOWED_PATH_FILES = {
+    "md",
+    "txt",
+    "tex",
+    "plaintex",
+    "markdown",
+}
+
+local M = {};
+
+function M:endswith(str, ending)
+    return ending == "" or str:sub(-#ending) == ending
+end
+
+function M:is_name_allowed(name)
+    for _, ending in ipairs(ALLOWED_PATH_FILES) do
+        if M:endswith(name, ending) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-- Add `path` only if in markdown or text buffers
+vim.api.nvim_create_autocmd('BufReadPre', {
+	callback = function(context)
+		local sources = default_sources
+        local name = vim.api.nvim_buf_get_name(context.buf)
+
+        if #name >= 3 and M:is_name_allowed(name) then
+            sources[#sources+1] = {
+                name = "dictionary",
+                keyword_length = 2,
+            }
+        end
+
+        cmp.setup.buffer {
+            sources = sources
+        }
+	end
 })
 
 local dict = require("cmp_dictionary")
