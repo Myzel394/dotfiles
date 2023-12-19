@@ -190,3 +190,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Custom aliases
 alias n="nvim ."
+
+if [ -x "$(command -v neovide)" ]; then
+    alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
+fi
