@@ -7,12 +7,6 @@ require("lazy").setup({
         tag = "0.1.4",
         dependencies = { "nvim-lua/plenary.nvim" }
     },
-    {
-        "vim-airline/vim-airline",
-        dependencies = {
-            "vim-airline/vim-airline-themes",
-        }
-    },
     "mbbill/undotree",
     {
         "kylechui/nvim-surround",
@@ -172,4 +166,5 @@ require("lazy").setup({
     },
     "vuki656/package-info.nvim",
     "nanozuki/tabby.nvim",
+    "nvimdev/galaxyline.nvim",
 })
