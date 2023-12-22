@@ -2,7 +2,6 @@
 vim.g.mapleader = " "
 
 require("lazy").setup({
-    "ThePrimeagen/harpoon",
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.4",
@@ -171,5 +170,6 @@ require("lazy").setup({
             "kevinhwang91/nvim-hlslens",
         }
     },
-    "vuki656/package-info.nvim"
+    "vuki656/package-info.nvim",
+    "nanozuki/tabby.nvim",
 })
