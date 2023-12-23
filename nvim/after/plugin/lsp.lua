@@ -271,10 +271,10 @@ vim.api.nvim_create_autocmd('BufReadPre', {
         local name = vim.api.nvim_buf_get_name(context.buf)
 
         if #name >= 3 and M:is_name_allowed(name) then
-            sources[#sources+1] = {
+            table.insert(sources, {
                 name = "dictionary",
                 keyword_length = 2,
-            }
+            })
         end
 
         cmp.setup.buffer {
