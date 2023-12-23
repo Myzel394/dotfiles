@@ -350,21 +350,21 @@ galaxyline.section.left[6] = {
 }
 
 galaxyline.section.left[7] = {
-    FileEncoding = {
-        provider = function()
-            return " " .. fileinfo.get_file_encode() .. " "
-        end,
-        highlight = {colors.oncreamydark, colors.creamydark},
-    }
-}
-galaxyline.section.left[8] = {
     FileSize = {
         provider = function()
-            return "| " .. fileinfo.get_file_size() .. "|"
+            return "  " .. fileinfo.get_file_size()
         end,
 		condition = function()
 			return buffer_not_empty() and vim.bo.buftype ~= 'terminal' and window_wider_than(60)
 		end,
+        highlight = {colors.oncreamydark, colors.creamydark},
+    }
+}
+galaxyline.section.left[8] = {
+    FileEncoding = {
+        provider = function()
+            return " |" .. fileinfo.get_file_encode() .. " "
+        end,
         highlight = {colors.oncreamydark, colors.creamydark},
     }
 }
@@ -401,7 +401,7 @@ galaxyline.section.left[9] = {
                 local info = getInfo(dir)
 
                 if info then
-                    return " | " .. "Spaces: " .. info
+                    return " | " .. "Spaces: " .. info .. " |"
                 end
             end
         end,
