@@ -3,9 +3,6 @@ local fileinfo = require"galaxyline.provider_fileinfo"
 local condition = require 'galaxyline.condition'
 local vcs = require 'galaxyline.provider_vcs'
 
-local iconz = require("nvim-nonicons")
-iconz.setup {}
-
 galaxyline.short_line_list = {'plug', 'fugitive', 'NvimTree', 'vista', 'dbui', 'packer', 'startify', 'coc'}
 
 local icons = {
@@ -14,26 +11,19 @@ local icons = {
         left = ""
     },
     diagnostic = {
-        -- error = " ",
-        error = iconz.get("x-circle-fill"),
-        -- warn = " ",
-        warn = iconz.get("alert"),
-        -- info = " "
-        info = iconz.get("info")
+        error = " ",
+        warn = " ",
+        info = " "
     },
     diff = {
-        added = iconz.get("diff-added"),
-        modified = iconz.get("diff-modified"),
-        removed = iconz.get("diff-removed"),
-        -- add = " ",
-        -- modified = " ",
-        -- remove = " "
+        add = " ",
+        modified = " ",
+        remove = " "
     },
-    git = iconz.get("git-branch"),
-    line_nr = iconz.get("list-ordered"),
+    git = "󰘬",
+    line_nr = "",
     file = {
       read_only = '',
-      -- modified = '⨁ ',
       modified = '',
     },
     normal    = "",
@@ -43,8 +33,7 @@ local icons = {
     replace   = "󰗧",
     selection = "󰕩",
     terminal  = "",
-    visual_block = iconz.get("field")
-    -- terminal  = iconz.get("vim-terminal-mode")
+    visual_block = "󰒉"
 }
 
 local colors = {
@@ -118,6 +107,89 @@ local mode_map = {
 }
 
 ---------- Functions ----------
+local function get_git_staged_files_amount()
+    local command = "git diff --name-only --staged | wc -l | sed 's/ //g'"
+    local process = io.popen(command, "r")
+
+    if not process then return "0" end
+
+    local count_raw = process:read("a")
+    process:close()
+    local count = tonumber(count_raw)
+
+    return (count or 0) .. ""
+end
+
+local function get_git_modified_files_amount()
+    local command = "git diff --name-only | wc -l | sed 's/ //g'"
+    local process = io.popen(command, "r")
+
+    if not process then return "0" end
+
+    local count_raw = process:read("a")
+    process:close()
+    local count = tonumber(count_raw)
+
+    return (count or 0) .. ""
+end
+
+local function get_git_root_directory()
+    local command = "git rev-parse --show-toplevel"
+    local process = io.popen(command, "r")
+
+    if not process then return end
+
+    local git_root = process:read("a")
+    process:close()
+
+    return git_root
+end
+
+local PRETTIER_CONFIG_FILES = {
+    ".prettierrc",
+    ".prettierrc.json",
+    ".prettierrc.yml",
+    ".prettierrc.yaml",
+    ".prettierrc.js",
+    ".prettierrc.cjs",
+    ".prettierrc.config.js",
+    ".prettierrc.config.cjs",
+    "prettier.config.js",
+    "prettier.config.cjs",
+    "prettier.config.ts",
+    "prettier.config.mjs",
+    "prettier.config.coffee",
+    "prettier.config.toml",
+    "prettier.config.json",
+    "prettier.config.yaml",
+    "prettier.config.yml",
+    "prettier.config.cjson",
+    "prettier.config.cyaml",
+    "prettier.config.json5",
+    "prettier.config.jsonc",
+}
+
+local function extract_prettier_config(directory, pattern)
+    -- iterate over table
+    for _, file in ipairs(PRETTIER_CONFIG_FILES) do
+        local file_path = directory .. "/" .. file
+        local file_exists = vim.fn.filereadable(file_path) == 1
+        if file_exists then
+            local file_handle = io.open(file_path, "r")
+
+            if file_handle then
+                local file_content = file_handle:read("*a")
+                file_handle:close()
+
+                local match = string.match(file_content, pattern)
+                if match then 
+                    return match
+                end
+            end
+        end
+    end
+end
+
 local function mode_label() return mode_map[vim.fn.mode()][1] or 'N/A' end
 local function mode_hl() return mode_map[vim.fn.mode()][2] or colors.main end
 
@@ -297,12 +369,53 @@ galaxyline.section.left[8] = {
     }
 }
 galaxyline.section.left[9] = {
-    LineInfo = {
-        provider = "LineColumn",
+    SpacesInfo = {
+        provider = function()
+            local DIRS = {".", get_git_root_directory()}
+
+            local function getInfo(directory)
+                local useTabs_raw = extract_prettier_config(directory, "[\"']useTabs[\"']:%s*(%w*)")
+
+                if useTabs_raw then
+                    if useTabs_raw == "true" then
+                        return "TABS 󰌒 "
+                    end
+                end
+
+                local spacesAmount_raw = extract_prettier_config(directory, "[\"']tabWidth[\"']:%s*(%d+)")
+                if spacesAmount_raw then
+                    local spacesAmount_numbers_raw = string.match(spacesAmount_raw, "%d+")
+                    local spacesAmount = tonumber(spacesAmount_numbers_raw)
+
+                    if spacesAmount == 2 then
+                        return "2"
+                    elseif spacesAmount == 4 then
+                        return "4"
+                    elseif spacesAmount == 8 then
+                        return "8"
+                    end
+                end
+            end
+
+            for _, dir in ipairs(DIRS) do
+                local info = getInfo(dir)
+
+                if info then
+                    return " | " .. "Spaces: " .. info
+                end
+            end
+        end,
         highlight = {colors.oncreamydark, colors.creamydark},
     }
 }
 galaxyline.section.left[10] = {
+    LineInfo = {
+        provider = "LineColumn",
+        icon = " ",
+        highlight = {colors.oncreamydark, colors.creamydark},
+    }
+}
+galaxyline.section.left[11] = {
     rightSep = {
         provider = function()
             return ""
@@ -349,7 +462,16 @@ galaxyline.section.right[4] = {
 
     }
 }
-galaxyline.section.right[5] = {
+galaxyline.section.right[5] ={
+    GitStagedfFilesAmount = {
+        provider = function()
+            return " | " .. "" .. " " .. get_git_staged_files_amount() .. "/" .. get_git_modified_files_amount() .. " "
+        end,
+        condition = check_git_terminal_workspace,
+        highlight = {colors.oncreamydark, colors.creamydark}
+    }
+}
+galaxyline.section.right[6] = {
     GitBranchSeparator = {
         provider = function()
             highlight2('GitBranchSeparator', colors.creamydark, mode_hl(), 'bold')
@@ -358,7 +480,7 @@ galaxyline.section.right[5] = {
         separator_highlight = 'GitBranchSeparator'
     }
 }
-galaxyline.section.right[6] = {
+galaxyline.section.right[7] = {
 	GitBranchName = {
 		condition = condition.check_git_workspace,
 		provider = function()
@@ -370,7 +492,7 @@ galaxyline.section.right[6] = {
         highlight = "GalaxyViMode",
     }
 }
-galaxyline.section.right[7] = {
+galaxyline.section.right[8] = {
     RightEnd = {
         provider = function()
             return ""
