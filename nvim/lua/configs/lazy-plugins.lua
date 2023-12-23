@@ -166,5 +166,8 @@ require("lazy").setup({
     },
     "vuki656/package-info.nvim",
     "nanozuki/tabby.nvim",
-    "nvimdev/galaxyline.nvim",
+    {
+        "nvimdev/galaxyline.nvim",
+        event = "VimEnter",
+    }
 })
