@@ -364,7 +364,7 @@ galaxyline.section.left[7] = {
 galaxyline.section.left[8] = {
     FileEncoding = {
         provider = function()
-            return " |" .. fileinfo.get_file_encode() .. " "
+            return " " .. fileinfo.get_file_encode() .. " "
         end,
         highlight = {colors.oncreamydark, colors.creamydark},
     }
@@ -400,7 +400,7 @@ galaxyline.section.left[9] = {
                 end
             end
 
-            local function getSpacesInfo(directory)
+            local function getSpacesInfo()
                 if CACHED_info then
                     return CACHED_info
                 end
@@ -410,10 +410,12 @@ galaxyline.section.left[9] = {
 
                     if info then
                         CACHED_info = info
-                        return " | " .. "Spaces: " .. info .. " |"
+                        return "Spaces: " .. info .. "  "
                     end
                 end
             end
+
+            return getSpacesInfo()
         end,
         highlight = {colors.oncreamydark, colors.creamydark},
     }
@@ -421,14 +423,13 @@ galaxyline.section.left[9] = {
 galaxyline.section.left[10] = {
     LineInfo = {
         provider = "LineColumn",
-        icon = " ",
         highlight = {colors.oncreamydark, colors.creamydark},
     }
 }
 galaxyline.section.left[11] = {
     rightSep = {
         -- must be in normal mod
-        condition = function() 
+        condition = function()
             return vim.fn.mode() == 'n'
         end,
         provider = function()
