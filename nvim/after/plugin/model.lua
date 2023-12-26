@@ -18,7 +18,7 @@ require("model").setup({
         ["regex_from_example"] = {
             provider = ollama,
             params = {
-                model = "llama2"
+                model = "dolphin-phi"
             },
             builder = function(input)
                 return {
