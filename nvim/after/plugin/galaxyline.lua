@@ -58,20 +58,34 @@ local colors = {
     nord         = "#81A1C1",
     lightblue    = "#81a1c1",
     darkblue     = "#215f9f",
+    darkblue_bg  = "#1a2a3e",
+    darkblue_bg2 = "#0f1a29",
+    fg_darkblue  = "#71b9ff",
     blue         = "#3456c0",
     limegreen    = "#bbe67e",
     green        = "#2e8041",
-    fg_green     = "#65a380",
+    green_bg     = "#153622",
+    green_bg2    = "#0a1a11",
+    fg_green     = "#75c390",
     creamygreen  = "#a3be8c",
     yellow       = "#cccc00",
     creamyorange = "#ff8800",
     orange       = "#CC6600",
+    orange_bg    = "#662600",
+    orange_bg2   = "#220300",
+    fg_orange    = "#FFAA00",
     bg           = "#000B0C15",
     fg           = "#D8DEE9",
     magenta      = "#a658ad",
+    magenta_bg   = "#622268",
+    magenta_bg2  = "#220022",
+    fg_magenate  = "#e198e4",
     red          = "#df8890",
     crimsonRed   = "#990000",
     crimsonRed2  = "#ff4d4d",
+    crimsonRed2_bg= "#742323",
+    crimsonRed2_bg2= "#220000",
+    fg_crimsonRed2= "#ff9d9d",
     greenYel     = "#EBCB8B",
     white        = "#d8dee9",
     brown        = "#91684a",
@@ -80,31 +94,73 @@ local colors = {
     icon_inactive= '#9896AA'
 }
 
-local mode_map = {
-    -- n      = {" NORMAL  ", colors.red},
-    -- i      = {" INSERT  ", colors.green},
-    -- c      = {" COMMAND ", colors.orange},
-    -- v      = {" VISUAL  ", colors.lightblue},
-    n      = {icons.normal    .. "  NORMAL  ", colors.bg_alt},
-    no     = {icons.normal    .. "  NORMAL  ", colors.bg_alt},
-    i      = {icons.insert    .. "  INSERT  ", colors.green},
-    ic     = {icons.insert    .. "  INSERT  ", colors.green},
-    c      = {icons.command   .. "  COMMAND ", colors.orange},
-    ce     = {icons.command   .. "  COMMAND ", colors.orange},
-    cv     = {icons.command   .. "  COMMAND ", colors.orange},
-    v      = {icons.visual    .. "  VISUAL  ", colors.darkblue},
-    V      = {icons.visual    .. "  VISUAL  ", colors.darkblue},
-    ["␖"] = {icons.visual    .. "  VISUAL" .. icons.visual_block .. " ", colors.brown},
-    R      = {icons.replace   .. "  REPLACE ", colors.crimsonRed2},
-    ['r?'] = {icons.replace   .. "  REPLACE ", colors.lightblue},
-    Rv     = {icons.replace   .. "  REPLACE ", colors.crimsonRed2},
-    r      = {icons.replace   .. "  REPLACE ", colors.blue2},
-    rm     = {icons.replace   .. "  REPLACE ", colors.blue2},
-    s      = {icons.selection .. "  SELECT  ", colors.greenYelenYel},
-    S      = {icons.selection .. "  SELECT  ", colors.greenYelenYel},
-    ['␓'] = {icons.selection .. "  SELECT  ", colors.greenYelenYel},
-    t      = {icons.terminal  .. "  TERMINAL ", colors.magenta},
-    ['!']  = {                  "  !        ", colors.crimsonRed}
+local mode_name_map = {
+    n      = "normal",
+    no     = "normal",
+    i      = "insert",
+    ic     = "insert",
+    c      = "command",
+    ce     = "command",
+    cv     = "command",
+    v      = "visual",
+    V      = "visual",
+    ["␖"]  = "visual",
+    R      = "replace",
+    ['r?'] = "replace",
+    Rv     = "replace",
+    r      = "replace",
+    rm     = "replace",
+    s      = "select",
+    S      = "select",
+    ['␓']  = "select",
+    t      = "terminal",
+}
+
+local mode_color_map = {
+    normal = colors.bg_alt,
+    insert = colors.green,
+    command = colors.orange,
+    visual = colors.darkblue,
+    replace = colors.crimsonRed2,
+    select = colors.greenYelenYel,
+    terminal = colors.magenta,
+}
+
+local mode_color_bg_map = {
+    insert = colors.green_bg,
+    command = colors.orange_bg,
+    visual = colors.darkblue_bg,
+    replace = colors.crimsonRed2_bg,
+    select = colors.greenYelenYel_bg,
+    terminal = colors.magenta_bg,
+}
+local mode_color_bg2_map = {
+    -- Transparent colors do not seem to be working
+    -- insert = colors.green_bg2,
+    -- command = colors.orange_bg2,
+    -- visual = colors.darkblue_bg2,
+    -- replace = colors.crimsonRed2_bg2,
+    -- select = colors.greenYelenYel_bg2,
+    -- terminal = colors.magenta_bg2,
+}
+local mode_color_fg_map = {
+    normal = colors.oncreamydark,
+    insert = colors.fg_green,
+    command = colors.fg_orange,
+    visual = colors.fg_darkblue,
+    replace = colors.fg_crimsonRed2,
+    select = colors.fg_greenYelenYel,
+    terminal = colors.fg_magenta,
+}
+
+local mode_icon_map = {
+    normal = icons.normal,
+    insert = icons.insert,
+    command = icons.command,
+    visual = icons.visual,
+    replace = icons.replace,
+    select = icons.selection,
+    terminal = icons.terminal,
 }
 
 ---------- Functions ----------
@@ -183,7 +239,7 @@ local function extract_prettier_config(directory, pattern)
                 file_handle:close()
 
                 local match = string.match(file_content, pattern)
-                if match then 
+                if match then
                     return match
                 end
             end
@@ -191,8 +247,32 @@ local function extract_prettier_config(directory, pattern)
     end
 end
 
-local function mode_label() return mode_map[vim.fn.mode()][1] or 'N/A' end
-local function mode_hl() return mode_map[vim.fn.mode()][2] or colors.main end
+local function mode_label()
+    local mode_name = mode_name_map[vim.fn.mode()]
+
+    return (mode_icon_map[mode_name] .. " " .. mode_name:upper()) or "N/A"
+end
+local function mode_hl()
+    local mode_name = mode_name_map[vim.fn.mode()]
+
+    return mode_color_map[mode_name] or colors.main
+end
+local function mode_hl_bg()
+    local mode_name = mode_name_map[vim.fn.mode()]
+
+    return mode_color_bg_map[mode_name] or colors.main_bg
+end
+local function mode_hl_bg2()
+    local mode_name = mode_name_map[vim.fn.mode()]
+
+    return mode_color_bg2_map[mode_name] or colors.bg
+end
+local function mode_hl_fg()
+    local mode_name = mode_name_map[vim.fn.mode()]
+
+    return mode_color_fg_map[mode_name] or colors.main
+end
+
 
 local function highlight1(group, fg, gui)
     local cmd = string.format('highlight %s guifg=%s', group, fg)
@@ -248,11 +328,12 @@ CocStatus = get_diagnostic_info
 CocFunc = get_function_info
 
 local checkwidth = function()
-    local squeeze_width  = vim.fn.winwidth(0) / 2
-    if squeeze_width > 40 then
-        return true
-    end
-    return false
+    return true
+    -- local squeeze_width  = vim.fn.winwidth(0) / 2
+    -- if squeeze_width > 40 then
+    --     return true
+    -- end
+    -- return false
 end
 
 local function file_name(is_active, highlight_group)
@@ -299,6 +380,8 @@ local check_git_terminal_workspace = function()
     return not (vim.fn.mode() == 't') and require("galaxyline.condition").check_git_workspace()
 end
 
+vim.api.nvim_command('hi StatusLine guibg=' .. mode_hl_bg2() .. ' gui=nocombine')
+
 galaxyline.section.left[1] = {
     leftRounded = {
         provider = function()
@@ -312,7 +395,7 @@ galaxyline.section.left[2] = {
         provider = function()
             highlight2('GalaxyViMode', mode_hl(), colors.fg, 'bold')
             highlight1('GalaxyViModeInv', mode_hl(), 'bold')
-            return string.format(' %s', mode_label())
+            return string.format(' %s ', mode_label())
         end,
     }
 }
@@ -343,30 +426,30 @@ galaxyline.section.left[5] = {
 galaxyline.section.left[6] = {
     teech = {
         provider = function()
+            highlight2('SecondaryGalaxyViModeBackgroundSeparator', mode_hl_bg(), colors.white, "none")
             return ""
         end,
         separator = "",
-        highlight = {colors.white, colors.creamydark}
+        highlight = "SecondaryGalaxyViModeBackgroundSeparator"
     }
 }
 
 galaxyline.section.left[7] = {
     FileSize = {
         provider = function()
-            return "  " .. fileinfo.get_file_size()
+            highlight2('SecondaryGalaxyViModeBackground', mode_hl_bg(), mode_hl_fg(), "none")
+
+            return "  " .. (fileinfo.get_file_size() or "Empty file ") .. ""
         end,
-		condition = function()
-			return buffer_not_empty() and vim.bo.buftype ~= 'terminal' and window_wider_than(60)
-		end,
-        highlight = {colors.oncreamydark, colors.creamydark},
+        highlight = "SecondaryGalaxyViModeBackground"
     }
 }
 galaxyline.section.left[8] = {
     FileEncoding = {
         provider = function()
-            return " " .. fileinfo.get_file_encode() .. " "
+            return " " .. fileinfo.get_file_encode() .. "  "
         end,
-        highlight = {colors.oncreamydark, colors.creamydark},
+        highlight = "SecondaryGalaxyViModeBackground"
     }
 }
 
@@ -374,7 +457,11 @@ local CACHED_info = nil
 galaxyline.section.left[9] = {
     SpacesInfo = {
         provider = function()
-            local DIRS = {".", get_git_root_directory()}
+            local DIRS = {"."}
+
+            if condition.check_git_workspace() then
+                table.insert(DIRS, get_git_root_directory())
+            end
 
             local function getInfo(directory)
                 local useTabs_raw = extract_prettier_config(directory, "[\"']useTabs[\"']:%s*(%w*)")
@@ -417,13 +504,13 @@ galaxyline.section.left[9] = {
 
             return getSpacesInfo()
         end,
-        highlight = {colors.oncreamydark, colors.creamydark},
+        highlight = "SecondaryGalaxyViModeBackground"
     }
 }
 galaxyline.section.left[10] = {
     LineInfo = {
         provider = "LineColumn",
-        highlight = {colors.oncreamydark, colors.creamydark},
+        highlight = "SecondaryGalaxyViModeBackground"
     }
 }
 galaxyline.section.left[11] = {
@@ -433,10 +520,11 @@ galaxyline.section.left[11] = {
             return vim.fn.mode() == 'n'
         end,
         provider = function()
+            highlight2("SecondaryGalaxyViModeLastSeparator", colors.bg, mode_hl_bg(), "none")
             return ""
         end,
         separator = "",
-        highlight = {colors.creamydark, colors.bg}
+        highlight = "SecondaryGalaxyViModeLastSeparator"
     }
 }
 
@@ -464,6 +552,29 @@ galaxyline.section.left[13] = {
         highlight = {colors.yellow, colors.bg}
     }
 }
+local HOME_FOLDER = vim.fn.expand("$HOME")
+galaxyline.section.left[14] = {
+    FullFileFolder = {
+        provider = function()
+            highlight2("FullFileFolderColor", mode_hl_bg2(), colors.oncreamydark, "none")
+            local absolute_file_path = vim.fn.expand('%')
+            local filename = vim.fn.expand('%:t')
+            local absolute_folder_path = string.sub(
+                absolute_file_path,
+                0,
+                string.len(absolute_file_path) - string.len(filename)
+            )
+
+            local home_folder_len = string.len(HOME_FOLDER)
+            if string.sub(absolute_folder_path, 0, home_folder_len) == HOME_FOLDER then
+                return "~" .. string.sub(absolute_folder_path, home_folder_len + 1)
+            end
+
+            return absolute_folder_path
+        end,
+        highlight = "FullFileFolderColor"
+    }
+}
 
 galaxyline.section.right[1] = {
     LeftRoundedGit = {
@@ -471,35 +582,37 @@ galaxyline.section.right[1] = {
             return ""
         end,
         condition = condition.check_git_workspace,
-        highlight = {colors.creamydark, colors.bg}
+        highlight = "SecondaryGalaxyViModeLastSeparator"
     }
 }
 galaxyline.section.right[2] = {
     DiffAdd = {
         provider = function()
+            highlight2("DiffAddColor", mode_hl_bg(), colors.oncreamydark_green, "none")
             return "󰐕" .. " " .. (vcs.diff_add() or '0') .. " "
         end,
 		condition = condition.check_git_workspace,
-        highlight = {colors.oncreamydark_green, colors.creamydark}
+        highlight = "DiffAddColor"
     }
 }
 galaxyline.section.right[3] = {
-    DiffModified = {
+    DiffModify = {
         provider = function()
+            highlight2("DiffModifyColor", mode_hl_bg(), colors.oncreamydark_blue, "none")
             return "󰜥" .. " " .. (vcs.diff_modified() or '0') .. " "
         end,
         condition = condition.check_git_workspace,
-        highlight = {colors.oncreamydark_blue, colors.creamydark}
+        highlight = "DiffModifyColor"
     }
 }
 galaxyline.section.right[4] = {
     DiffRemove = {
         provider = function()
+            highlight2("DiffRemoveColor", mode_hl_bg(), colors.oncreamydark_red, "none")
             return "󰍴" .. " " .. (vcs.diff_remove() or '0') .. " "
         end,
         condition = condition.check_git_workspace,
-        highlight = {colors.oncreamydark_red, colors.creamydark},
-
+        highlight = "DiffRemoveColor"
     }
 }
 -- Only show stages amount at the beginning of the file as it's very slow
