@@ -2,6 +2,7 @@ local galaxyline = require"galaxyline"
 local fileinfo = require"galaxyline.provider_fileinfo"
 local condition = require 'galaxyline.condition'
 local vcs = require 'galaxyline.provider_vcs'
+local diagnostic =require"galaxyline.provider_diagnostic"
 
 galaxyline.short_line_list = {'plug', 'fugitive', 'NvimTree', 'vista', 'dbui', 'packer', 'startify', 'coc'}
 
@@ -265,15 +266,15 @@ local function file_name(is_active, highlight_group)
         end
     end
     local fname = fileinfo.get_current_file_name(icons.file.modified, icons.file.read_only)
-    if (require("galaxyline.condition").check_git_workspace()) and checkwidth() then
-        local git_dir = require("galaxyline.provider_vcs").get_git_dir(vim.fn.expand("%:p"))
-        local current_dir = vim.fn.expand("%:p:h")
-        if git_dir == current_dir .. "/.git" or git_dir == nil then
-            return fname
-        end
-        local get_path_from_git_root = current_dir:sub(#git_dir - 3)
-        return get_path_from_git_root .. "/" .. fname
-    end
+    -- if (require("galaxyline.condition").check_git_workspace()) and checkwidth() then
+    --     local git_dir = require("galaxyline.provider_vcs").get_git_dir(vim.fn.expand("%:p"))
+    --     local current_dir = vim.fn.expand("%:p:h")
+    --     if git_dir == current_dir .. "/.git" or git_dir == nil then
+    --         return fname
+    --     end
+    --     local get_path_from_git_root = current_dir:sub(#git_dir - 3)
+    --     return get_path_from_git_root .. "/" .. fname
+    -- end
     return fname
 end
 
@@ -368,6 +369,8 @@ galaxyline.section.left[8] = {
         highlight = {colors.oncreamydark, colors.creamydark},
     }
 }
+
+local CACHED_info = nil
 galaxyline.section.left[9] = {
     SpacesInfo = {
         provider = function()
@@ -397,11 +400,18 @@ galaxyline.section.left[9] = {
                 end
             end
 
-            for _, dir in ipairs(DIRS) do
-                local info = getInfo(dir)
+            local function getSpacesInfo(directory)
+                if CACHED_info then
+                    return CACHED_info
+                end
 
-                if info then
-                    return " | " .. "Spaces: " .. info .. " |"
+                for _, dir in ipairs(DIRS) do
+                    local info = getInfo(dir)
+
+                    if info then
+                        CACHED_info = info
+                        return " | " .. "Spaces: " .. info .. " |"
+                    end
                 end
             end
         end,
@@ -417,11 +427,40 @@ galaxyline.section.left[10] = {
 }
 galaxyline.section.left[11] = {
     rightSep = {
+        -- must be in normal mod
+        condition = function() 
+            return vim.fn.mode() == 'n'
+        end,
         provider = function()
             return ""
         end,
         separator = "",
         highlight = {colors.creamydark, colors.bg}
+    }
+}
+
+galaxyline.section.left[12] = {
+    DiagnosticError = {
+        provider = function()
+            local error = diagnostic.get_diagnostic_error()
+
+            if error and tonumber(error) then
+                return "  " .. " " .. error .. " "
+            end
+        end,
+        highlight = {colors.crimsonRed, colors.bg}
+    }
+}
+galaxyline.section.left[13] = {
+    DiagnosticWarn = {
+        provider = function()
+            local warn = diagnostic.get_diagnostic_warn()
+
+            if warn and tonumber(warn) then
+                return "  " .. "󰈅 " .. warn .. " "
+            end
+        end,
+        highlight = {colors.yellow, colors.bg}
     }
 }
 
@@ -462,21 +501,30 @@ galaxyline.section.right[4] = {
 
     }
 }
-galaxyline.section.right[5] ={
-    GitStagedfFilesAmount = {
-        provider = function()
-            return " | " .. "" .. " " .. get_git_staged_files_amount() .. "/" .. get_git_modified_files_amount() .. " "
-        end,
-        condition = check_git_terminal_workspace,
-        highlight = {colors.oncreamydark, colors.creamydark}
-    }
-}
+-- Only show stages amount at the beginning of the file as it's very slow
+-- DOESN'T SEEM TO BE WORKING! :(
+-- local CACHED_HAS_SHOWN_STAGED = false
+-- galaxyline.section.right[5] ={
+--     GitStagedfFilesAmount = {
+--         provider = function()
+--             if CACHED_HAS_SHOWN_STAGED then
+--                 return
+--             end
+--
+--             CACHED_HAS_SHOWN_STAGED = true
+--             return " | " .. "" .. " " .. get_git_staged_files_amount() .. "/" .. get_git_modified_files_amount() .. " "
+--         end,
+--         condition = check_git_terminal_workspace,
+--         highlight = {colors.oncreamydark, colors.creamydark}
+--     }
+-- }
 galaxyline.section.right[6] = {
     GitBranchSeparator = {
         provider = function()
             highlight2('GitBranchSeparator', colors.creamydark, mode_hl(), 'bold')
         end,
         separator = "",
+		condition = condition.check_git_workspace,
         separator_highlight = 'GitBranchSeparator'
     }
 }
@@ -484,7 +532,7 @@ galaxyline.section.right[7] = {
 	GitBranchName = {
 		condition = condition.check_git_workspace,
 		provider = function()
-			local branch = require('galaxyline.provider_vcs').get_git_branch()
+			local branch = vcs.get_git_branch()
 			local name = branch and branch:gsub('detached at ', '') or ''
 
             return "󰘬" .. " " .. string.format("%s", name)
@@ -497,6 +545,7 @@ galaxyline.section.right[8] = {
         provider = function()
             return ""
         end,
+		condition = condition.check_git_workspace,
         highlight = 'GalaxyViModeInv'
     }
 }

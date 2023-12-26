@@ -19,14 +19,6 @@ require("lazy").setup({
     "norcalli/nvim-colorizer.lua",
     "github/copilot.vim",
     {
-        "jackMort/ChatGPT.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim"
-        }
-    },
-    {
         "iamcco/markdown-preview.nvim",
         ft = "markdown",
         build = function()
@@ -168,6 +160,10 @@ require("lazy").setup({
     "nanozuki/tabby.nvim",
     {
         "nvimdev/galaxyline.nvim",
-        event = "VimEnter",
+    },
+    {
+        "gsuuon/model.nvim",
+        cmd = { "M", "Model", "Mchat" },
+        ft = "mchat",
     }
 })
