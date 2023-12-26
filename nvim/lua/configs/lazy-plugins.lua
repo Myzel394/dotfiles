@@ -165,5 +165,12 @@ require("lazy").setup({
         "gsuuon/model.nvim",
         cmd = { "M", "Model", "Mchat" },
         ft = "mchat",
+    },
+    {
+        "max397574/colortils.nvim",
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup()
+        end,
     }
 })
