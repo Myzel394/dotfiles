@@ -572,7 +572,8 @@ galaxyline.section.left[14] = {
 
             return absolute_folder_path
         end,
-        highlight = "FullFileFolderColor"
+        highlight = "FullFileFolderColor",
+        icon = "  "
     }
 }
 
@@ -589,7 +590,7 @@ galaxyline.section.right[2] = {
     DiffAdd = {
         provider = function()
             highlight2("DiffAddColor", mode_hl_bg(), colors.oncreamydark_green, "none")
-            return "󰐕" .. " " .. (vcs.diff_add() or '0') .. " "
+            return "󰐕" .. " " .. (vcs.diff_add() or "0 ")
         end,
 		condition = condition.check_git_workspace,
         highlight = "DiffAddColor"
@@ -599,7 +600,7 @@ galaxyline.section.right[3] = {
     DiffModify = {
         provider = function()
             highlight2("DiffModifyColor", mode_hl_bg(), colors.oncreamydark_blue, "none")
-            return "󰜥" .. " " .. (vcs.diff_modified() or '0') .. " "
+            return "󰜥" .. " " .. (vcs.diff_modified() or "0 ")
         end,
         condition = condition.check_git_workspace,
         highlight = "DiffModifyColor"
@@ -609,7 +610,7 @@ galaxyline.section.right[4] = {
     DiffRemove = {
         provider = function()
             highlight2("DiffRemoveColor", mode_hl_bg(), colors.oncreamydark_red, "none")
-            return "󰍴" .. " " .. (vcs.diff_remove() or '0') .. " "
+            return "󰍴" .. " " .. (vcs.diff_remove() or "0 ")
         end,
         condition = condition.check_git_workspace,
         highlight = "DiffRemoveColor"
@@ -635,7 +636,7 @@ galaxyline.section.right[4] = {
 galaxyline.section.right[6] = {
     GitBranchSeparator = {
         provider = function()
-            highlight2('GitBranchSeparator', colors.creamydark, mode_hl(), 'bold')
+            highlight2('GitBranchSeparator', mode_hl_bg(), mode_hl(), 'bold')
         end,
         separator = "",
 		condition = condition.check_git_workspace,
@@ -649,7 +650,7 @@ galaxyline.section.right[7] = {
 			local branch = vcs.get_git_branch()
 			local name = branch and branch:gsub('detached at ', '') or ''
 
-            return "󰘬" .. " " .. string.format("%s", name)
+            return " " .. "󰘬" .. " " .. string.format("%s", name) .. " "
 		end,
         highlight = "GalaxyViMode",
     }
