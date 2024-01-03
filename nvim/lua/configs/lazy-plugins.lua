@@ -172,5 +172,7 @@ require("lazy").setup({
         config = function()
             require("colortils").setup()
         end,
-    }
+    },
+    "mawkler/modicator.nvim",
+    "xiyaowong/nvim-cursorword"
 })
