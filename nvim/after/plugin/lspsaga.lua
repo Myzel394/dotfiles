@@ -19,7 +19,11 @@ vim.keymap.set(
 vim.keymap.set(
     "n",
     "<leader>lg",
-    function() vim.cmd("Lspsaga goto_definition") end,
+    function()
+        -- Run goto_definition in new tab
+        vim.cmd("tabnew")
+        vim.cmd("Lspsaga goto_definition")
+    end,
     { noremap = true, silent = true, desc = "Go to Definition (LSPSaga)" }
 )
 vim.keymap.set(
