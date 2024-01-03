@@ -5,9 +5,11 @@ require("lazy").setup({
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.4",
-        dependencies = { "nvim-lua/plenary.nvim" }
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "debugloop/telescope-undo.nvim",
+        }
     },
-    "mbbill/undotree",
     {
         "kylechui/nvim-surround",
         version = "*",
@@ -174,5 +176,6 @@ require("lazy").setup({
         end,
     },
     "mawkler/modicator.nvim",
-    "xiyaowong/nvim-cursorword"
+    "xiyaowong/nvim-cursorword",
+    "tzachar/highlight-undo.nvim",
 })
