@@ -21,7 +21,8 @@ vim.opt.showmatch = true
 
 vim.opt.history = 9999
 
-vim.opt.scrolloff = 8
+-- A high number means that the cursor will be on the middle of the screen
+vim.opt.scrolloff = 99999
 
 vim.opt.updatetime = 50
 
