@@ -159,23 +159,23 @@ async function main() {
         );
     };
 
-    {
-        const theme = createNvimTheme(colors);
-
-        const themePath = path.resolve(
-            os.homedir(),
-            ".config",
-            "nvim",
-            "after",
-            "plugin",
-            "tokyonight.lua",
-        );
-
-        fs.writeFileSync(
-            themePath,
-            theme,
-        );
-    };
+    // {
+    //     const theme = createNvimTheme(colors);
+    //
+    //     const themePath = path.resolve(
+    //         os.homedir(),
+    //         ".config",
+    //         "nvim",
+    //         "after",
+    //         "plugin",
+    //         "tokyonight.lua",
+    //     );
+    //
+    //     fs.writeFileSync(
+    //         themePath,
+    //         theme,
+    //     );
+    // };
 }
 
 main();
