@@ -178,4 +178,5 @@ require("lazy").setup({
     "mawkler/modicator.nvim",
     "xiyaowong/nvim-cursorword",
     "tzachar/highlight-undo.nvim",
+    "karb94/neoscroll.nvim",
 })
