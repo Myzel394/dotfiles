@@ -178,5 +178,6 @@ require("lazy").setup({
     "mawkler/modicator.nvim",
     "xiyaowong/nvim-cursorword",
     "tzachar/highlight-undo.nvim",
-    "jinh0/eyeliner.nvim"
+    "jinh0/eyeliner.nvim",
+    "jackMort/ChatGPT.nvim"
 })
