@@ -191,22 +191,22 @@ lspconfig["kotlin_language_server"].setup({
 local cmp = require("cmp")
 
 local default_sources = cmp.config.sources {
-        { name = "path" },
-        { name = "nvim_lsp" },
-        { name = "nvim_lua" },
-        {
-            name = "luasnip",
-            option = {
-                show_autosnippets = true
-            }
+    { name = "path" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" },
+    {
+        name = "luasnip",
+        option = {
+            show_autosnippets = true
+        }
+    },
+    {
+        name = "latex_symbols",
+        option = {
+            strategy = 2,
         },
-        {
-            name = "latex_symbols",
-            option = {
-                strategy = 2,
-            },
-        },
-    }
+    },
+}
 
 cmp.setup({
     preselect = "item",
@@ -217,12 +217,13 @@ cmp.setup({
     }),
     snippet = {
         expand = function(args)
-            require "luasnip".lsp_expand(args.body)
+            require"luasnip".lsp_expand(args.body)
         end
     },
     window = {
-        completion = {
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered {
+            winhighlight = "Normal:TransparentGroup,FloatBorder:Pmenu,Search:None",
             col_offset = -3,
             side_padding = 0,
         },
