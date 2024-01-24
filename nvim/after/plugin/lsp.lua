@@ -206,6 +206,7 @@ local default_sources = cmp.config.sources {
             strategy = 2,
         },
     },
+    { name = "cmp-nvim-lsp-signature-help" }
 }
 
 cmp.setup({
@@ -275,6 +276,12 @@ vim.api.nvim_create_autocmd('BufReadPre', {
             table.insert(sources, {
                 name = "dictionary",
                 keyword_length = 2,
+            })
+            table.insert(sources, {
+                name = "latex_symbols",
+                option = {
+                    strategy = 2,
+                },
             })
         end
 

@@ -74,6 +74,7 @@ require("lazy").setup({
         config = function()
             require("lspsaga").setup({})
         end,
+        lazy = true,
         dependencies = {
             "nvim-tree/nvim-web-devicons"
         }
@@ -128,6 +129,7 @@ require("lazy").setup({
             "onsails/lspkind.nvim",
             "kdheepak/cmp-latex-symbols",
             "uga-rosa/cmp-dictionary",
+            "cmp-nvim-lsp-signature-help",
         },
     },
     {
@@ -179,5 +181,6 @@ require("lazy").setup({
     "xiyaowong/nvim-cursorword",
     "tzachar/highlight-undo.nvim",
     "jinh0/eyeliner.nvim",
-    "jackMort/ChatGPT.nvim"
+    "jackMort/ChatGPT.nvim",
+    "akinsho/git-conflict.nvim",
 })
