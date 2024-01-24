@@ -16,6 +16,7 @@ require("mason-lspconfig").setup({
 		"eslint",
 		"dockerls",
 		"docker_compose_language_service",
+        "tailwindcss",
 		"html",
 		"cssls",
 		"jsonls",
@@ -63,6 +64,12 @@ lspconfig["html"].setup({
 
 -- configure typescript server with plugin
 lspconfig["tsserver"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+--
+-- configure typescript server with plugin
+lspconfig["tailwindcss"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
