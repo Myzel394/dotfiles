@@ -6,4 +6,4 @@ require("configs.set")
 require("configs.copilot-fix")
 require("configs.smoothcursor")
 
-require('leap').add_default_mappings()
+require("leap").add_default_mappings()

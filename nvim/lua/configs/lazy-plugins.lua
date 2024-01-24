@@ -1,7 +1,7 @@
 -- Required by lazy.nvim to be set before loading plugins
 vim.g.mapleader = " "
 
-require("lazy").setup({
+require("lazy").setup {
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.5",
@@ -49,7 +49,6 @@ require("lazy").setup({
         }
     },
     "windwp/nvim-ts-autotag",
-    "ThePrimeagen/harpoon",
     "gen740/SmoothCursor.nvim",
     "Myzel394/easytables.nvim",
     {
@@ -60,7 +59,11 @@ require("lazy").setup({
             "MaximilianLloyd/ascii.nvim",
         },
     },
-    "numToStr/Comment.nvim",
+    {
+        "numToStr/Comment.nvim",
+        lazy = true,
+        event = "VeryLazy",
+    },
     {
         "lukas-reineke/indent-blankline.nvim",
         lazy = true,
@@ -69,16 +72,6 @@ require("lazy").setup({
     "gbprod/yanky.nvim",
     "rust-lang/rust.vim",
     "xiyaowong/transparent.nvim",
-    {
-        "nvimdev/lspsaga.nvim",
-        config = function()
-            require("lspsaga").setup({})
-        end,
-        lazy = true,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons"
-        }
-    },
     {
         "HiPhish/rainbow-delimiters.nvim",
         lazy = true,
@@ -97,15 +90,22 @@ require("lazy").setup({
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
     },
+    "Myzel394/telescope-last-positions",
 
-    ----- LSP -----
+	----- LSP -----
     {
-        "nvim-treesitter/nvim-treesitter",
-        run = function()
-            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-            ts_update()
-        end,
+        "nvimdev/lspsaga.nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        }
     },
+	{
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+			ts_update()
+		end,
+	},
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
@@ -129,7 +129,7 @@ require("lazy").setup({
             "onsails/lspkind.nvim",
             "kdheepak/cmp-latex-symbols",
             "uga-rosa/cmp-dictionary",
-            "cmp-nvim-lsp-signature-help",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
         },
     },
     {
@@ -162,9 +162,7 @@ require("lazy").setup({
     },
     "vuki656/package-info.nvim",
     "nanozuki/tabby.nvim",
-    {
-        "nvimdev/galaxyline.nvim",
-    },
+    "nvimdev/galaxyline.nvim",
     {
         "gsuuon/model.nvim",
         cmd = { "M", "Model", "Mchat" },
@@ -183,4 +181,4 @@ require("lazy").setup({
     "jinh0/eyeliner.nvim",
     "jackMort/ChatGPT.nvim",
     "akinsho/git-conflict.nvim",
-})
+}

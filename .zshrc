@@ -194,3 +194,7 @@ alias n="nvim ."
 if [ -x "$(command -v neovide)" ]; then
     alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
 fi
+
+if [[ -f "$HOME/.config/secrets.txt" ]]; then
+    source "$HOME/.config/secrets.txt"
+fi

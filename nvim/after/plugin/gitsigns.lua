@@ -1,4 +1,4 @@
-require("gitsigns").setup {}
+require("gitsigns").setup({})
 
 vim.keymap.set("n", "<leader>gp", "<cmd>:Gitsigns preview_hunk_inline<cr>", { desc = "Preview hunk" })
 vim.keymap.set("n", "<leader>gl", "<cmd>:Gitsigns blame_line<cr>", { desc = "Blame line" })
