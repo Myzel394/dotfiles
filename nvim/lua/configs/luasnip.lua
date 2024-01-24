@@ -14,5 +14,4 @@ luasnip.filetype_extend("javascript", { "jsdoc", "javascript" })
 -- luasnip.filetype_extend("latex", {"texdoc"})
 -- require("luasnip").filetype_extend("html", {})
 
-
 -- require("luasnip.loaders.from_vscode").lazy_load()

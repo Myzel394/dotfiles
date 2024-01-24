@@ -1,48 +1,47 @@
-local lsp = require('lsp-zero').preset("recommended")
+local lsp = require("lsp-zero").preset("recommended")
 
 lsp.on_attach(function(client, bufnr)
-    -- see :help lsp-zero-keybindings
-    -- to learn the available actions
-    lsp.default_keymaps({ buffer = bufnr })
+	-- see :help lsp-zero-keybindings
+	-- to learn the available actions
+	lsp.default_keymaps({ buffer = bufnr })
 end)
 
 lsp.setup()
 
 require("mason").setup({})
-require("mason-lspconfig").setup {
-    ensure_installed = {
-        "rust_analyzer",
-        "tsserver",
-        "eslint",
-        "dockerls",
-        "docker_compose_language_service",
-        "html",
-        "cssls",
-        "jsonls",
-        "yamlls",
-        "bashls",
-        "lua_ls",
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"rust_analyzer",
+		"tsserver",
+		"eslint",
+		"dockerls",
+		"docker_compose_language_service",
+		"html",
+		"cssls",
+		"jsonls",
+		"yamlls",
+		"bashls",
+		"lua_ls",
 
-        --"texlab",
-        "ltex",
-        "marksman",
+		--"texlab",
+		"ltex",
+		"marksman",
 
-        "kotlin_language_server",
+		"kotlin_language_server",
 
-        ---- Python ----
-        -- Formatter
-        "ruff_lsp",
-        -- Linter
-        "jedi_language_server",
-    }
-}
+		---- Python ----
+		-- Formatter
+		"ruff_lsp",
+		-- Linter
+		"jedi_language_server",
+	},
+})
 
 ----- Lsp Config -----
 local lspconfig = require("lspconfig")
 local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-local on_attach = function(client, bufnr)
-end
+local on_attach = function(client, bufnr) end
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -52,139 +51,139 @@ capabilities.documentRangeFormattingProvider = false
 -- Change the Diagnostic symbols in the sign column
 local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
 -- configure html server
 lspconfig["html"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure typescript server with plugin
 lspconfig["tsserver"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 lspconfig["eslint"].setup({
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-        })
-    end,
+	capabilities = capabilities,
+	on_attach = function(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "EslintFixAll",
+		})
+	end,
 })
 
 -- configure css server
 lspconfig["cssls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["bashls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["jsonls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["yamlls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["dockerls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["docker_compose_language_service"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure graphql language server
 lspconfig["rust_analyzer"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 lspconfig["jedi_language_server"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 lspconfig["ruff_lsp"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 -- configure lua server (with special settings)
 lspconfig["lua_ls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = { -- custom settings for lua
-        Lua = {
-            -- make the language server recognize "vim" global
-            diagnostics = {
-                globals = { "vim" },
-            },
-            workspace = {
-                -- make language server aware of runtime files
-                library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.stdpath("config") .. "/lua"] = true,
-                },
-            },
-        },
-    },
+	capabilities = capabilities,
+	on_attach = on_attach,
+	settings = { -- custom settings for lua
+		Lua = {
+			-- make the language server recognize "vim" global
+			diagnostics = {
+				globals = { "vim" },
+			},
+			workspace = {
+				-- make language server aware of runtime files
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.stdpath("config") .. "/lua"] = true,
+				},
+			},
+		},
+	},
 })
 
 lspconfig["marksman"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 lspconfig["texlab"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
-lspconfig["ltex"].setup {
-    filetypes = { "markdown", "md", "tex", "plaintex" },
-    flags = { debounce_text_changes = 300 },
-    settings = {
-        ltex = {
-            enabled = true,
-            language = "de-DE",
-            setenceCacheSize = 2000,
-            additionalRules = {
-                enablePickyRules = true,
-            },
-            trace = { server = "verbose" },
-            disabledRules = {},
-            hiddenFalsePositives = {},
-            username = "x@y.z",
-            apiKey = "tete",
-        }
-    },
-    on_attach = on_attach,
-}
+lspconfig["ltex"].setup({
+	filetypes = { "markdown", "md", "tex", "plaintex" },
+	flags = { debounce_text_changes = 300 },
+	settings = {
+		ltex = {
+			enabled = true,
+			language = "de-DE",
+			setenceCacheSize = 2000,
+			additionalRules = {
+				enablePickyRules = true,
+			},
+			trace = { server = "verbose" },
+			disabledRules = {},
+			hiddenFalsePositives = {},
+			username = "x@y.z",
+			apiKey = "tete",
+		},
+	},
+	on_attach = on_attach,
+})
 
 lspconfig["kotlin_language_server"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
+	capabilities = capabilities,
+	on_attach = on_attach,
 })
 
 ------- CMP -------
@@ -200,13 +199,7 @@ local default_sources = cmp.config.sources {
             show_autosnippets = true
         }
     },
-    {
-        name = "latex_symbols",
-        option = {
-            strategy = 2,
-        },
-    },
-    { name = "cmp-nvim-lsp-signature-help" }
+    { name = "nvim_lsp_signature_help" }
 }
 
 cmp.setup({
@@ -237,69 +230,64 @@ cmp.setup({
             kind.kind = " " .. (strings[1] or "") .. " "
             kind.menu = "    (" .. (strings[2] or "") .. ")"
 
-            return kind
-        end,
-    },
+			return kind
+		end,
+	},
 })
 
 local ALLOWED_PATH_FILES = {
-    "md",
-    "txt",
-    "tex",
-    "plaintex",
-    "markdown",
+	"md",
+	"txt",
+	"tex",
+	"plaintex",
+	"markdown",
 }
 
-local M = {};
+local M = {}
 
 function M:endswith(str, ending)
-    return ending == "" or str:sub(-#ending) == ending
+	return ending == "" or str:sub(-#ending) == ending
 end
 
 function M:is_name_allowed(name)
-    for _, ending in ipairs(ALLOWED_PATH_FILES) do
-        if M:endswith(name, ending) then
-            return true
-        end
-    end
+	for _, ending in ipairs(ALLOWED_PATH_FILES) do
+		if M:endswith(name, ending) then
+			return true
+		end
+	end
 
-    return false
+	return false
 end
 
 -- Add `path` only if in markdown or text buffers
-vim.api.nvim_create_autocmd('BufReadPre', {
+vim.api.nvim_create_autocmd("BufReadPre", {
 	callback = function(context)
 		local sources = default_sources
-        local name = vim.api.nvim_buf_get_name(context.buf)
+		local name = vim.api.nvim_buf_get_name(context.buf)
 
-        if #name >= 3 and M:is_name_allowed(name) then
-            table.insert(sources, {
-                name = "dictionary",
-                keyword_length = 2,
-            })
-            table.insert(sources, {
-                name = "latex_symbols",
-                option = {
-                    strategy = 2,
-                },
-            })
-        end
+		if #name >= 3 and M:is_name_allowed(name) then
+			table.insert(sources, {
+				name = "dictionary",
+				keyword_length = 2,
+			})
+			table.insert(sources, {
+				name = "latex_symbols",
+				option = {
+					strategy = 2,
+				},
+			})
+		end
 
-        cmp.setup.buffer {
-            sources = sources
-        }
-	end
+		cmp.setup.buffer({
+			sources = sources,
+		})
+	end,
 })
 
-local dict = require("cmp_dictionary")
-
-dict.setup {}
-
-dict.switcher {
-    spelllang = {
-        en = "~/.config/nvim/dicts/english.dict",
-        de = "~/.config/nvim/dicts/german.dict",
-    }
+require "cmp_dictionary".setup {
+	paths = {
+		vim.fn.expand("$HOME/.config/nvim/dicts/german.dict"),
+	},
 }
 
 -- Customization for Pmenu

@@ -1,1 +1,1 @@
-require"highlight-undo".setup()
+require("highlight-undo").setup()
