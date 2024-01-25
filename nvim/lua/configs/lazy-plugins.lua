@@ -130,6 +130,7 @@ require("lazy").setup {
             "kdheepak/cmp-latex-symbols",
             "uga-rosa/cmp-dictionary",
             "hrsh7th/cmp-nvim-lsp-signature-help",
+            "roobert/tailwindcss-colorizer-cmp.nvim",
         },
     },
     {
@@ -181,4 +182,5 @@ require("lazy").setup {
     "jinh0/eyeliner.nvim",
     "jackMort/ChatGPT.nvim",
     "akinsho/git-conflict.nvim",
+    "stevearc/conform.nvim",
 }

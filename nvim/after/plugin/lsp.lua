@@ -13,7 +13,7 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
 		"rust_analyzer",
 		"tsserver",
-		"eslint",
+        "eslint",
 		"dockerls",
 		"docker_compose_language_service",
         "tailwindcss",
@@ -76,12 +76,7 @@ lspconfig["tailwindcss"].setup({
 
 lspconfig["eslint"].setup({
 	capabilities = capabilities,
-	on_attach = function(client, bufnr)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			command = "EslintFixAll",
-		})
-	end,
+	on_attach = on_attach,
 })
 
 -- configure css server
@@ -209,7 +204,7 @@ local default_sources = cmp.config.sources {
     { name = "nvim_lsp_signature_help" }
 }
 
-cmp.setup({
+cmp.setup {
     preselect = "item",
     mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping.confirm({ select = true }),
@@ -240,7 +235,7 @@ cmp.setup({
 			return kind
 		end,
 	},
-})
+}
 
 local ALLOWED_PATH_FILES = {
 	"md",
