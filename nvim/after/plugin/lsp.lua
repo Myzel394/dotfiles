@@ -13,10 +13,10 @@ require("mason-lspconfig").setup({
 	ensure_installed = {
 		"rust_analyzer",
 		"tsserver",
-        "eslint",
+		"eslint",
 		"dockerls",
 		"docker_compose_language_service",
-        "tailwindcss",
+		"tailwindcss",
 		"html",
 		"cssls",
 		"jsonls",
@@ -191,51 +191,51 @@ lspconfig["kotlin_language_server"].setup({
 ------- CMP -------
 local cmp = require("cmp")
 
-local default_sources = cmp.config.sources {
-    { name = "path" },
-    { name = "nvim_lsp" },
-    { name = "nvim_lua" },
-    {
-        name = "luasnip",
-        option = {
-            show_autosnippets = true
-        }
-    },
-    { name = "nvim_lsp_signature_help" }
-}
+local default_sources = cmp.config.sources({
+	{ name = "path" },
+	{ name = "nvim_lsp" },
+	{ name = "nvim_lua" },
+	{
+		name = "luasnip",
+		option = {
+			show_autosnippets = true,
+		},
+	},
+	{ name = "nvim_lsp_signature_help" },
+})
 
-cmp.setup {
-    preselect = "item",
-    mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<CR>"] = cmp.mapping.confirm({ select = false })
-    }),
-    snippet = {
-        expand = function(args)
-            require"luasnip".lsp_expand(args.body)
-        end
-    },
-    window = {
-        documentation = cmp.config.window.bordered(),
-        completion = cmp.config.window.bordered {
-            winhighlight = "Normal:TransparentGroup,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
-            side_padding = 0,
-        },
-    },
-    formatting = {
-        fields = { "kind", "abbr", "menu" },
-        format = function(entry, vim_item)
-            local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-            local strings = vim.split(kind.kind, "%s", { trimempty = true })
-            kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
+cmp.setup({
+	preselect = "item",
+	mapping = cmp.mapping.preset.insert({
+		["<Tab>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
+	}),
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
+	window = {
+		documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered({
+			winhighlight = "Normal:TransparentGroup,FloatBorder:Pmenu,Search:None",
+			col_offset = -3,
+			side_padding = 0,
+		}),
+	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
 
 			return kind
 		end,
 	},
-}
+})
 
 local ALLOWED_PATH_FILES = {
 	"md",
@@ -261,10 +261,18 @@ function M:is_name_allowed(name)
 	return false
 end
 
+function table.simply_clone(t)
+	local t2 = {}
+	for k, v in pairs(t) do
+		t2[k] = v
+	end
+	return t2
+end
+
 -- Add `path` only if in markdown or text buffers
 vim.api.nvim_create_autocmd("BufReadPre", {
 	callback = function(context)
-		local sources = default_sources
+		local sources = table.simply_clone(default_sources)
 		local name = vim.api.nvim_buf_get_name(context.buf)
 
 		if #name >= 3 and M:is_name_allowed(name) then
@@ -286,11 +294,12 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 	end,
 })
 
-require "cmp_dictionary".setup {
+require("cmp_dictionary").setup({
 	paths = {
 		vim.fn.expand("$HOME/.config/nvim/dicts/german.dict"),
+		vim.fn.expand("$HOME/.config/nvim/dicts/english.dict"),
 	},
-}
+})
 
 -- Customization for Pmenu
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#282C34", fg = "NONE" })
