@@ -568,6 +568,18 @@ galaxyline.section.left[13] = {
 	},
 }
 local HOME_FOLDER = vim.fn.expand("$HOME")
+
+local FOLDER_ICON_MAP = {
+	[HOME_FOLDER .. "/Nextcloud/Documents/Uni"] = " /",
+	[HOME_FOLDER .. "/Nextcloud"] = "󰅟 /",
+	[HOME_FOLDER .. "/CodeProjects"] = " /",
+	[HOME_FOLDER] = "~/",
+}
+
+local function string_starts_with(str, start)
+	return str:sub(1, #start) == start
+end
+
 galaxyline.section.left[14] = {
 	FullFileFolder = {
 		provider = function()
@@ -577,9 +589,10 @@ galaxyline.section.left[14] = {
 			local absolute_folder_path =
 				string.sub(absolute_file_path, 0, string.len(absolute_file_path) - string.len(filename))
 
-			local home_folder_len = string.len(HOME_FOLDER)
-			if string.sub(absolute_folder_path, 0, home_folder_len) == HOME_FOLDER then
-				return "~" .. string.sub(absolute_folder_path, home_folder_len + 1)
+			for folder, icon in pairs(FOLDER_ICON_MAP) do
+				if string_starts_with(absolute_folder_path, folder) then
+					return icon .. string.sub(absolute_folder_path, string.len(folder) + 2)
+				end
 			end
 
 			return absolute_folder_path
