@@ -2,7 +2,11 @@ local builtin = require("telescope.builtin")
 
 require("telescope").setup({
 	extensions = {
-		undo = {},
+		undo = {
+			use_delta = true,
+			side_by_side = false,
+			diff_context_lines = 16,
+		},
 	},
 })
 require("telescope").load_extension("yank_history")
@@ -21,3 +25,4 @@ vim.keymap.set("n", "<leader>cl", "<cmd>Telescope last_positions<cr>", { desc = 
 vim.keymap.set("n", "<leader>cs", "<cmd>Telescope git_status<cr>", { desc = "Show git status" })
 vim.keymap.set("n", "<leader>cb", "<cmd>Telescope git_branches<cr>", { desc = "Show git branches" })
 vim.keymap.set("n", "<leader>cc", "<cmd>Telescope git_commits<cr>", { desc = "Show git commits" })
+vim.keymap.set("n", "<leader>cy", "<cmd>Telescope yank_history<cr>", { desc = "Show yank history" })
