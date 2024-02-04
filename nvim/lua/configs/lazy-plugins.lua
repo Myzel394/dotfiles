@@ -189,4 +189,5 @@ require("lazy").setup({
 			"kevinhwang91/promise-async",
 		},
 	},
+	"lewis6991/hover.nvim",
 })
