@@ -33,3 +33,7 @@ vim.opt.spell = true
 vim.o.cursorline = true
 vim.o.number = true
 vim.o.termguicolors = true
+
+-- Neovide
+vim.g.neovide_cursor_vfx_mode = "torpedo"
+vim.g.neovide_cursor_animate_command_line = false
