@@ -22,7 +22,7 @@ require("lazy").setup({
 	"github/copilot.vim",
 	{
 		"iamcco/markdown-preview.nvim",
-		ft = "markdown",
+		ft = { "markdown", "text" },
 		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
@@ -71,7 +71,6 @@ require("lazy").setup({
 	},
 	"gbprod/yanky.nvim",
 	"rust-lang/rust.vim",
-	"xiyaowong/transparent.nvim",
 	{
 		"HiPhish/rainbow-delimiters.nvim",
 		lazy = true,
@@ -151,18 +150,15 @@ require("lazy").setup({
 		enabled = false,
 	},
 	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-	},
-	{
 		"petertriho/nvim-scrollbar",
 		dependencies = {
 			"kevinhwang91/nvim-hlslens",
 		},
 	},
 	"vuki656/package-info.nvim",
-	"nanozuki/tabby.nvim",
+	-- "nanozuki/tabby.nvim",
+	"tiagovla/scope.nvim",
+	"akinsho/bufferline.nvim",
 	"nvimdev/galaxyline.nvim",
 	{
 		"gsuuon/model.nvim",
@@ -190,4 +186,9 @@ require("lazy").setup({
 		},
 	},
 	"lewis6991/hover.nvim",
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+	},
 })
