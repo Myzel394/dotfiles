@@ -156,7 +156,6 @@ require("lazy").setup({
 		},
 	},
 	"vuki656/package-info.nvim",
-	-- "nanozuki/tabby.nvim",
 	"tiagovla/scope.nvim",
 	"akinsho/bufferline.nvim",
 	"nvimdev/galaxyline.nvim",

@@ -56,8 +56,8 @@ require("smoothcursor").setup({
 
 	autostart = true, -- Automatically start SmoothCursor
 	flyin_effect = nil, -- Choose "bottom" or "top" for flying effect
-	speed = 55, -- Max speed is 100 to stick with your current position
-	intervals = 30, -- Update intervals in milliseconds
+	speed = 45, -- Max speed is 100 to stick with your current position
+	intervals = 40, -- Update intervals in milliseconds
 	priority = 10, -- Set marker priority
 	timeout = 3000, -- Timeout for animations in milliseconds
 	threshold = 3, -- Animate only if cursor moves more than this many lines
