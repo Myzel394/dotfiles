@@ -47,6 +47,7 @@ require("lazy").setup({
 		dependencies = {
 			"tpope/vim-repeat",
 		},
+		keys = { "s", "S", "gs" },
 	},
 	"windwp/nvim-ts-autotag",
 	"gen740/SmoothCursor.nvim",
