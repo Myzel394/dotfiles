@@ -191,4 +191,10 @@ require("lazy").setup({
 		name = "catppuccin",
 		priority = 1000,
 	},
+	{
+		"lukas-reineke/headlines.nvim",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = true,
+		ft = { "markdown", "orgmode", "neorg" },
+	},
 })
