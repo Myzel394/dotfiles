@@ -5,6 +5,8 @@ require("bufferline").setup({
 		separator_style = "slant",
 		show_buffer_close_icon = false,
 		show_close_icon = false,
+		buffer_close_icon = "",
+		close_icon = "",
 	},
 	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 })

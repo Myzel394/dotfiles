@@ -15,6 +15,7 @@ require("catppuccin").setup({
 		},
 		lsp_trouble = true,
 		which_key = true,
+		headlines = false,
 	},
 })
 
