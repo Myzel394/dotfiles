@@ -1,12 +1,14 @@
 require("scope").setup({})
 
-require("bufferline").setup({
+local bufferline = require("bufferline")
+bufferline.setup({
 	options = {
 		separator_style = "slant",
 		show_buffer_close_icon = false,
 		show_close_icon = false,
 		buffer_close_icon = "",
 		close_icon = "",
+        style_preset = bufferline.style_preset.no_italic,
 	},
 	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 })
