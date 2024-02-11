@@ -135,6 +135,8 @@ export ZSH="$HOME/.config/oh-my-zsh"
 source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
+ZSH_AUTOSUGGEST_MANUAL_REBIND=true
+
 # Sources
 sources=(
     "$ZSH/custom/plugins/LS_COLORS/lscolors.sh"
@@ -162,13 +164,13 @@ fi
 
 # Paths
 paths=(
-    "$HOME/.local/bin" 
+    "$HOME/.local/bin"
     "$HOME/.cargo/bin"
     "$HOME/.config/scripts"
     "/usr/local/bin"
-    "$HOME/bin" 
+    "$HOME/bin"
     # Toolbox
-    "$HOME/.local/share/JetBrains/Toolbox/scripts" 
+    "$HOME/.local/share/JetBrains/Toolbox/scripts"
     "$HOME/platform-tools"
     # MacOS Brew
     "/opt/homebrew/bin"
@@ -182,36 +184,42 @@ for new_path in $paths; do
 done
 
 # Conda
-__conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "~/anaconda3/etc/profile.d/conda.sh"
+if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
+    __conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-        export PATH="~/anaconda3/bin:$PATH"
+        if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "~/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="~/anaconda3/bin:$PATH"
+        fi
     fi
+    unset __conda_setup
 fi
-unset __conda_setup
 
 # Docker completion
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # nvm
-if [[ -d "/opt/homebrew/opt/nvm" ]]; then
-    export NVM_DIR="/opt/homebrew/opt/nvm"
-elif [[ -d "$HOME/.nvm" ]]; then
-    export NVM_DIR="$HOME/.nvm"
+if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
+    if [[ -d "/opt/homebrew/opt/nvm" ]]; then
+        export NVM_DIR="/opt/homebrew/opt/nvm"
+    elif [[ -d "$HOME/.nvm" ]]; then
+        export NVM_DIR="$HOME/.nvm"
+    fi
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Custom aliases
 alias n="nvim ."
 
-if [ -x "$(command -v neovide)" ]; then
-    alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
+if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
+    if [ -x "$(command -v neovide)" ]; then
+        alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
+    fi
 fi
 
 if [[ -f "$HOME/.config/secrets.txt" ]]; then

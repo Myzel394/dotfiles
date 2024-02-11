@@ -1,3 +1,4 @@
+local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 local last_positions = require("smoothcursor.last_positions")
 
 require("smoothcursor").setup({
@@ -8,7 +9,7 @@ require("smoothcursor").setup({
 	linehl = nil, -- Highlights the line under the cursor, similar to 'cursorline'. "CursorLine" is recommended. Disabled in fancy mode.
 
 	fancy = {
-		enable = true, -- enable fancy mode
+		enable = not IS_RUNNING_ON_LIMITED_HARDWARE,
 		head = {
 			cursor = "▷",
 			texthl = "SmoothCursor",
@@ -24,36 +25,6 @@ require("smoothcursor").setup({
 			{ cursor = ".", texthl = "SmoothCursorPurple" },
 		},
 		tail = { cursor = nil, texthl = "SmoothCursor" }, -- false to disable fancy tail
-	},
-
-	matrix = { -- Loaded when 'type' is set to "matrix"
-		head = {
-			-- Picks a random character from this list for the cursor text
-			cursor = require("smoothcursor.matrix_chars"),
-			-- Picks a random highlight from this list for the cursor text
-			texthl = {
-				"SmoothCursor",
-			},
-			linehl = nil, -- No line highlight for the head
-		},
-		body = {
-			length = 6, -- Specifies the length of the cursor body
-			-- Picks a random character from this list for the cursor body text
-			cursor = require("smoothcursor.matrix_chars"),
-			-- Picks a random highlight from this list for each segment of the cursor body
-			texthl = {
-				"SmoothCursorGreen",
-			},
-		},
-		tail = {
-			-- Picks a random character from this list for the cursor tail (if any)
-			cursor = nil,
-			-- Picks a random highlight from this list for the cursor tail
-			texthl = {
-				"SmoothCursor",
-			},
-		},
-		unstop = true, -- Determines if the cursor should stop or not (false means it will stop)
 	},
 
 	autostart = true, -- Automatically start SmoothCursor
