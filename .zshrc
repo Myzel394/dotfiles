@@ -1,16 +1,16 @@
-# set to 1 to indicate that we're running on limited hardware.
-# This will disable some features to reduce resource usage.
-export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
-
-if [[ "$(uname --machine)" == "aarch64" ]]; then
-    export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
-fi
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# set to 1 to indicate that we're running on limited hardware.
+# This will disable some features to reduce resource usage.
+export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=0
+
+if [[ "$(uname --machine)" == "aarch64" ]]; then
+    export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -132,20 +132,25 @@ export ZSH="$HOME/.config/oh-my-zsh"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source $ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-source $HOME/.config/oh-my-zsh/oh-my-zsh.sh
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=true
 
 # Sources
 sources=(
-    "$ZSH/custom/plugins/LS_COLORS/lscolors.sh"
-    "$NVM_DIR/nvm.sh"
-    "$HOME/.cargo/env"
-    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
+    "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
     "$HOME/.p10k.zsh"
-    "$HOME/anaconda3/bin/activate"
 )
+
+if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
+    sources+=(
+        # Not required, as this only loads ".cargo/bin" into the PATH
+        # "$HOME/.cargo/env"
+        "$NVM_DIR/nvm.sh"
+        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+        "$HOME/anaconda3/bin/activate"
+    )
+fi
 
 for new_source in $sources; do
     if [ -f "$new_source" ]; then
@@ -165,38 +170,28 @@ fi
 # Paths
 paths=(
     "$HOME/.local/bin"
-    "$HOME/.cargo/bin"
     "$HOME/.config/scripts"
     "/usr/local/bin"
     "$HOME/bin"
-    # Toolbox
-    "$HOME/.local/share/JetBrains/Toolbox/scripts"
-    "$HOME/platform-tools"
-    # MacOS Brew
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
 )
+
+if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
+    paths+=(
+        "$HOME/.cargo/bin"
+        # Toolbox
+        "$HOME/.local/share/JetBrains/Toolbox/scripts"
+        "$HOME/platform-tools"
+        # MacOS Brew
+        "/opt/homebrew/bin"
+        "/opt/homebrew/sbin"
+    )
+fi
 
 for new_path in $paths; do
     if [[ -d "$new_path" ]] then
         export PATH="$new_path:$PATH"
     fi
 done
-
-# Conda
-if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
-    __conda_setup="$('~/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "~/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "~/anaconda3/etc/profile.d/conda.sh"
-        else
-            export PATH="~/anaconda3/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
-fi
 
 # Docker completion
 zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -237,4 +232,3 @@ if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
 fi
 
 export EDITOR=nvim
-
