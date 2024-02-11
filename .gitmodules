@@ -28,3 +28,9 @@
 [submodule "oh-my-zsh/custom/plugins/zsh-better-npm-completion"]
 	path = oh-my-zsh/custom/plugins/zsh-better-npm-completion
 	url = https://github.com/lukechilds/zsh-better-npm-completion
+[submodule "alias-tips"]
+	path = alias-tips
+	url = https://github.com/djui/alias-tips
+[submodule "oh-my-zsh/custom/plugins/alias-tips"]
+	path = oh-my-zsh/custom/plugins/alias-tips
+	url = https://github.com/djui/alias-tips

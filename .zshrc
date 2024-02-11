@@ -25,6 +25,8 @@ plugins=(
     safe-paste
     conda-zsh-completion
     zsh-better-npm-completion
+    tmuxinator
+    alias-tips
 )
 
 autoload -U compinit && compinit
@@ -198,3 +200,16 @@ fi
 if [[ -f "$HOME/.config/secrets.txt" ]]; then
     source "$HOME/.config/secrets.txt"
 fi
+
+# Tmux
+if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
+    # TODO: Check where I got this from
+    tmux-window-name() {
+        ($TMUX_PLUGIN_MANAGER_PATH/tmux-window-name/scripts/rename_session_windows.py &)
+    }
+
+    add-zsh-hook chpwd tmux-window-name
+fi
+
+export EDITOR=nvim
+
