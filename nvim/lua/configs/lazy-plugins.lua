@@ -47,14 +47,6 @@ require("lazy").setup({
 	"windwp/nvim-ts-autotag",
 	"gen740/SmoothCursor.nvim",
 	{
-		"startup-nvim/startup.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
-			"MaximilianLloyd/ascii.nvim",
-		},
-	},
-	{
 		"numToStr/Comment.nvim",
 		lazy = true,
 		event = "VeryLazy",
@@ -114,7 +106,6 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		lazy = false,
 		dependencies = {
-			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
