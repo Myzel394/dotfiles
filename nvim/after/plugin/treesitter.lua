@@ -1,4 +1,4 @@
-local IS_RUNNING_ON_LIMITED_HARDWARE = require("after/plugin/_common").IS_RUNNING_ON_LIMITED_HARDWARE
+local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
 local ensure_installed = {
 	"sql",

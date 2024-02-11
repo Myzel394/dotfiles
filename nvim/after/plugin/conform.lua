@@ -1,4 +1,6 @@
-if require("after/plugin/_common").IS_RUNNING_ON_LIMITED_HARDWARE then
+local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
+if IS_RUNNING_ON_LIMITED_HARDWARE then
 	return
 end
 
