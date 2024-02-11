@@ -1,3 +1,5 @@
+local IS_RUNNING_ON_LIMITED_HARDWARE = require("after/plugin/_common").IS_RUNNING_ON_LIMITED_HARDWARE
+
 local lsp = require("lsp-zero").preset("recommended")
 
 lsp.on_attach(function(client, bufnr)
@@ -9,20 +11,24 @@ end)
 lsp.setup()
 
 require("mason").setup({})
-require("mason-lspconfig").setup({
-	ensure_installed = {
+local ensured_lsps = {
+	"dockerls",
+	"docker_compose_language_service",
+	"yamlls",
+	"jsonls",
+	"bashls",
+}
+
+if not IS_RUNNING_ON_LIMITED_HARDWARE then
+	table.insert(ensured_lsps, {
 		"rust_analyzer",
 		"tsserver",
 
 		"eslint",
-		"dockerls",
-		"docker_compose_language_service",
 		"tailwindcss",
 		"html",
 		"cssls",
-		"jsonls",
-		"yamlls",
-		"bashls",
+
 		"lua_ls",
 
 		--"texlab",
@@ -36,7 +42,11 @@ require("mason-lspconfig").setup({
 		"ruff_lsp",
 		-- Linter
 		"jedi_language_server",
-	},
+	})
+end
+
+require("mason-lspconfig").setup({
+	ensure_installed = ensured_lsps,
 })
 
 ----- Lsp Config -----
@@ -57,137 +67,134 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- configure html server
-lspconfig["html"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure typescript server with plugin
-lspconfig["tsserver"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
---
--- configure typescript server with plugin
-lspconfig["tailwindcss"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lspconfig["eslint"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure css server
-lspconfig["cssls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure graphql language server
-lspconfig["bashls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure graphql language server
-lspconfig["jsonls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure graphql language server
-lspconfig["yamlls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
--- configure graphql language server
 lspconfig["dockerls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
--- configure graphql language server
 lspconfig["docker_compose_language_service"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
--- configure graphql language server
-lspconfig["rust_analyzer"].setup({
+lspconfig["yamlls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
-lspconfig["jedi_language_server"].setup({
+lspconfig["jsonls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
-lspconfig["ruff_lsp"].setup({
+lspconfig["bashls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
--- configure lua server (with special settings)
-lspconfig["lua_ls"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	settings = { -- custom settings for lua
-		Lua = {
-			-- make the language server recognize "vim" global
-			diagnostics = {
-				globals = { "vim" },
-			},
-			workspace = {
-				-- make language server aware of runtime files
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.stdpath("config") .. "/lua"] = true,
+if not IS_RUNNING_ON_LIMITED_HARDWARE then
+	lspconfig["html"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["tsserver"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+	--
+	-- configure typescript server with plugin
+	lspconfig["tailwindcss"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["eslint"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	-- configure css server
+	lspconfig["cssls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	-- configure graphql language server
+
+	-- configure graphql language server
+	lspconfig["rust_analyzer"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["jedi_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["ruff_lsp"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	-- configure lua server (with special settings)
+	lspconfig["lua_ls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		settings = { -- custom settings for lua
+			Lua = {
+				-- make the language server recognize "vim" global
+				diagnostics = {
+					globals = { "vim" },
+				},
+				workspace = {
+					-- make language server aware of runtime files
+					library = {
+						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+						[vim.fn.stdpath("config") .. "/lua"] = true,
+					},
 				},
 			},
 		},
-	},
-})
+	})
 
-lspconfig["marksman"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+	lspconfig["marksman"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
 
-lspconfig["texlab"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+	lspconfig["texlab"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
 
-lspconfig["ltex"].setup({
-	filetypes = { "markdown", "md", "tex", "plaintex" },
-	flags = { debounce_text_changes = 300 },
-	settings = {
-		ltex = {
-			enabled = true,
-			language = "de-DE",
-			setenceCacheSize = 2000,
-			additionalRules = {
-				enablePickyRules = true,
+	lspconfig["ltex"].setup({
+		filetypes = { "markdown", "md", "tex", "plaintex" },
+		flags = { debounce_text_changes = 300 },
+		settings = {
+			ltex = {
+				enabled = true,
+				language = "de-DE",
+				setenceCacheSize = 2000,
+				additionalRules = {
+					enablePickyRules = true,
+				},
+				trace = { server = "verbose" },
+				disabledRules = {},
+				hiddenFalsePositives = {},
+				username = "x@y.z",
+				apiKey = "tete",
 			},
-			trace = { server = "verbose" },
-			disabledRules = {},
-			hiddenFalsePositives = {},
-			username = "x@y.z",
-			apiKey = "tete",
 		},
-	},
-	on_attach = on_attach,
-})
+		on_attach = on_attach,
+	})
 
-lspconfig["kotlin_language_server"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+	lspconfig["kotlin_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+end
 
 ------- CMP -------
 local cmp = require("cmp")

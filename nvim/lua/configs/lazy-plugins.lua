@@ -1,6 +1,10 @@
 -- Required by lazy.nvim to be set before loading plugins
 vim.g.mapleader = " "
 
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
+print("Running on limited hardware: " .. tostring(RUNNING_LIMITED_HARDWARE))
+
 require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
@@ -20,13 +24,6 @@ require("lazy").setup({
 	},
 	"norcalli/nvim-colorizer.lua",
 	"github/copilot.vim",
-	{
-		"iamcco/markdown-preview.nvim",
-		ft = { "markdown", "text" },
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -51,7 +48,6 @@ require("lazy").setup({
 	},
 	"windwp/nvim-ts-autotag",
 	"gen740/SmoothCursor.nvim",
-	"Myzel394/easytables.nvim",
 	{
 		"startup-nvim/startup.nvim",
 		dependencies = {
@@ -71,7 +67,6 @@ require("lazy").setup({
 		event = "VeryLazy",
 	},
 	"gbprod/yanky.nvim",
-	"rust-lang/rust.vim",
 	{
 		"HiPhish/rainbow-delimiters.nvim",
 		lazy = true,
@@ -141,22 +136,11 @@ require("lazy").setup({
 		},
 	},
 	{
-		"lervag/vimtex",
-		ft = { "tex", "plaintex", "markdown" },
-		config = function()
-			vim.g.vimtex_view_method = "skim"
-			vim.g.vimtex_compiler_engine = "lualatex"
-			vim.g.maplocalleader = ","
-		end,
-		enabled = false,
-	},
-	{
 		"petertriho/nvim-scrollbar",
 		dependencies = {
 			"kevinhwang91/nvim-hlslens",
 		},
 	},
-	"vuki656/package-info.nvim",
 	"tiagovla/scope.nvim",
 	"akinsho/bufferline.nvim",
 	"nvimdev/galaxyline.nvim",
@@ -178,7 +162,6 @@ require("lazy").setup({
 	"jinh0/eyeliner.nvim",
 	"jackMort/ChatGPT.nvim",
 	"akinsho/git-conflict.nvim",
-	"stevearc/conform.nvim",
 	{
 		"kevinhwang91/nvim-fundo",
 		dependencies = {
@@ -196,5 +179,50 @@ require("lazy").setup({
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = true,
 		ft = { "markdown", "orgmode", "neorg" },
+	},
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		keys = {
+			{ "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+			{ "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+			{ "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+		},
+	},
+	"tpope/vim-obsession",
+	{ "chrisgrieser/nvim-spider", lazy = true },
+
+	{
+		-- Lazy loading not required as it's automatically lazy loading by default
+		"vuki656/package-info.nvim",
+	},
+	-- Extra
+	{
+		"Myzel394/easytables.nvim",
+		lazy = true,
+		enabled = not RUNNING_LIMITED_HARDWARE,
+	},
+	{
+		"iamcco/markdown-preview.nvim",
+		ft = { "markdown", "text" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		lazy = true,
+		enabled = not RUNNING_LIMITED_HARDWARE,
+	},
+	{
+		"rust-lang/rust.vim",
+		enabled = not RUNNING_LIMITED_HARDWARE,
+	},
+	{
+		"stevearc/conform.nvim",
+		enabled = not RUNNING_LIMITED_HARDWARE,
 	},
 })

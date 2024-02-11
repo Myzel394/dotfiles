@@ -1,23 +1,32 @@
-require("nvim-treesitter.configs").setup({
-	-- A list of parser names, or "all" (the five listed parsers should always be installed)
-	ensure_installed = {
+local IS_RUNNING_ON_LIMITED_HARDWARE = require("after/plugin/_common").IS_RUNNING_ON_LIMITED_HARDWARE
+
+local ensure_installed = {
+	"sql",
+	"vim",
+	"vimdoc",
+	"query",
+	"dockerfile",
+	"markdown_inline",
+	"gitcommit",
+	"gitignore",
+}
+
+if not IS_RUNNING_ON_LIMITED_HARDWARE then
+	table.insert(ensure_installed, {
 		"javascript",
 		"typescript",
 		"python",
-		"sql",
-		"vim",
-		"vimdoc",
-		"query",
-		"lua",
 		"latex",
 		"markdown",
+		"lua",
 		"java",
 		"kotlin",
-		"dockerfile",
-		"markdown_inline",
-		"gitcommit",
-		"gitignore",
-	},
+	})
+end
+
+require("nvim-treesitter.configs").setup({
+	-- A list of parser names, or "all" (the five listed parsers should always be installed)
+	ensure_installed = ensure_installed,
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	-- f
