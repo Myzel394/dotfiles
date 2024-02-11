@@ -3,8 +3,6 @@ vim.g.mapleader = " "
 
 local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
-print("Running on limited hardware: " .. tostring(RUNNING_LIMITED_HARDWARE))
-
 require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
