@@ -1,5 +1,7 @@
 local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
+vim.opt.runtimepath:append("$HOME/.local/share/treesitter")
+
 local ensure_installed = {
 	"sql",
 	"vim",
@@ -29,6 +31,8 @@ require("nvim-treesitter.configs").setup({
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	-- f
 	sync_install = false,
+
+	parser_install_dir = "$HOME/.local/share/treesitter",
 
 	-- Automatically install missing parsers when entering buffer
 	-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
