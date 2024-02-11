@@ -1,3 +1,11 @@
+# set to 1 to indicate that we're running on limited hardware.
+# This will disable some features to reduce resource usage.
+export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
+
+if [[ "$(uname --machine)" == "aarch64" ]]; then
+    export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -12,22 +20,26 @@ fi
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# Add wisely, as too many plugins slow down shell startup
 plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     zsh-autocomplete
-    sudo
     docker
-    jsontools
     per-directory-history
     z
     safe-paste
-    conda-zsh-completion
-    zsh-better-npm-completion
-    tmuxinator
-    alias-tips
 )
+
+if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
+    plugins+=(
+        jsontools
+        conda-zsh-completion
+        zsh-better-npm-completion
+        tmuxinator
+        alias-tips
+    )
+fi
 
 autoload -U compinit && compinit
 
