@@ -9,7 +9,7 @@ fi
 # This will disable some features to reduce resource usage.
 export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=0
 
-if [[ "$(uname --machine)" == "aarch64" ]]; then
+if [[ "$(uname)" != 'Darwin' && "$(uname --machine)" == 'aarch64' ]]; then
     export DOTFILES_RUNNING_ON_LIMITED_HARDWARE=1
 fi
 
@@ -199,7 +199,8 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
     if [[ -d "/opt/homebrew/opt/nvm" ]]; then
         export NVM_DIR="/opt/homebrew/opt/nvm"
-    elif [[ -d "$HOME/.nvm" ]]; then
+    fi
+    if [[ -d "$HOME/.nvm" ]]; then
         export NVM_DIR="$HOME/.nvm"
     fi
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
