@@ -8,7 +8,7 @@ bufferline.setup({
 		show_close_icon = false,
 		buffer_close_icon = "",
 		close_icon = "",
-        style_preset = bufferline.style_preset.no_italic,
+		style_preset = bufferline.style_preset.no_italic,
 	},
 	highlights = require("catppuccin.groups.integrations.bufferline").get(),
 })
@@ -49,11 +49,7 @@ for i = 1, 9 do
 	)
 end
 
-vim.keymap.set("n", "<C-a>", ":BufferLineCyclePrev<CR>", { desc = "Go to previous tab", silent = true })
-vim.keymap.set("n", "<C-d>", ":BufferLineCycleNext<CR>", { desc = "Go to next tab", silent = true })
-
--- Remap "ctrl - d to ctrl j
-vim.keymap.set("n", "<C-j>", "<C-d>", { desc = "Scroll down", silent = true })
-vim.keymap.set("n", "<C-k>", "<C-u>", { desc = "Scroll up", silent = true })
+vim.keymap.set("n", "<C-s>", ":BufferLineCyclePrev<CR>", { desc = "Go to previous tab", silent = true })
+vim.keymap.set("n", "<C-f>", ":BufferLineCycleNext<CR>", { desc = "Go to next tab", silent = true })
 
 vim.keymap.set("n", "<leader>q", ":b#|bd#<CR>", { desc = "Close buffer", silent = true })
