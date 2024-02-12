@@ -159,11 +159,9 @@ for new_source in $sources; do
 done
 
 # Brew
-#_
 if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-if [ -f "/opt/homebrew/bin/brew" ] ; then
+elif [ -f "/opt/homebrew/bin/brew" ] ; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -187,7 +185,7 @@ if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
     )
 fi
 
-for new_path in $paths; do
+for new_path in "${paths[@]}"; do
     if [[ -d "$new_path" ]] then
         export PATH="$new_path:$PATH"
     fi
@@ -223,7 +221,6 @@ fi
 
 # Tmux
 if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
-    # TODO: Check where I got this from
     tmux-window-name() {
         ($TMUX_PLUGIN_MANAGER_PATH/tmux-window-name/scripts/rename_session_windows.py &)
     }
