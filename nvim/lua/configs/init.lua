@@ -1,4 +1,3 @@
--- Airline needs to be set before loading it
 require("configs.lazynvim")
 require("configs.lazy-plugins")
 require("configs.remap")
