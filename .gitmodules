@@ -37,3 +37,33 @@
 [submodule "oh-my-zsh/custom/plugins/zsh-nvm"]
 	path = oh-my-zsh/custom/plugins/zsh-nvm
 	url = https://github.com/lukechilds/zsh-nvm
+[submodule "tmux/plugins/tmux-easy-motion"]
+	path = tmux/plugins/tmux-easy-motion
+	url = https://github.com/IngoMeyer441/tmux-easy-motion
+[submodule "tmux/plugins/tmux-continuum"]
+	path = tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "tmux/plugins/tmux-fuzzback"]
+	path = tmux/plugins/tmux-fuzzback
+	url = https://github.com/roosta/tmux-fuzzback
+[submodule "tmux/plugins/tmux-kripto"]
+	path = tmux/plugins/tmux-kripto
+	url = https://github.com/vascomfnunes/tmux-kripto
+[submodule "tmux/plugins/tmux-resurrect"]
+	path = tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "tmux/plugins/tmux-window-name"]
+	path = tmux/plugins/tmux-window-name
+	url = https://github.com/ofirgall/tmux-window-name
+[submodule "tmux/plugins/vim-tmux-navigator"]
+	path = tmux/plugins/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "tmux/plugins/tmux"]
+	path = tmux/plugins/tmux
+	url = https://github.com/catppuccin/tmux
+[submodule "tmux/plugins/tmux-sensible"]
+	path = tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible
