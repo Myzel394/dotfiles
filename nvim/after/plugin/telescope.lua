@@ -2,7 +2,6 @@ local builtin = require("telescope.builtin")
 local telescope_actions = require("telescope.actions")
 
 local function send_to_quickfix(promtbufnr)
-    print("builtin.find_files()")
     telescope_actions.smart_send_to_qflist(promtbufnr)
     vim.cmd([[botright copen]])
 end
@@ -16,10 +15,7 @@ require("telescope").setup({
 		},
 	},
     defaults = {
-        layout_strategy = "horizontal",
-        layout_config = {
-            preview_width = 0.65
-        },
+        layout_strategy = "vertical",
         mappings = {
             ["n"] = {
                 ["<C-q>"] = send_to_quickfix,
@@ -28,6 +24,17 @@ require("telescope").setup({
                 ["<C-q>"] = send_to_quickfix,
             },
         },
+        vimgrep_arguments = {
+          "rg",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
+          -- Own additions
+          "--trim",
+        }
     }
 })
 require("telescope").load_extension("yank_history")
