@@ -184,7 +184,6 @@ require("lazy").setup({
 		},
 	},
 	"tpope/vim-obsession",
-	{ "chrisgrieser/nvim-spider", lazy = true },
 
 	{
 		-- Lazy loading not required as it's automatically lazy loading by default
