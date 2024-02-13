@@ -113,7 +113,6 @@ function prompt_docker_compose_info() {
     # swap                  # used swap
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     # cpu_arch              # CPU architecture
-    docker_compose_info
     time                    # current time
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
