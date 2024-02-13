@@ -1,4 +1,11 @@
 local builtin = require("telescope.builtin")
+local telescope_actions = require("telescope.actions")
+
+local function send_to_quickfix(promtbufnr)
+    print("builtin.find_files()")
+    telescope_actions.smart_send_to_qflist(promtbufnr)
+    vim.cmd([[botright copen]])
+end
 
 require("telescope").setup({
 	extensions = {
@@ -8,6 +15,20 @@ require("telescope").setup({
 			diff_context_lines = 16,
 		},
 	},
+    defaults = {
+        layout_strategy = "horizontal",
+        layout_config = {
+            preview_width = 0.65
+        },
+        mappings = {
+            ["n"] = {
+                ["<C-q>"] = send_to_quickfix,
+            },
+            ["i"] = {
+                ["<C-q>"] = send_to_quickfix,
+            },
+        },
+    }
 })
 require("telescope").load_extension("yank_history")
 require("telescope").load_extension("undo")
@@ -15,6 +36,7 @@ require("telescope").load_extension("last_positions")
 
 vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>s", builtin.live_grep, { desc = "Find files with live grep" })
+vim.keymap.set("n", "<leader>w", builtin.resume, { desc = "Resume your last search" })
 vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Open buffers" })
 vim.keymap.set("n", "<leader>ss", builtin.grep_string, { desc = "Find files with live grep" })
 
