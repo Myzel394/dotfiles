@@ -2,8 +2,8 @@ local builtin = require("telescope.builtin")
 local telescope_actions = require("telescope.actions")
 
 local function send_to_quickfix(promtbufnr)
-    telescope_actions.smart_send_to_qflist(promtbufnr)
-    vim.cmd([[botright copen]])
+	telescope_actions.smart_send_to_qflist(promtbufnr)
+	vim.cmd([[botright copen]])
 end
 
 require("telescope").setup({
@@ -11,31 +11,31 @@ require("telescope").setup({
 		undo = {
 			use_delta = true,
 			side_by_side = false,
-			diff_context_lines = 16,
+			diff_context_lines = 10,
 		},
 	},
-    defaults = {
-        layout_strategy = "vertical",
-        mappings = {
-            ["n"] = {
-                ["<C-q>"] = send_to_quickfix,
-            },
-            ["i"] = {
-                ["<C-q>"] = send_to_quickfix,
-            },
-        },
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--line-number",
-          "--column",
-          "--smart-case",
-          -- Own additions
-          "--trim",
-        }
-    }
+	defaults = {
+		layout_strategy = "vertical",
+		mappings = {
+			["n"] = {
+				["<C-q>"] = send_to_quickfix,
+			},
+			["i"] = {
+				["<C-q>"] = send_to_quickfix,
+			},
+		},
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			-- Own additions
+			"--trim",
+		},
+	},
 })
 require("telescope").load_extension("yank_history")
 require("telescope").load_extension("undo")
