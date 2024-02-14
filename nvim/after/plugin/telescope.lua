@@ -16,6 +16,11 @@ require("telescope").setup({
 	},
 	defaults = {
 		layout_strategy = "vertical",
+        layout_config = {
+            mirror = true,
+            preview_height = 0.65,
+            prompt_position = "top",
+        },
 		mappings = {
 			["n"] = {
 				["<C-q>"] = send_to_quickfix,

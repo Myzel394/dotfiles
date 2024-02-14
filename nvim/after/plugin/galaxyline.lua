@@ -208,6 +208,20 @@ local function get_git_root_directory()
 	return git_root
 end
 
+---Truncates a string in the middle
+--Example: middle_truncate("hello world", 5) -> "hel..rld"
+local function middle_truncate(string, length)
+    if string:len() <= length then
+        return string
+    end
+
+    local half_length = length / 2
+    local first_half = string:sub(1, half_length - 1)
+    local second_half = string:sub(string:len() - half_length + 2, string:len())
+
+    return first_half .. ".." .. second_half
+end
+
 local PRETTIER_CONFIG_FILES = {
 	".prettierrc",
 	".prettierrc.json",
@@ -675,7 +689,7 @@ galaxyline.section.right[7] = {
 			local branch = vcs.get_git_branch()
 			local name = branch and branch:gsub("detached at ", "") or ""
 
-			return " " .. "󰘬" .. " " .. string.format("%s", name) .. " "
+			return " " .. "󰘬" .. " " .. middle_truncate(string.format("%s", name), 10) .. " "
 		end,
 		highlight = "GalaxyViMode",
 	},
