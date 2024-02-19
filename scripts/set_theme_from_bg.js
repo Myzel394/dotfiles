@@ -24,7 +24,7 @@ function createKittyTheme(colors) {
         return bgColor.darken(20);
       }
 
-      if (bgColor.getBrightness() >= 50) {
+      if (bgColor.getBrightness() >= 30) {
         return bgColor.darken(10);
       }
 
@@ -129,6 +129,7 @@ function createNvimTheme(colors) {
 
 function createTmuxTheme(colors) {
   const primary = tinyColor(colors.Muted.getHex());
+  const vibrant = tinyColor(colors.Vibrant.getHex());
 
   return `
 set -g @catppuccin_window_default_color "${primary
@@ -141,13 +142,20 @@ set -g @catppuccin_window_default_background "${primary
     .toHexString()}"
 
 set -g @catppuccin_window_current_color "${primary
-    .darken(5)
     .clone()
     .toHexString()}" # text color
 set -g @catppuccin_window_current_background "${primary
     .clone()
-    .darken(20)
+    .darken(15)
     .toHexString()}"
+
+# In order
+set -g @catppuccin_application_color "${primary
+    .clone()
+    .darken(10)
+    .toHexString()}"
+set -g @catppuccin_session_color "${primary.clone().toHexString()}"
+set -g @catppuccin_kripto_color "${primary.clone().lighten(10).toHexString()}"
     `;
 }
 
