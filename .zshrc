@@ -247,3 +247,7 @@ unset __conda_setup
 # <<< conda init <<<
 
 export EDITOR=nvim
+
+alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --smart-group --group-directories-first"
+alias la="eza -la --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --smart-group --group-directories-first"
+
