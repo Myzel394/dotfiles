@@ -2,60 +2,60 @@ local builtin = require("telescope.builtin")
 local telescope_actions = require("telescope.actions")
 
 local function send_to_quickfix(promtbufnr)
-    telescope_actions.smart_send_to_qflist(promtbufnr)
-    vim.cmd([[botright copen]])
+	telescope_actions.smart_send_to_qflist(promtbufnr)
+	vim.cmd([[botright copen]])
 end
 
 require("telescope").setup({
-    extensions = {
-        undo = {
-            use_delta = true,
-            side_by_side = false,
-            diff_context_lines = 10,
-        },
-        emoji = {
-            action = function(emoji)
-                -- argument emoji is a table.
-                -- {name="", value="", cagegory="", description=""}
+	extensions = {
+		undo = {
+			use_delta = true,
+			side_by_side = false,
+			diff_context_lines = 10,
+		},
+		emoji = {
+			action = function(emoji)
+				-- argument emoji is a table.
+				-- {name="", value="", cagegory="", description=""}
 
-                -- insert emoji when picked
-                vim.api.nvim_put({ emoji.value }, 'c', false, true)
-            end,
-        },
-        frecency = {
-            ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*", "*/.venv/*" },
-            db_root = vim.fn.stdpath("data") .. "/frecency",
-        }
-    },
-    defaults = {
-        layout_strategy = "vertical",
-        layout_config = {
-            mirror = true,
-            preview_height = 0.65,
-            prompt_position = "top",
-        },
-        mappings = {
-            ["n"] = {
-                ["<C-q>"] = send_to_quickfix,
-            },
-            ["i"] = {
-                ["<C-q>"] = send_to_quickfix,
-            },
-        },
-        vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            -- Own additions
-            "--trim",
-        },
-    },
+				-- insert emoji when picked
+				vim.api.nvim_put({ emoji.value }, "c", false, true)
+			end,
+		},
+		frecency = {
+			ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*", "*/.venv/*" },
+			db_root = vim.fn.stdpath("data") .. "/frecency",
+		},
+	},
+	defaults = {
+		layout_strategy = "vertical",
+		layout_config = {
+			mirror = true,
+			preview_height = 0.65,
+			prompt_position = "top",
+		},
+		mappings = {
+			["n"] = {
+				["<C-q>"] = send_to_quickfix,
+			},
+			["i"] = {
+				["<C-q>"] = send_to_quickfix,
+			},
+		},
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			-- Own additions
+			"--trim",
+		},
+	},
 })
-require("telescope").load_extension("frecency")
+-- require("telescope").load_extension("frecency")
 require("telescope").load_extension("yank_history")
 require("telescope").load_extension("undo")
 require("telescope").load_extension("last_positions")
