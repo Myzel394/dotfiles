@@ -198,7 +198,7 @@ end
 local cmp = require("cmp")
 
 local default_sources = cmp.config.sources({
-	{ name = "path" },
+	{ name = "async_path" },
 	{ name = "nvim_lsp" },
 	{ name = "nvim_lua" },
 	{
@@ -208,12 +208,8 @@ local default_sources = cmp.config.sources({
 		},
 	},
 	{ name = "nvim_lsp_signature_help" },
-	{
-		name = "env",
-		option = {
-			item_kind = cmp.lsp.CompletionItemKind.Reference,
-		},
-	},
+	{ name = "dotenv" },
+	{ name = "calc" },
 })
 
 cmp.setup({
@@ -241,8 +237,15 @@ cmp.setup({
 		format = function(entry, vim_item)
 			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
 			local strings = vim.split(kind.kind, "%s", { trimempty = true })
-			kind.kind = " " .. (strings[1] or "") .. " "
 			kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+			if entry.source.name == "calc" then
+				vim_item.kind = " " .. "" .. " "
+			elseif entry.source.name == "dotenv" then
+				vim_item.kind = " " .. "" .. " "
+			else
+				kind.kind = " " .. (strings[1] or "") .. " "
+			end
 
 			return kind
 		end,
