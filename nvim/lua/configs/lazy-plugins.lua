@@ -108,11 +108,9 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		lazy = false,
 		dependencies = {
-			{
-				"SergioRibera/cmp-dotenv",
-				event = "UiEnter",
-			},
-			"hrsh7th/cmp-path",
+			"SergioRibera/cmp-dotenv",
+			"hrsh7th/cmp-calc",
+			"https://codeberg.org/FelipeLema/cmp-async-path",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
