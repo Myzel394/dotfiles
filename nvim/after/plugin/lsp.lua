@@ -17,6 +17,7 @@ local ensured_lsps = {
 	"yamlls",
 	"jsonls",
 	"bashls",
+	"nil_ls",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -86,6 +87,11 @@ lspconfig["jsonls"].setup({
 })
 
 lspconfig["bashls"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lspconfig["nil_ls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
