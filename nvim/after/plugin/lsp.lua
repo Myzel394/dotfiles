@@ -208,6 +208,12 @@ local default_sources = cmp.config.sources({
 		},
 	},
 	{ name = "nvim_lsp_signature_help" },
+	{
+		name = "env",
+		option = {
+			item_kind = cmp.lsp.CompletionItemKind.Reference,
+		},
+	},
 })
 
 cmp.setup({
