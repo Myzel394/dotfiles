@@ -248,6 +248,7 @@ unset __conda_setup
 
 export EDITOR=nvim
 
-alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --smart-group --group-directories-first"
-alias la="eza -la --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --smart-group --group-directories-first"
+alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
+alias la="eza -la --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
 
+alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
