@@ -6,7 +6,7 @@
 (("default" @keyword.tsx) (#set! conceal "󰮭 "))
 (("function" @keyword.function.tsx) (#set! conceal "󰊕"))
 
-(("async" @keyword.coroutine.tsx) (#set! conceal ""))
+(("async" @keyword.coroutine.tsx) (#set! conceal ""))
 (("await" @keyword.coroutine.tsx) (#set! conceal ""))
 
 (("return" @keyword.return.tsx) (#set! conceal ""))
@@ -40,6 +40,7 @@
 (("||" @operator) (#set! conceal "∨"))
 ((">=" @operator) (#set! conceal "≥"))
 (("<=" @operator) (#set! conceal "≤"))
+; (("!!" @operator) (#set! conceal "¬"))
 (("new" @operator) (#set! conceal "󰆧 "))
 
 (("?" @keyword.conditional.ternary) (#set! conceal "¿"))
@@ -52,6 +53,9 @@
 
 (("switch" @conditional) (#set! conceal "󰀁"))
 (("case" @conditional) (#set! conceal "󰜴"))
+
+(("while" @keyword.repeat) (#set! conceal "󰛤 "))
+(("for" @keyword.repeat) (#set! conceal "󰛥 "))
 
 ; (("this" @keyword.builtin) (#set! conceal "a"))
 
@@ -118,7 +122,7 @@
     (member_expression
       property: (property_identifier) @function.method.call
         (#eq? @function.method.call "forEach")
-        (#set! conceal "󰞘 ")
+        (#set! conceal "󰛥 ")
     )
 )
 
