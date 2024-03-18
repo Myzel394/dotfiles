@@ -253,5 +253,6 @@ alias la="eza -la --icons --git --binary --group --header --flags --mounts --oct
 
 alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 
-alias dclf="docker container logs --follow --tail 100"
+alias dccat="docker container logs --follow --tail 100"
+alias dclogs="docker-compose logs --follow --tail 100"
 
