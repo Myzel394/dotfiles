@@ -42,6 +42,7 @@
 (("<=" @operator) (#set! conceal "≤"))
 ; (("!!" @operator) (#set! conceal "¬"))
 (("new" @operator) (#set! conceal "󰆧 "))
+(("typeof" @operator) (#set! conceal "󰆩 "))
 
 (("?" @keyword.conditional.ternary) (#set! conceal "¿"))
 
@@ -113,7 +114,7 @@
     (member_expression
       property: (property_identifier) @function.method.call
         (#eq? @function.method.call "includes")
-        (#set! conceal "󰤌 ")
+        (#set! conceal "󰤌")
     )
 )
 
@@ -165,11 +166,45 @@
 (member_expression
   property: (property_identifier) @variable.member
     (#eq? @variable.member "length")
-    (#set! conceal " ")
+    (#set! conceal "")
 )
 
 (member_expression
   property: (property_identifier) @variable.member
     (#eq? @variable.member "current")
     (#set! conceal "󰧆")
+)
+
+; If only one argument
+; (call_expression
+;   arguments:
+;     (arguments
+;       (identifier) @punctuation.bracket
+;       (#set! conceal "")
+;     )
+; )
+
+((identifier) @function.call
+    (#eq? @function.call "useEffect")
+    (#set! conceal "󰛢")
+)
+
+((identifier) @function.call
+    (#eq? @function.call "useState")
+    (#set! conceal "")
+)
+
+((identifier) @function.call
+    (#eq? @function.call "useRef")
+    (#set! conceal "")
+)
+
+((identifier) @function.call
+    (#eq? @function.call "useCallback")
+    (#set! conceal "󱡁 ")
+)
+
+((identifier) @function.call
+    (#eq? @function.call "useMemo")
+    (#set! conceal "")
 )
