@@ -2,26 +2,6 @@
 
 ; (("/>" @tag.delimiter) (#set! conceal "󰛢"))
 
-((identifier) @function.call
-    (#eq? @function.call "useEffect")
-    (#set! conceal "󰛢")
-)
-
-((identifier) @function.call
-    (#eq? @function.call "useState")
-    (#set! conceal "")
-)
-
-((identifier) @function.call
-    (#eq? @function.call "useRef")
-    (#set! conceal "")
-)
-
-((identifier) @function.call
-    (#eq? @function.call "useCallback")
-    (#set! conceal "󱡁 ")
-)
-
 (jsx_attribute
   (property_identifier) @tag.attribute
   (#eq? @tag.attribute "className")
@@ -49,4 +29,15 @@
     (#eq? @key @value)
     (#set! conceal "")
   )
+)
+
+(jsx_opening_element
+  name: (identifier) @tag.builtin
+  (#eq? @tag.builtin "div")
+  (#set! conceal "")
+)
+(jsx_closing_element
+  name: (identifier) @tag.builtin
+  (#eq? @tag.builtin "div")
+  (#set! conceal "")
 )
