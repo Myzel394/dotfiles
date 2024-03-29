@@ -288,4 +288,12 @@ require("neo-tree").setup({
 	},
 })
 
-vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+        local buffer = vim.api.nvim_get_current_buf()
+
+        print("buffer", buffer)
+
+        -- vim.api.nvim_command("Neotree current")
+	end,
+})

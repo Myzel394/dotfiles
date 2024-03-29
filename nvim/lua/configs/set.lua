@@ -39,3 +39,5 @@ vim.o.conceallevel = 2
 -- Neovide
 vim.g.neovide_cursor_vfx_mode = "torpedo"
 vim.g.neovide_cursor_animate_command_line = false
+
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

@@ -195,11 +195,11 @@ require("lazy").setup({
         "vuki656/package-info.nvim",
     },
     -- Extra
-    {
-        "Myzel394/easytables.nvim",
-        lazy = true,
-        enabled = not RUNNING_LIMITED_HARDWARE,
-    },
+    -- {
+    --     "Myzel394/easytables.nvim",
+    --     lazy = true,
+    --     enabled = not RUNNING_LIMITED_HARDWARE,
+    -- },
     {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown", "text" },
@@ -214,11 +214,28 @@ require("lazy").setup({
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
+        "saecki/crates.nvim",
+        event = { "BufRead Cargo.toml" },
+        enabled = not RUNNING_LIMITED_HARDWARE,
+        config = function()
+            require("crates").setup()
+        end,
+    },
+    {
         "stevearc/conform.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE and false,
     },
     {
         "https://tpope.io/vim/fugitive.git",
         enabled = not RUNNING_LIMITED_HARDWARE,
+    },
+    {
+        "easytables.nvim",
+        dev = true,
+    },
+    "folke/neodev.nvim",
+}, {
+    dev = {
+        path = "~/CodeProjects"
     },
 })
