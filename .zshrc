@@ -33,7 +33,6 @@ plugins=(
 
 if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
     plugins+=(
-        jsontools
         conda-zsh-completion
         zsh-better-npm-completion
         tmuxinator
@@ -171,6 +170,7 @@ paths=(
     "$HOME/.config/scripts"
     "/usr/local/bin"
     "$HOME/bin"
+    "$HOME/go/pkg/mod"
 )
 
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
@@ -256,3 +256,5 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
+source ~/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh
+# source ~/CodeProjects/zsh-autocomplete/zsh-autocomplete.plugin.zsh
