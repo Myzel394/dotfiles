@@ -49,6 +49,7 @@ require("lazy").setup({
     },
     "windwp/nvim-ts-autotag",
     "gen740/SmoothCursor.nvim",
+    "gbprod/yanky.nvim",
     {
         "numToStr/Comment.nvim",
         lazy = true,
@@ -59,7 +60,6 @@ require("lazy").setup({
         lazy = true,
         event = "VeryLazy",
     },
-    "gbprod/yanky.nvim",
     {
         "HiPhish/rainbow-delimiters.nvim",
         lazy = true,
@@ -227,6 +227,10 @@ require("lazy").setup({
     },
     {
         "https://tpope.io/vim/fugitive.git",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+    },
+    {
+        "levouh/tint.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
