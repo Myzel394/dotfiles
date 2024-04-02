@@ -42,6 +42,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "ruff_lsp")
 	-- Linter
 	table.insert(ensured_lsps, "jedi_language_server")
+
+	table.insert(ensured_lsps, "solargraph")
 end
 
 require("mason-lspconfig").setup({
@@ -89,6 +91,16 @@ lspconfig["jsonls"].setup({
 lspconfig["bashls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "zsh",
+	callback = function()
+		vim.lsp.start({
+			name = "bash-language-server",
+			cmd = { "bash-language-server", "start" },
+		})
+	end,
 })
 
 lspconfig["nil_ls"].setup({
@@ -195,6 +207,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	})
 
 	lspconfig["kotlin_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["solargraph"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
