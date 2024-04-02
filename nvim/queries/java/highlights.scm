@@ -5,7 +5,7 @@
 
 (("private" @type.qualifier) (#set! conceal ""))
 (("public" @type.qualifier) (#set! conceal "󰈈 "))
-; (("static" @type.qualifier) (#set! conceal "󰮄 "))
+(("static" @type.qualifier) (#set! conceal "󰐃"))
 
 ; (("void" @type.builtin) (#set! conceal "󰟢 "))
 
@@ -51,5 +51,14 @@
   name: (identifier) @function.method.call
   (#eq? @function.method.call "length")
   (#set! conceal " ")
+)
+
+((identifier) @field.java
+    (#eq? @field.java "length")
+    (#set! conceal " ")
+)
+
+((this) @variable.builtin
+    (#set! conceal "Я")
 )
 
