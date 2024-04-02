@@ -139,6 +139,7 @@ sources=(
     "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
     "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
     "$HOME/.p10k.zsh"
+    "$HOME/venv/bin/activate"
 )
 
 if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
@@ -240,7 +241,7 @@ else
         . "/anaconda3/etc/profile.d/conda.sh"
         CONDA_CHANGEPS1=false conda activate base
     else
-        \export PATH="/anaconda3/bin:$PATH"
+        export PATH="/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
