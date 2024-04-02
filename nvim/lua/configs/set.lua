@@ -18,6 +18,7 @@ vim.opt.expandtab = true
 vim.opt.showcmd = true
 vim.opt.showmode = true
 vim.opt.showmatch = true
+vim.opt.wrap = true
 
 vim.opt.history = 9999
 
