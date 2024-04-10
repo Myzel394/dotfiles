@@ -10,8 +10,19 @@ require("telescope").setup({
     extensions = {
         undo = {
             use_delta = true,
-            side_by_side = false,
+            side_by_side = true,
             diff_context_lines = 10,
+            layout_strategy = "vertical",
+            layout_config = {
+                preview_height = 0.8,
+            },
+            mappings = {
+                n = {
+                    ["<leader>ua"] = require("telescope-undo.actions").yank_additions,
+                    ["<leader>ud"] = require("telescope-undo.actions").yank_deletions,
+                    ["<leader>ur"] = require("telescope-undo.actions").restore,
+                },
+            },
         },
         emoji = {
             action = function(emoji)
