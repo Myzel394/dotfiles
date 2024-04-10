@@ -3,6 +3,14 @@
 	email = 50424412+Myzel394@users.noreply.github.com
 [core]
 	autocrlf = input
-	pager = diff-so-fancy | less --tabs=4 -RF
+    pager = delta
+
 [interactive]
-	diffFilter = diff-so-fancy --patch
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    features = decorations
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
