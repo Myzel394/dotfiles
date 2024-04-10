@@ -393,6 +393,7 @@ vim.keymap.set("n", "<leader>a", function()
 end, { desc = "Create new tab", noremap = true })
 vim.keymap.set("n", "<leader>tc", ":tabclose<CR>", { desc = "Close this tab", noremap = true })
 vim.keymap.set("n", "<leader>to", ":tabonly<CR>", { desc = "Close all other tabs", noremap = true })
+vim.keymap.set("n", "<leader>bc", ":%bd|e#<CR>", { desc = "Close all buffers", noremap = true })
 
 for i = 1, 9 do
     vim.keymap.set(
