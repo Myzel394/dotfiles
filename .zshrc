@@ -257,5 +257,9 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
+function filediff() {
+    diff -u -U 999999999 $@ | delta --side-by-side
+}
+
 source ~/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh
 # source ~/CodeProjects/zsh-autocomplete/zsh-autocomplete.plugin.zsh
