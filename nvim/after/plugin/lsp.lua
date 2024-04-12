@@ -241,6 +241,8 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<C-j>"] = cmp.mapping.scroll_docs(6),
+        ["<C-k>"] = cmp.mapping.scroll_docs(-6),
 	}),
 	snippet = {
 		expand = function(args)

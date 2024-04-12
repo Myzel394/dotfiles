@@ -172,6 +172,7 @@ paths=(
     "/usr/local/bin"
     "$HOME/bin"
     "$HOME/go/pkg/mod"
+    "$HOME/../linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin"
 )
 
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
@@ -250,7 +251,7 @@ unset __conda_setup
 export EDITOR=nvim
 
 alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
-alias la="eza -la --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
+alias la="eza -laa --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
 
 alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 
@@ -259,7 +260,10 @@ alias dclogs="docker-compose logs --follow --tail 100"
 
 function filediff() {
     diff -u -U 999999999 $@ | delta --side-by-side
-}
+SELECT() {
+    fselect "$@" | la --stdin
 
 source ~/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh
 # source ~/CodeProjects/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+[ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
