@@ -71,6 +71,7 @@ require("telescope").load_extension("yank_history")
 require("telescope").load_extension("undo")
 require("telescope").load_extension("last_positions")
 require("telescope").load_extension("emoji")
+require("telescope").load_extension("jsonfly")
 
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
 vim.keymap.set("n", "<leader>i", builtin.find_files, { desc = "Find files" })
