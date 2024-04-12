@@ -134,30 +134,6 @@ export ZSH="$HOME/.config/oh-my-zsh"
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=true
 
-# Sources
-sources=(
-    "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
-    "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
-    "$HOME/.p10k.zsh"
-    "$HOME/venv/bin/activate"
-)
-
-if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
-    sources+=(
-        # Not required, as this only loads ".cargo/bin" into the PATH
-        # "$HOME/.cargo/env"
-        "$NVM_DIR/nvm.sh"
-        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-        "$HOME/anaconda3/bin/activate"
-    )
-fi
-
-for new_source in $sources; do
-    if [ -f "$new_source" ]; then
-        source "$new_source"
-    fi
-done
-
 # Brew
 if [[ -d "/home/linuxbrew/.linuxbrew/bin" ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -209,9 +185,6 @@ if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-# Custom aliases
-alias n="nvim ."
-
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
     if [ -x "$(command -v neovide)" ]; then
         alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
@@ -220,15 +193,6 @@ fi
 
 if [[ -f "$HOME/.config/secrets.txt" ]]; then
     source "$HOME/.config/secrets.txt"
-fi
-
-# Tmux
-if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
-    tmux-window-name() {
-        ($TMUX_PLUGIN_MANAGER_PATH/tmux-window-name/scripts/rename_session_windows.py &)
-    }
-
-    add-zsh-hook chpwd tmux-window-name
 fi
 
 # Conda
@@ -248,6 +212,40 @@ fi
 unset __conda_setup
 # <<< conda init <<<
 
+# Sources
+sources=(
+    "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
+    "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
+    "$HOME/.p10k.zsh"
+    "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
+    "$HOME/venv/bin/activate"
+)
+
+if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
+    sources+=(
+        # Not required, as this only loads ".cargo/bin" into the PATH
+        # "$HOME/.cargo/env"
+        "$NVM_DIR/nvm.sh"
+        # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+        "$HOME/anaconda3/bin/activate"
+    )
+fi
+
+for new_source in $sources; do
+    if [ -f "$new_source" ]; then
+        source "$new_source"
+    fi
+done
+
+# Tmux
+if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
+    tmux-window-name() {
+        ($TMUX_PLUGIN_MANAGER_PATH/tmux-window-name/scripts/rename_session_windows.py &)
+    }
+
+    add-zsh-hook chpwd tmux-window-name
+fi
+
 export EDITOR=nvim
 
 alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
@@ -258,12 +256,12 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
-function filediff() {
+filediff() {
     diff -u -U 999999999 $@ | delta --side-by-side
+}
+
 SELECT() {
     fselect "$@" | la --stdin
-
-source ~/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh
-# source ~/CodeProjects/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+}
 
 [ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
