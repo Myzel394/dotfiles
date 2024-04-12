@@ -3,6 +3,9 @@ vim.g.mapleader = " "
 
 local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
+-- Create new highlight group called VisualWhitespace with `Visual` as bg and `comment` fg
+vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
+
 require("lazy").setup({
     {
         "nvim-telescope/telescope.nvim",
@@ -14,6 +17,15 @@ require("lazy").setup({
             --"nvim-telescope/telescope-frecency.nvim",
             "xiyaowong/telescope-emoji.nvim",
         },
+        keys = {
+            {
+                "<leader>o",
+                "<cmd>Telescope jsonfly<cr>",
+                desc = "Open json(fly)",
+                ft = { "json" },
+                mode = "n"
+            },
+        }
     },
     {
         "kylechui/nvim-surround",
@@ -194,12 +206,24 @@ require("lazy").setup({
         -- Lazy loading not required as it's automatically lazy loading by default
         "vuki656/package-info.nvim",
     },
+    {
+        'mcauley-penney/visual-whitespace.nvim',
+        config = true,
+        enabled = not RUNNING_LIMITED_HARDWARE,
+        opts = {
+            highlight = { link = "VisualWhitespace" },
+        },
+    },
     -- Extra
-    -- {
-    --     "Myzel394/easytables.nvim",
-    --     lazy = true,
-    --     enabled = not RUNNING_LIMITED_HARDWARE,
-    -- },
+    {
+        "Myzel394/easytables.nvim",
+        lazy = true,
+        enabled = not RUNNING_LIMITED_HARDWARE,
+    },
+    {
+        "Myzel394/jsonfly",
+        event = "VeryLazy",
+    },
     {
         "iamcco/markdown-preview.nvim",
         ft = { "markdown", "text" },
@@ -234,8 +258,25 @@ require("lazy").setup({
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
-        "easytables.nvim",
-        dev = true,
+        "michaelrommel/nvim-silicon",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+        lazy = true,
+        cmd = "Silicon",
+        config = function()
+            require("silicon").setup {
+                font = "JetBrainsMono Nerd Font=24",
+                background = "#0E1117",
+                theme = "TwoDark",
+                pad_horiz = 40,
+                pad_vert = 50,
+                shadow_color = "#161B22",
+                to_clipboard = true,
+                no_window_controls = true,
+                output = function()
+                    return "/tmp/" .. os.date("!%Y-%m-%dT%H-%M-%S") .. "_code.png"
+                end,
+            }
+        end,
     },
     "folke/neodev.nvim",
 }, {
