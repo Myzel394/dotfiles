@@ -8,6 +8,11 @@ vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
 
 require("lazy").setup({
     {
+        "jsonfly",
+        dev = true,
+        event = "VeryLazy",
+    },
+    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
         dependencies = {
@@ -16,6 +21,7 @@ require("lazy").setup({
             "Myzel394/telescope-last-positions",
             --"nvim-telescope/telescope-frecency.nvim",
             "xiyaowong/telescope-emoji.nvim",
+            "jonarrien/telescope-cmdline.nvim",
         },
         keys = {
             {
@@ -25,6 +31,11 @@ require("lazy").setup({
                 ft = { "json" },
                 mode = "n"
             },
+            {
+                ":",
+                "<cmd>Telescope cmdline<cr>",
+                desc = "Cmdline",
+            }
         }
     },
     {
@@ -60,7 +71,6 @@ require("lazy").setup({
         keys = { "s", "S", "gs" },
     },
     "windwp/nvim-ts-autotag",
-    "gen740/SmoothCursor.nvim",
     "gbprod/yanky.nvim",
     {
         "numToStr/Comment.nvim",
@@ -257,6 +267,7 @@ require("lazy").setup({
         "levouh/tint.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
+    "folke/neodev.nvim",
     {
         "michaelrommel/nvim-silicon",
         enabled = not RUNNING_LIMITED_HARDWARE,
@@ -278,7 +289,10 @@ require("lazy").setup({
             }
         end,
     },
-    "folke/neodev.nvim",
+    {
+        "SmoothCursor.nvim/",
+        dev = true,
+    },
 }, {
     dev = {
         path = "~/CodeProjects"
