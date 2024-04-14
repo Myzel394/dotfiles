@@ -21,7 +21,6 @@ require("lazy").setup({
             "Myzel394/telescope-last-positions",
             --"nvim-telescope/telescope-frecency.nvim",
             "xiyaowong/telescope-emoji.nvim",
-            "jonarrien/telescope-cmdline.nvim",
         },
         keys = {
             {
@@ -31,11 +30,6 @@ require("lazy").setup({
                 ft = { "json" },
                 mode = "n"
             },
-            {
-                ":",
-                "<cmd>Telescope cmdline<cr>",
-                desc = "Cmdline",
-            }
         }
     },
     {
@@ -46,7 +40,10 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end,
     },
-    "norcalli/nvim-colorizer.lua",
+    {
+        "brenoprata10/nvim-highlight-colors",
+        event = "BufRead",
+    },
     "github/copilot.vim",
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -246,6 +243,10 @@ require("lazy").setup({
     {
         "rust-lang/rust.vim",
         enabled = not RUNNING_LIMITED_HARDWARE,
+    },
+    {
+        "fabridamicelli/cronex.nvim",
+         opts = {},
     },
     {
         "saecki/crates.nvim",
