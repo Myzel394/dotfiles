@@ -11,10 +11,10 @@ require("auto-session").setup {
     }
 }
 
-vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        if not is_restoring then
-            vim.cmd("Neotree reveal current")
-        end
-    end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     callback = function()
+--         if not is_restoring then
+--             vim.cmd("Neotree reveal current")
+--         end
+--     end,
+-- })

@@ -1,17 +1,19 @@
 local builtin = require("telescope.builtin")
 local telescope_actions = require("telescope.actions")
+local telescope = require("telescope")
 
 local function send_to_quickfix(promtbufnr)
     telescope_actions.smart_send_to_qflist(promtbufnr)
     vim.cmd([[botright copen]])
 end
 
-require("telescope").setup({
+telescope.setup({
     extensions = {
         undo = {
             use_delta = true,
             side_by_side = true,
             diff_context_lines = 10,
+            mirror = true,
             layout_strategy = "vertical",
             layout_config = {
                 preview_height = 0.8,
@@ -37,14 +39,31 @@ require("telescope").setup({
             ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*", "*/.venv/*" },
             db_root = vim.fn.stdpath("data") .. "/frecency",
         },
+        jsonfly = {
+            layout_strategy = "horizontal",
+            prompt_position = "top",
+            layout_config = {
+                mirror = false,
+                prompt_position = "top",
+                preview_width = 0.45,
+            },
+        },
+        cmdline = {
+            layout_strategy = "vertical",
+            layout_config = {
+                mirror = false,
+                preview_height = 0.5,
+                prompt_position = "bottom",
+            },
+        }
     },
     defaults = {
-        layout_strategy = "vertical",
-        layout_config = {
-            mirror = true,
-            preview_height = 0.65,
-            prompt_position = "top",
-        },
+        -- layout_strategy = "vertical",
+        -- layout_config = {
+        --     mirror = true,
+        --     preview_height = 0.65,
+        --     prompt_position = "top",
+        -- },
         mappings = {
             ["n"] = {
                 ["<C-q>"] = send_to_quickfix,
@@ -67,11 +86,11 @@ require("telescope").setup({
     },
 })
 -- require("telescope").load_extension("frecency")
-require("telescope").load_extension("yank_history")
-require("telescope").load_extension("undo")
-require("telescope").load_extension("last_positions")
-require("telescope").load_extension("emoji")
-require("telescope").load_extension("jsonfly")
+telescope.load_extension("yank_history")
+telescope.load_extension("undo")
+telescope.load_extension("last_positions")
+telescope.load_extension("emoji")
+telescope.load_extension("jsonfly")
 
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
 vim.keymap.set("n", "<leader>i", builtin.find_files, { desc = "Find files" })
