@@ -33,6 +33,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	-- texlab
 	table.insert(ensured_lsps, "ltex")
+	table.insert(ensured_lsps, "typst_lsp")
 	table.insert(ensured_lsps, "marksman")
 
 	table.insert(ensured_lsps, "kotlin_language_server")
@@ -205,6 +206,12 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 				apiKey = "tete",
 			},
 		},
+		on_attach = on_attach,
+	})
+
+	lspconfig["typst_lsp"].setup({
+        filetypes = {"typst"},
+		capabilities = capabilities,
 		on_attach = on_attach,
 	})
 
