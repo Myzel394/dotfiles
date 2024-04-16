@@ -277,4 +277,8 @@ yy() {
 	rm -f -- "$tmp"
 }
 
+if [[ -x "$(command -v thefuck)" ]]; then
+    eval $(thefuck --alias)
+fi
+
 [ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
