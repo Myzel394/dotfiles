@@ -264,4 +264,17 @@ SELECT() {
     fselect "$@" | la --stdin
 }
 
+if [[ -x "$(command -v fzf)" ]]; then
+    eval "$(fzf --zsh)"
+fi
+
+yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 [ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
