@@ -22,6 +22,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensure_installed, "lua")
 	table.insert(ensure_installed, "java")
 	table.insert(ensure_installed, "kotlin")
+	table.insert(ensure_installed, "c")
 end
 
 require("nvim-treesitter.configs").setup({

@@ -44,6 +44,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "jedi_language_server")
 
 	table.insert(ensured_lsps, "solargraph")
+
+	table.insert(ensured_lsps, "clangd")
 end
 
 require("mason-lspconfig").setup({
@@ -212,6 +214,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	})
 
 	lspconfig["solargraph"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["clangd"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
