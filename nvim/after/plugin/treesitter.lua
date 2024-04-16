@@ -18,6 +18,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensure_installed, "typescript")
 	table.insert(ensure_installed, "python")
 	table.insert(ensure_installed, "latex")
+	table.insert(ensure_installed, "typst")
 	table.insert(ensure_installed, "markdown")
 	table.insert(ensure_installed, "lua")
 	table.insert(ensure_installed, "java")
