@@ -60,6 +60,27 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+----- Treesitter -----
+
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.numbat = {
+  install_info = {
+    url = "~/CodeProjects/tree-sitter-numbat",
+    files = {"src/parser.c"}, -- note that some parsers also require src/scanner.c or src/scanner.cc
+    -- optional entries:
+    branch = "main", -- default branch in case of git repo if different from master
+    generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+  },
+  filetype = "numbat", -- if filetype does not match the parser name
+}
+vim.filetype.add {
+    extensions = {
+        numbat = "numbat",
+    }
+}
+vim.treesitter.language.register("numbat", "numbat")
+
 
 ----- Blankline & rainbow delimiters
 

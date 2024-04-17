@@ -1,9 +1,13 @@
 [user]
 	name = Myzel394
 	email = 50424412+Myzel394@users.noreply.github.com
+	signingkey = F9548F0658364C507920CC02DEC4AAB876F73185
 [core]
 	autocrlf = input
     pager = delta
+
+[credential]
+	helper = /usr/libexec/git-core/git-credential-libsecret
 
 [interactive]
     diffFilter = delta --color-only --features=interactive
