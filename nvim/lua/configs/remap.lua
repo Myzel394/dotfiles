@@ -12,10 +12,6 @@ vim.keymap.set({ "n", "v" }, "$", "g$")
 vim.keymap.set({ "n", "v" }, "_", "g_")
 vim.keymap.set({ "n", "v" }, "0", "g0")
 
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "Add executable permission", silent = true })
