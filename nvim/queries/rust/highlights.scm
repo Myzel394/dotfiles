@@ -44,6 +44,9 @@
 ;   (#set! conceal " ")
 ; )
 
+
+; (mutable_specifier "mut"  @keyword.modifier) (#set conceal "⦖")
+
 ; Matches `Ok()` -> `󰸞()`
 (call_expression
   function: (identifier) @function.call
@@ -54,6 +57,11 @@
   function: (identifier) @function.call
   (#eq? @function.call "Err")
   (#set! conceal " ")
+)
+
+(let_declaration
+    (mutable_specifier) @keyword.modifier
+    (#set! conceal " ")
 )
 
 ; Matches `xxx::new()` -> `󰆟 ()` 
