@@ -8,11 +8,6 @@ vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
 
 require("lazy").setup({
     {
-        "jsonfly",
-        dev = true,
-        event = "VeryLazy",
-    },
-    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
         dependencies = {
@@ -214,7 +209,7 @@ require("lazy").setup({
         "vuki656/package-info.nvim",
     },
     {
-        'mcauley-penney/visual-whitespace.nvim',
+        "mcauley-penney/visual-whitespace.nvim",
         config = true,
         enabled = not RUNNING_LIMITED_HARDWARE,
         opts = {
@@ -230,6 +225,30 @@ require("lazy").setup({
     {
         "Myzel394/jsonfly",
         event = "VeryLazy",
+    },
+    {
+        "gen740/SmoothCursor.nvim",
+        lazy = true,
+        event = "VeryLazy",
+    },
+    {
+        "phelipetls/jsonpath.nvim",
+        event = "VeryLazy",
+        lazy = true,
+        setup = {
+            vim.keymap.set(
+                "n",
+                "<leader>y",
+                function() vim.fn.setreg("+", require("jsonpath").get()) end,
+                { desc = "Copy JSON path", buffer = true }
+            )
+        }
+    },
+    {
+        "yorickpeterse/nvim-tree-pairs",
+        lazy = true,
+        event = "VeryLazy",
+        opts = {},
     },
     {
         "iamcco/markdown-preview.nvim",
@@ -289,10 +308,6 @@ require("lazy").setup({
                 end,
             }
         end,
-    },
-    {
-        "SmoothCursor.nvim/",
-        dev = true,
     },
 }, {
     dev = {
