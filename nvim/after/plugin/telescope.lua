@@ -13,10 +13,11 @@ telescope.setup({
             use_delta = true,
             side_by_side = true,
             diff_context_lines = 10,
-            mirror = true,
             layout_strategy = "vertical",
             layout_config = {
+                mirror = true,
                 preview_height = 0.8,
+                prompt_position = "top",
             },
             mappings = {
                 n = {
@@ -46,24 +47,28 @@ telescope.setup({
                 mirror = false,
                 prompt_position = "top",
                 preview_width = 0.45,
+                preview_height = nil,
             },
         },
-        cmdline = {
+    },
+    pickers = {
+        live_grep = {
             layout_strategy = "vertical",
             layout_config = {
-                mirror = false,
-                preview_height = 0.5,
-                prompt_position = "bottom",
+                mirror = true,
+                preview_height = 0.7,
+                prompt_position = "top",
+            },
+        },
+        find_files = {
+            layout_strategy = "vertical",
+            layout_config = {
+                mirror = true,
+                prompt_position = "top",
             },
         }
     },
     defaults = {
-        layout_strategy = "vertical",
-        layout_config = {
-            mirror = true,
-            preview_height = 0.65,
-            prompt_position = "top",
-        },
         mappings = {
             ["n"] = {
                 ["<C-q>"] = send_to_quickfix,
