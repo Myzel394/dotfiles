@@ -68,6 +68,9 @@ require("lazy").setup({
         "numToStr/Comment.nvim",
         lazy = true,
         event = "VeryLazy",
+        dependencies = {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+        },
     },
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -106,6 +109,12 @@ require("lazy").setup({
             local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
             ts_update()
         end,
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
     },
     {
         "VonHeikemen/lsp-zero.nvim",

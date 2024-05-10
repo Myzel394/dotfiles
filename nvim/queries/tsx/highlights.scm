@@ -8,6 +8,19 @@
   (#set! conceal "类")
 )
 
+; Meaning: "big", "huge", "large" in Chinese
+(jsx_attribute
+  (property_identifier) @tag.attribute
+  (#eq? @tag.attribute "size")
+  (#set! conceal "大")
+)
+
+(jsx_attribute
+  (property_identifier) @tag.attribute
+  (#eq? @tag.attribute "id")
+  (#set! conceal "Я")
+)
+
 (jsx_attribute
   (property_identifier) @tag.attribute
   (#eq? @tag.attribute "style")

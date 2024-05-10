@@ -27,6 +27,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 end
 
 require("nvim-treesitter.configs").setup({
+    modules = {},
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
 	ensure_installed = ensure_installed,
 
@@ -58,6 +59,28 @@ require("nvim-treesitter.configs").setup({
 	autotag = {
 		enable = true,
 	},
+
+    textobjects = {
+        select = {
+            enable = true,
+
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                -- You can optionally set descriptions to the mappings (used in the desc parameter of
+                -- nvim_buf_set_keymap) which plugins like which-key display
+                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                -- You can also use captures from other query groups like `locals.scm`
+                ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            include_surrounding_whitespace = true,
+        },
+    },
 })
 
 ----- Treesitter -----
@@ -80,7 +103,6 @@ vim.filetype.add {
     }
 }
 vim.treesitter.language.register("numbat", "numbat")
-
 
 ----- Blankline & rainbow delimiters
 
