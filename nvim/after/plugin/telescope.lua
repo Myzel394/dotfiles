@@ -1,6 +1,7 @@
 local builtin = require("telescope.builtin")
 local telescope_actions = require("telescope.actions")
 local telescope = require("telescope")
+local previewers = require('telescope.previewers')
 
 local function send_to_quickfix(promtbufnr)
     telescope_actions.smart_send_to_qflist(promtbufnr)
@@ -66,7 +67,12 @@ telescope.setup({
                 mirror = true,
                 prompt_position = "top",
             },
-        }
+        },
+        git_status = {
+            layout_config = {
+                preview_width = 0.6,
+            },
+        },
     },
     defaults = {
         mappings = {
@@ -97,6 +103,28 @@ telescope.load_extension("last_positions")
 telescope.load_extension("emoji")
 telescope.load_extension("jsonfly")
 
+local delta = previewers.new_termopen_previewer {
+    get_command = function(entry)
+        -- this is for status
+        -- You can get the AM things in entry.status. So we are displaying file if entry.status == '??' or 'A '
+        -- just do an if and return a different command
+        if entry.status == '??' or 'A ' then
+            return {'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'diff', entry.path}
+        end
+
+        -- note we can't use pipes
+        -- this command is for git_commits and git_bcommits
+        return {'git', '-c', 'core.pager=delta', '-c', 'delta.side-by-side=false', 'diff', entry.path .. '^!'}
+
+    end
+}
+local function delta_git_status(opts)
+    opts = opts or {}
+    opts.previewer = delta
+
+    builtin.git_status(opts)
+end
+
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
 vim.keymap.set("n", "<leader>i", builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>s", builtin.live_grep, { desc = "Find files with live grep" })
@@ -106,11 +134,11 @@ vim.keymap.set("n", "<leader>cb", builtin.buffers, { desc = "Show buffers" })
 vim.keymap.set("n", "<leader>ct", builtin.treesitter, { desc = "Show treesitter" })
 vim.keymap.set("n", "<leader>cu", "<cmd>Telescope undo<cr>", { desc = "Show undo history" })
 vim.keymap.set("n", "<leader>cl", "<cmd>Telescope last_positions<cr>", { desc = "Show last positions" })
-vim.keymap.set("n", "<leader>cs", "<cmd>Telescope git_status<cr>", { desc = "Show git status" })
 vim.keymap.set("n", "<leader>cb", "<cmd>Telescope git_branches<cr>", { desc = "Show git branches" })
 vim.keymap.set("n", "<leader>cc", "<cmd>Telescope git_commits<cr>", { desc = "Show git commits" })
 vim.keymap.set("n", "<leader>cy", "<cmd>Telescope yank_history<cr>", { desc = "Show yank history" })
 vim.keymap.set("n", "<leader>ce", "<cmd>Telescope emoji<cr>", { desc = "Show emoji selection" })
+vim.keymap.set("n", "<leader>cs", delta_git_status, { desc = "Show git status" })
 
 local function get_visible_buffers()
     return vim.tbl_filter(function(bufnr)
