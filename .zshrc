@@ -277,6 +277,10 @@ yy() {
 	rm -f -- "$tmp"
 }
 
+biff() {
+    diff -u -U 99999999 $@ | delta --side-by-side
+}
+
 if [[ -x "$(command -v thefuck)" ]]; then
     eval $(thefuck --alias)
 fi
