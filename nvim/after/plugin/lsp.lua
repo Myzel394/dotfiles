@@ -47,6 +47,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "solargraph")
 
 	table.insert(ensured_lsps, "clangd")
+
+	table.insert(ensured_lsps, "zls")
 end
 
 require("mason-lspconfig").setup({
@@ -226,6 +228,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	})
 
 	lspconfig["clangd"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["zls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
