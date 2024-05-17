@@ -166,11 +166,23 @@ require("lazy").setup({
         ft = "mchat",
     },
     {
-        "max397574/colortils.nvim",
-        cmd = "Colortils",
-        config = function()
-            require("colortils").setup()
-        end,
+        "ziontee113/color-picker.nvim",
+        opts = {},
+        lazy = true,
+        keys = {
+            {
+                "<leader>f",
+                "<cmd>PickColor<cr>",
+                desc = "Edit color",
+                mode = "n"
+            },
+            {
+                "<C-f>",
+                "<cmd>PickColorInsert<cr>",
+                desc = "Add color",
+                mode = "i",
+            },
+        }
     },
     "mawkler/modicator.nvim",
     "xiyaowong/nvim-cursorword",
