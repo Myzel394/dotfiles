@@ -149,6 +149,8 @@ paths=(
     "$HOME/bin"
     "$HOME/go/pkg/mod"
     "$HOME/../linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin"
+    "/home/linuxbrew/.linuxbrew/bin"
+    "/home/linuxbrew/.linuxbrew/sbin"
 )
 
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then

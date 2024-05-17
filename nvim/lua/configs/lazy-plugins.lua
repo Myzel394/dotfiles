@@ -8,6 +8,10 @@ vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
 
 require("lazy").setup({
     {
+        "jsonfly",
+        dev = true,
+    },
+    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
         dependencies = {
@@ -244,8 +248,8 @@ require("lazy").setup({
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
-        "Myzel394/jsonfly",
-        event = "VeryLazy",
+        "pteroctopus/faster.nvim",
+        opts = {},
     },
     {
         "gen740/SmoothCursor.nvim",

@@ -15,14 +15,15 @@ local ensured_lsps = {
 	"dockerls",
 	"docker_compose_language_service",
 	"yamlls",
-	"jsonls",
 	"bashls",
 	"nil_ls",
+
+    -- Javascript, Typescript and JSON
+    "biome",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "rust_analyzer")
-	table.insert(ensured_lsps, "tsserver")
 
 	table.insert(ensured_lsps, "eslint")
 	table.insert(ensured_lsps, "tailwindcss")
@@ -49,6 +50,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "clangd")
 
 	table.insert(ensured_lsps, "zls")
+	table.insert(ensured_lsps, "ansiblels")
 end
 
 require("mason-lspconfig").setup({
@@ -119,7 +121,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["tsserver"].setup({
+	lspconfig["biome"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
@@ -233,6 +235,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	})
 
 	lspconfig["zls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+    })
+
+	lspconfig["ansiblels"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
