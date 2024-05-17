@@ -125,7 +125,7 @@ local function delta_git_status(opts)
     builtin.git_status(opts)
 end
 
-vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
+-- vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
 vim.keymap.set("n", "<leader>i", builtin.find_files, { desc = "Find files" })
 vim.keymap.set("n", "<leader>s", builtin.live_grep, { desc = "Find files with live grep" })
 vim.keymap.set("n", "<leader>w", builtin.resume, { desc = "Resume your last search" })
