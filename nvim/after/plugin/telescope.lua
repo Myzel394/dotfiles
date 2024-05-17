@@ -62,6 +62,7 @@ telescope.setup({
             },
         },
         find_files = {
+            theme = "ivy",
             layout_strategy = "vertical",
             layout_config = {
                 mirror = true,
