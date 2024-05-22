@@ -175,44 +175,11 @@ done
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-# nvm
-if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
-    if [[ -d "/opt/homebrew/opt/nvm" ]]; then
-        export NVM_DIR="/opt/homebrew/opt/nvm"
-    fi
-    if [[ -d "$HOME/.nvm" ]]; then
-        export NVM_DIR="$HOME/.nvm"
-    fi
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
     if [ -x "$(command -v neovide)" ]; then
         alias v="WINIT_UNIX_BACKEND=x11 neovide --maximized ."
     fi
 fi
-
-if [[ -f "$HOME/.config/secrets.txt" ]]; then
-    source "$HOME/.config/secrets.txt"
-fi
-
-# Conda
-# >>> conda init >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$(CONDA_REPORT_ERRORS=false '/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    \eval "$__conda_setup"
-else
-    if [ -f "/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/anaconda3/etc/profile.d/conda.sh"
-        CONDA_CHANGEPS1=false conda activate base
-    else
-        export PATH="/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda init <<<
 
 # Sources
 sources=(
@@ -220,17 +187,28 @@ sources=(
     "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
     "$HOME/.p10k.zsh"
     "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
-    "$HOME/venv/bin/activate"
+    "$HOME/.config/secrets.txt"
 )
+
+if ! [[ -x "$(command -v python)" ]]; then
+    sources+=(
+        "$HOME/venv/bin/activate"
+    )
+fi
 
 if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
     sources+=(
         # Not required, as this only loads ".cargo/bin" into the PATH
         # "$HOME/.cargo/env"
-        "$NVM_DIR/nvm.sh"
         # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
         "$HOME/anaconda3/bin/activate"
     )
+
+    if ! [[ -x "$(command -v node)" ]]; then
+        sources+=(
+            "$NVM_DIR/nvm.sh"
+        )
+    fi
 fi
 
 for new_source in $sources; do
@@ -258,10 +236,6 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
-filediff() {
-    diff -u -U 999999999 $@ | delta --side-by-side
-}
-
 SELECT() {
     fselect "$@" | la --stdin
 }
@@ -288,3 +262,5 @@ if [[ -x "$(command -v thefuck)" ]]; then
 fi
 
 [ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
+
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
