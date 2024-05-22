@@ -1,10 +1,17 @@
 { config, pkgs, ... }:
 
-{
+let
+    take = a: b: if a == "" then b else a;
+    username = builtins.getEnv "USER";
+    # minimal, full
+    variant = take builtins.getEnv "NIX_HOME_MANAGER_VARIANT" "full";
+    isMacos = (builtins.elemAt (builtins.elemAt (builtins.split ".+-(.+)" builtins.currentSystem) 1) 0) == "darwin";
+    isLinux = !isMacos;
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "myzel394";
-  home.homeDirectory = "/home/myzel394";
+  home.username = username;
+  home.homeDirectory = if isMacos then "/Users/${username}" else "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -21,9 +28,8 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-
-    libgcc
     gcc
+    coreutils
     git
     zsh
     neovim
@@ -33,6 +39,7 @@
     unzip
 
     bat
+    btop
     hexyl
     fzf
     fd
@@ -40,11 +47,14 @@
     ripgrep
     eza
     jq
+    ijq
     curl
     delta
     tldr
     yt-dlp
     tmux
+
+    age
 
     python311
     cargo
@@ -61,7 +71,16 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+  ] ++ (
+    if variant == "full" then with pkgs; [
+        numbat
+        imagemagick
+      ] else []
+  ) ++ (
+    if isLinux then with pkgs; [
+        cryptsetup   
+      ] else []
+  );
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -96,6 +115,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
