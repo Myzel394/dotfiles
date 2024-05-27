@@ -19,7 +19,8 @@ local ensured_lsps = {
 	"nil_ls",
 
     -- Javascript, Typescript and JSON
-    "biome",
+    "tsserver",
+    "lemminx",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -51,6 +52,10 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	table.insert(ensured_lsps, "zls")
 	table.insert(ensured_lsps, "ansiblels")
+
+	table.insert(ensured_lsps, "gopls")
+
+	table.insert(ensured_lsps, "crystalline")
 end
 
 require("mason-lspconfig").setup({
@@ -115,13 +120,20 @@ lspconfig["nil_ls"].setup({
 	on_attach = on_attach,
 })
 
+lspconfig["lemminx"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
+    require'lspconfig'.svelte.setup{}
+
 	lspconfig["html"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
 
-	lspconfig["biome"].setup({
+	lspconfig["tsserver"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
@@ -243,14 +255,24 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
+
+	lspconfig["gopls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["crystalline"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
 end
 
 ------- CMP -------
 local cmp = require("cmp")
 
 local default_sources = cmp.config.sources({
-	{ name = "async_path" },
 	{ name = "nvim_lsp" },
+	{ name = "async_path" },
 	{ name = "nvim_lua" },
 	{
 		name = "luasnip",
