@@ -41,6 +41,43 @@ require("lazy").setup({
     },
     "github/copilot.vim",
     {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
+        dependencies = {
+            "github/copilot.vim",
+            "nvim-lua/plenary.nvim",
+            "ibhagwan/fzf-lua",
+        },
+        opts = {
+        },
+        keys = {
+            {
+                "<leader>cgc",
+                "<cmd>CopilotChat<cr>",
+                desc = "Open CopilotChat",
+                mode = "n",
+            },
+            {
+                "<leader>cgp",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+                end,
+                desc = "CopilotChat - Prompt actions",
+                mode = "n",
+            },
+            {
+                "<leader>cgh",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
+                end,
+                desc = "CopilotChat - Help actions",
+                mode = "n",
+            },
+        }
+    },
+    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
