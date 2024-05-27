@@ -1,3 +1,4 @@
+#
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -257,10 +258,54 @@ biff() {
     diff -u -U 99999999 $@ | delta --side-by-side
 }
 
+multiencrypt() {
+    local output=$1
+
+    echo -n 'Password: '
+    read -s password
+
+    # gpg --symmetric --cipher-algo TWOFISH --output test.yaml.crypt test.yaml 
+    local first_output="_$output.crypt.twofish"
+    local second_output="_$output.crypt.camellia"
+    local third_output="$output.crypt"
+
+    gpg --passphrase-fd 0 --batch --no-symkey-cache --symmetric --cipher-algo TWOFISH --output $first_output $output <<< $password
+
+    gpg --passphrase-fd 0 --batch --no-symkey-cache --symmetric --cipher-algo CAMELLIA256 --output $second_output $first_output <<< $password
+    gpg --passphrase-fd 0 --batch --no-symkey-cache --symmetric --cipher-algo AES --output $third_output $second_output <<< $password
+    
+    rm $first_output $second_output
+}
+
+multidecrypt() {
+    local output=$1
+
+    echo -n 'Password: '
+    read -s password
+
+    local first_output="_$output.crypt.camellia"
+    local second_output="_$output.crypt.twofish"
+    local third_output="$output.decrypted"
+
+    gpg --passphrase-fd 0 --no-symkey-cache --batch --decrypt --output $first_output $output <<< $password
+    gpg --passphrase-fd 0 --no-symkey-cache --batch --decrypt --output $second_output $first_output <<< $password
+    gpg --passphrase-fd 0 --no-symkey-cache --batch --decrypt --output $third_output $second_output <<< $password
+    
+    rm $first_output $second_output
+}
+
 if [[ -x "$(command -v thefuck)" ]]; then
     eval $(thefuck --alias)
 fi
 
-[ -f "/home/myzel394/.ghcup/env" ] && . "/home/myzel394/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
-. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+if [[ -f "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" && "$IN_NIX_SHELL" = "" ]]; then
+    echo "in nix shell"
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+
+if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+    source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+fi
+
