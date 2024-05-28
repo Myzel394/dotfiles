@@ -33,6 +33,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	table.insert(ensured_lsps, "lua_ls")
 
+	table.insert(ensured_lsps, "jdtls")
+
 	-- texlab
 	table.insert(ensured_lsps, "ltex")
 	table.insert(ensured_lsps, "typst_lsp")
@@ -192,6 +194,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 				},
 			},
 		},
+	})
+
+	lspconfig["jdtls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
 	})
 
 	lspconfig["marksman"].setup({
