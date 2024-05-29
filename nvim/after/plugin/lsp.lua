@@ -1,6 +1,7 @@
 local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
 local lsp = require("lsp-zero").preset("recommended")
+local utils = require("lspconfig/util")
 
 lsp.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
@@ -263,14 +264,23 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["gopls"].setup({
+	lspconfig["crystalline"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
 
-	lspconfig["crystalline"].setup({
+	lspconfig["gopls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = utils.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+            gopls = {
+                completeUnimported = true,
+                usePlaceholders = true,
+            }
+        }
 	})
 end
 
