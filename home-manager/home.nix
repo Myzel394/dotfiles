@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
     take = a: b: if a == "" then b else a;
@@ -28,7 +28,10 @@ in {
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    gcc
+    # gcc
+    openssl
+    pkg-config
+    darwin.apple_sdk.frameworks.Security
     coreutils
     git
     zsh
@@ -56,11 +59,18 @@ in {
 
     age
 
-    python311
     cargo
     crystal
 
     numbat
+
+    (python3.withPackages (python-pkgs: [
+        python-pkgs.libtmux
+        python-pkgs.pip
+        python-pkgs.requests
+    ]))
+
+    anki-bin
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -78,6 +88,7 @@ in {
     if variant == "full" then with pkgs; [
         numbat
         imagemagick
+        conda
       ] else []
   ) ++ (
     if isLinux then with pkgs; [
@@ -123,4 +134,6 @@ in {
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  nixpkgs.config.allowUnfree = true;
 }

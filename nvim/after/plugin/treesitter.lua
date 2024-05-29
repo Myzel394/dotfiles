@@ -13,6 +13,7 @@ local ensure_installed = {
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensure_installed, "sql")
+	table.insert(ensure_installed, "go")
 	table.insert(ensure_installed, "gitcommit")
 	table.insert(ensure_installed, "gitignore")
 
