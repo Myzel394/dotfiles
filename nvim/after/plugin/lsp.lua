@@ -19,7 +19,7 @@ local ensured_lsps = {
 	"nil_ls",
 
     -- Javascript, Typescript and JSON
-    "biome",
+    "tsserver",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -121,7 +121,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["biome"].setup({
+	lspconfig["tsserver"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
