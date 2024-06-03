@@ -7,10 +7,10 @@ require("configs.smoothcursor")
 
 require("leap").add_default_mappings()
 
-vim.api.nvim_create_autocmd(
-    "BufEnter",
-    {
-        pattern = {"*.typ"},
-        command = "set filetype=typst"
-    }
-)
+-- vim.api.nvim_create_autocmd(
+--     "BufEnter",
+--     {
+--         pattern = {"*.typ"},
+--         command = "set filetype=typst"
+--     }
+-- )
