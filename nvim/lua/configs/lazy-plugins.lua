@@ -26,7 +26,7 @@ require("lazy").setup({
                 "<leader>o",
                 "<cmd>Telescope jsonfly<cr>",
                 desc = "Open json(fly)",
-                ft = { "json" },
+                ft = { "json", "yaml" },
                 mode = "n"
             },
         }
@@ -39,11 +39,44 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end,
     },
-    {
-        "brenoprata10/nvim-highlight-colors",
-        event = "BufRead",
-    },
     "github/copilot.vim",
+    {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
+        dependencies = {
+            "github/copilot.vim",
+            "nvim-lua/plenary.nvim",
+            "ibhagwan/fzf-lua",
+        },
+        opts = {
+        },
+        keys = {
+            {
+                "<leader>cgc",
+                "<cmd>CopilotChat<cr>",
+                desc = "Open CopilotChat",
+                mode = "n",
+            },
+            {
+                "<leader>cgp",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.fzflua").pick(actions.prompt_actions())
+                end,
+                desc = "CopilotChat - Prompt actions",
+                mode = "n",
+            },
+            {
+                "<leader>cgh",
+                function()
+                    local actions = require("CopilotChat.actions")
+                    require("CopilotChat.integrations.fzflua").pick(actions.help_actions())
+                end,
+                desc = "CopilotChat - Help actions",
+                mode = "n",
+            },
+        }
+    },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -136,6 +169,7 @@ require("lazy").setup({
         lazy = false,
         dependencies = {
             "SergioRibera/cmp-dotenv",
+            "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-calc",
             "https://codeberg.org/FelipeLema/cmp-async-path",
             "L3MON4D3/LuaSnip",
@@ -149,11 +183,36 @@ require("lazy").setup({
         },
     },
     {
+        "uga-rosa/ccc.nvim",
+        event = "BufEnter",
+        opts = {
+            highlighter = {
+                auto_enable = true,
+                lsp = true,
+            },
+        },
+        keys = {
+            {
+                "<leader>cc",
+                "<cmd>CccPick<cr>",
+                desc = "Convert color",
+                mode = "n",
+            },
+        }
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
             { "antosha417/nvim-lsp-file-operations", config = true },
         },
+    },
+    {
+        "sveltejs/language-tools",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        ft = { "svelte" },
+        enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
         "petertriho/nvim-scrollbar",
@@ -168,25 +227,6 @@ require("lazy").setup({
         "gsuuon/model.nvim",
         cmd = { "M", "Model", "Mchat" },
         ft = "mchat",
-    },
-    {
-        "ziontee113/color-picker.nvim",
-        opts = {},
-        lazy = true,
-        keys = {
-            {
-                "<leader>f",
-                "<cmd>PickColor<cr>",
-                desc = "Edit color",
-                mode = "n"
-            },
-            {
-                "<C-f>",
-                "<cmd>PickColorInsert<cr>",
-                desc = "Add color",
-                mode = "i",
-            },
-        }
     },
     "mawkler/modicator.nvim",
     "xiyaowong/nvim-cursorword",
@@ -240,6 +280,11 @@ require("lazy").setup({
         opts = {
             highlight = { link = "VisualWhitespace" },
         },
+    },
+    {
+        "dhruvasagar/vim-table-mode",
+        ft = { "markdown" },
+        lazy = true,
     },
     -- Extra
     {
@@ -334,6 +379,24 @@ require("lazy").setup({
             }
         end,
     },
+    {
+        "ray-x/go.nvim",
+        dependencies = {  -- optional packages
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("go").setup()
+        end,
+        event = {"CmdlineEnter"},
+        ft = {"go", 'gomod'},
+        build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+    }
+    -- {
+    --     "vim-crystal/vim-crystal",
+    --     enabled = not RUNNING_LIMITED_HARDWARE,
+    -- }
 }, {
     dev = {
         path = "~/CodeProjects"

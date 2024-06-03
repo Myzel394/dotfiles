@@ -1,6 +1,7 @@
 local IS_RUNNING_ON_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
 local lsp = require("lsp-zero").preset("recommended")
+local utils = require("lspconfig/util")
 
 lsp.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
@@ -20,6 +21,7 @@ local ensured_lsps = {
 
     -- Javascript, Typescript and JSON
     "tsserver",
+    "lemminx",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -31,6 +33,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "cssls")
 
 	table.insert(ensured_lsps, "lua_ls")
+
+	table.insert(ensured_lsps, "jdtls")
 
 	-- texlab
 	table.insert(ensured_lsps, "ltex")
@@ -51,6 +55,10 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	table.insert(ensured_lsps, "zls")
 	table.insert(ensured_lsps, "ansiblels")
+
+	table.insert(ensured_lsps, "gopls")
+
+	table.insert(ensured_lsps, "crystalline")
 end
 
 require("mason-lspconfig").setup({
@@ -115,7 +123,14 @@ lspconfig["nil_ls"].setup({
 	on_attach = on_attach,
 })
 
+lspconfig["lemminx"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
+    require'lspconfig'.svelte.setup{}
+
 	lspconfig["html"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -182,6 +197,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		},
 	})
 
+	lspconfig["jdtls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
 	lspconfig["marksman"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -243,14 +263,33 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
+
+	lspconfig["crystalline"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
+	lspconfig["gopls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+        cmd = { "gopls" },
+        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+        root_dir = utils.root_pattern("go.work", "go.mod", ".git"),
+        settings = {
+            gopls = {
+                completeUnimported = true,
+                usePlaceholders = true,
+            }
+        }
+	})
 end
 
 ------- CMP -------
 local cmp = require("cmp")
 
 local default_sources = cmp.config.sources({
-	{ name = "async_path" },
 	{ name = "nvim_lsp" },
+	{ name = "async_path" },
 	{ name = "nvim_lua" },
 	{
 		name = "luasnip",
