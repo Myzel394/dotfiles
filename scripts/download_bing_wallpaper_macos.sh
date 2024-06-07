@@ -6,7 +6,7 @@ function wallpaper() {
 
 echo "Creating folder"
 # Create the folder if it doesn't exist
-folder=~/Pictures/BingWallpaper
+folder=~/Pictures/BingWallpapers
 mkdir -p $folder
 
 echo "Getting url"
