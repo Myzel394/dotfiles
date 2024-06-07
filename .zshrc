@@ -301,7 +301,6 @@ fi
 [ -f "$HOME/.ghcup/env" ] && . "$HOME/.ghcup/env" # ghcup-env
 
 if [[ -f "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" && "$IN_NIX_SHELL" = "" ]]; then
-    echo "in nix shell"
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
