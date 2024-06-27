@@ -237,6 +237,8 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
+compdef _zbnc_zsh_better_npm_completion pnpm
+
 SELECT() {
     fselect "$@" | la --stdin
 }
