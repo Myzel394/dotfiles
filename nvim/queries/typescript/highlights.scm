@@ -86,6 +86,15 @@
   function:
     (member_expression
       property: (property_identifier) @function.method.call
+        (#eq? @function.method.call "fill")
+        (#set! conceal "")
+    )
+)
+
+(call_expression
+  function:
+    (member_expression
+      property: (property_identifier) @function.method.call
         (#eq? @function.method.call "filter")
         (#set! conceal " ")
     )
