@@ -376,6 +376,12 @@ require("lazy").setup({
                 output = function()
                     return "/tmp/" .. os.date("!%Y-%m-%dT%H-%M-%S") .. "_code.png"
                 end,
+                window_title = function()
+                    return vim.fn.fnamemodify(
+                        vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf()),
+                        ":t"
+                    )
+                end,
             }
         end,
     },
