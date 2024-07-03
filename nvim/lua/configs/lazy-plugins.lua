@@ -8,12 +8,11 @@ vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
 
 require("lazy").setup({
     {
-        "jsonfly",
-        dev = true,
+        "Myzel394/jsonfly",
     },
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.6",
+        tag = "0.1.8",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "debugloop/telescope-undo.nvim",
@@ -34,7 +33,6 @@ require("lazy").setup({
     {
         "kylechui/nvim-surround",
         version = "*",
-        event = "VeryLazy",
         config = function()
             require("nvim-surround").setup({})
         end,
@@ -104,7 +102,6 @@ require("lazy").setup({
     {
         "numToStr/Comment.nvim",
         lazy = true,
-        event = "VeryLazy",
         dependencies = {
             "JoosepAlviste/nvim-ts-context-commentstring",
         },
@@ -112,12 +109,10 @@ require("lazy").setup({
     {
         "lukas-reineke/indent-blankline.nvim",
         lazy = true,
-        event = "VeryLazy",
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
         lazy = true,
-        event = "VeryLazy",
     },
     {
         "folke/which-key.nvim",
@@ -147,12 +142,12 @@ require("lazy").setup({
             ts_update()
         end,
     },
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
-    },
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-textobjects",
+    --     dependencies = {
+    --         "nvim-treesitter/nvim-treesitter",
+    --     },
+    -- },
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
@@ -178,13 +173,13 @@ require("lazy").setup({
             "onsails/lspkind.nvim",
             "kdheepak/cmp-latex-symbols",
             "uga-rosa/cmp-dictionary",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
             "roobert/tailwindcss-colorizer-cmp.nvim",
         },
     },
     {
         "uga-rosa/ccc.nvim",
         event = "BufEnter",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         opts = {
             highlighter = {
                 auto_enable = true,
@@ -223,16 +218,19 @@ require("lazy").setup({
     "tiagovla/scope.nvim",
     "akinsho/bufferline.nvim",
     "nvimdev/galaxyline.nvim",
-    {
-        "gsuuon/model.nvim",
-        cmd = { "M", "Model", "Mchat" },
-        ft = "mchat",
-    },
+    -- {
+    --     "gsuuon/model.nvim",
+    --     cmd = { "M", "Model", "Mchat" },
+    --     ft = "mchat",
+    -- },
     "mawkler/modicator.nvim",
     "xiyaowong/nvim-cursorword",
     "tzachar/highlight-undo.nvim",
     "jinh0/eyeliner.nvim",
-    "jackMort/ChatGPT.nvim",
+    {
+        "jackMort/ChatGPT.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+    },
     "akinsho/git-conflict.nvim",
     {
         "kevinhwang91/nvim-fundo",
@@ -336,6 +334,7 @@ require("lazy").setup({
     {
         "fabridamicelli/cronex.nvim",
          opts = {},
+         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
         "saecki/crates.nvim",
@@ -392,6 +391,7 @@ require("lazy").setup({
             "neovim/nvim-lspconfig",
             "nvim-treesitter/nvim-treesitter",
         },
+        enabled = not RUNNING_LIMITED_HARDWARE,
         config = function()
             require("go").setup()
         end,
