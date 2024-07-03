@@ -297,7 +297,6 @@ local default_sources = cmp.config.sources({
 			show_autosnippets = true,
 		},
 	},
-	{ name = "nvim_lsp_signature_help" },
 	{ name = "dotenv" },
 	{ name = "calc" },
 })
