@@ -354,14 +354,8 @@ vim.api.nvim_set_hl(0, "LeapMatch", {
     nocombine = true,
 })
 
-vim.api.nvim_set_hl(0, "LeapLabelPrimary", {
-    fg = "#ea6962",
-    bold = true,
-    nocombine = true,
-})
-
-vim.api.nvim_set_hl(0, "LeapLabelSecondary", {
-    fg = "#45707a",
+vim.api.nvim_set_hl(0, "LeapLabel", {
+    fg = "#94cf8a",
     bold = true,
     nocombine = true,
 })

@@ -7,6 +7,7 @@ local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE
 vim.cmd("highlight VisualWhitespace guifg=#5F5F60 guibg=#404041 gui=bold")
 
 require("lazy").setup({
+    { import = "plugins" },
     {
         "Myzel394/jsonfly",
     },
@@ -37,7 +38,6 @@ require("lazy").setup({
             require("nvim-surround").setup({})
         end,
     },
-    "github/copilot.vim",
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "canary",
@@ -89,12 +89,14 @@ require("lazy").setup({
         },
     },
     "lewis6991/gitsigns.nvim",
-    "rstacruz/vim-closer",
     {
         "ggandor/leap.nvim",
         dependencies = {
             "tpope/vim-repeat",
+            -- ca
+            "catppuccin/nvim",
         },
+        event = "BufEnter",
         keys = { "s", "S", "gs" },
     },
     "windwp/nvim-ts-autotag",
@@ -112,7 +114,7 @@ require("lazy").setup({
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
-        lazy = true,
+        event = "VeryLazy",
     },
     {
         "folke/which-key.nvim",
@@ -141,6 +143,9 @@ require("lazy").setup({
             local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
             ts_update()
         end,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-context",
+        }
     },
     -- {
     --     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -161,8 +166,9 @@ require("lazy").setup({
     },
     {
         "hrsh7th/nvim-cmp",
-        lazy = false,
+        event = "InsertEnter",
         dependencies = {
+            "zbirenbaum/copilot-cmp",
             "SergioRibera/cmp-dotenv",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-calc",
@@ -217,7 +223,6 @@ require("lazy").setup({
     },
     "tiagovla/scope.nvim",
     "akinsho/bufferline.nvim",
-    "nvimdev/galaxyline.nvim",
     -- {
     --     "gsuuon/model.nvim",
     --     cmd = { "M", "Model", "Mchat" },
@@ -325,8 +330,30 @@ require("lazy").setup({
             vim.fn["mkdp#util#install"]()
         end,
         lazy = true,
-        enabled = not RUNNING_LIMITED_HARDWARE,
+        setup = {
+            vim.keymap.set(
+                "n",
+                "<leader>y",
+                function() vim.fn.setreg("+", require("jsonpath").get()) end,
+                { desc = "Copy JSON path", buffer = true }
+            )
+        }
     },
+    {
+        "yorickpeterse/nvim-tree-pairs",
+        lazy = true,
+        event = "VeryLazy",
+        opts = {},
+    },
+    -- {
+    --     "iamcco/markdown-preview.nvim",
+    --     ft = { "markdown", "text" },
+    --     build = function()
+    --         vim.fn["mkdp#util#install"]()
+    --     end,
+    --     lazy = true,
+    --     enabled = not RUNNING_LIMITED_HARDWARE,
+    -- },
     {
         "rust-lang/rust.vim",
         enabled = not RUNNING_LIMITED_HARDWARE,
@@ -344,10 +371,10 @@ require("lazy").setup({
             require("crates").setup()
         end,
     },
-    {
-        "stevearc/conform.nvim",
-        enabled = not RUNNING_LIMITED_HARDWARE and false,
-    },
+    -- {
+    --     "stevearc/conform.nvim",
+    --     enabled = not RUNNING_LIMITED_HARDWARE and false,
+    -- },
     {
         "https://tpope.io/vim/fugitive.git",
         enabled = not RUNNING_LIMITED_HARDWARE,
@@ -356,7 +383,18 @@ require("lazy").setup({
         "levouh/tint.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
-    "folke/neodev.nvim",
+    {
+        "folke/neodev.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+        opts = {
+            override = function(root_dir, library)
+                if root_dir:find("~/CodeProjects/", 1, true) == 1 then
+                    library.enabled = true
+                    library.plugins = true
+                end
+            end,
+        },
+    },
     {
         "michaelrommel/nvim-silicon",
         enabled = not RUNNING_LIMITED_HARDWARE,
