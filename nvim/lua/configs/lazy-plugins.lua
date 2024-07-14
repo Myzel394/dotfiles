@@ -94,7 +94,10 @@ require("lazy").setup({
         "ggandor/leap.nvim",
         dependencies = {
             "tpope/vim-repeat",
+            -- ca
+            "catppuccin/nvim",
         },
+        event = "BufEnter",
         keys = { "s", "S", "gs" },
     },
     "windwp/nvim-ts-autotag",
@@ -179,25 +182,6 @@ require("lazy").setup({
             "uga-rosa/cmp-dictionary",
             "roobert/tailwindcss-colorizer-cmp.nvim",
         },
-    },
-    {
-        "uga-rosa/ccc.nvim",
-        event = "BufEnter",
-        enabled = not RUNNING_LIMITED_HARDWARE,
-        opts = {
-            highlighter = {
-                auto_enable = true,
-                lsp = true,
-            },
-        },
-        keys = {
-            {
-                "<leader>cc",
-                "<cmd>CccPick<cr>",
-                desc = "Convert color",
-                mode = "n",
-            },
-        }
     },
     {
         "neovim/nvim-lspconfig",
