@@ -19,9 +19,9 @@ local ensured_lsps = {
 	"bashls",
 	"nil_ls",
 
-    -- Javascript, Typescript and JSON
-    "tsserver",
-    "lemminx",
+	-- Javascript, Typescript and JSON
+	"tsserver",
+	"lemminx",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -41,7 +41,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "typst_lsp")
 	table.insert(ensured_lsps, "marksman")
 
-	table.insert(ensured_lsps, "kotlin_language_server")
+	-- table.insert(ensured_lsps, "kotlin_language_server")
 
 	---- Python ----
 	-- Formatter
@@ -53,12 +53,14 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	table.insert(ensured_lsps, "clangd")
 
-	table.insert(ensured_lsps, "zls")
+	-- table.insert(ensured_lsps, "zls")
 	table.insert(ensured_lsps, "ansiblels")
 
 	table.insert(ensured_lsps, "gopls")
 
-	table.insert(ensured_lsps, "crystalline")
+	table.insert(ensured_lsps, "nginx_language_server")
+
+	-- table.insert(ensured_lsps, "crystalline")
 end
 
 require("mason-lspconfig").setup({
@@ -282,12 +284,18 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
             }
         }
 	})
+
+	lspconfig["nginx_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
 end
 
 ------- CMP -------
 local cmp = require("cmp")
 
 local default_sources = cmp.config.sources({
+	-- { name = "copilot"},
 	{ name = "nvim_lsp" },
 	{ name = "async_path" },
 	{ name = "nvim_lua" },
@@ -301,14 +309,15 @@ local default_sources = cmp.config.sources({
 	{ name = "calc" },
 })
 
+-- require("copilot_cmp").setup()
 cmp.setup({
 	preselect = "item",
 	mapping = cmp.mapping.preset.insert({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ["<C-j>"] = cmp.mapping.scroll_docs(6),
-        ["<C-k>"] = cmp.mapping.scroll_docs(-6),
+		["<C-j>"] = cmp.mapping.scroll_docs(6),
+		["<C-k>"] = cmp.mapping.scroll_docs(-6),
 	}),
 	snippet = {
 		expand = function(args)
@@ -334,6 +343,8 @@ cmp.setup({
 				vim_item.kind = " " .. "" .. " "
 			elseif entry.source.name == "dotenv" then
 				vim_item.kind = " " .. "" .. " "
+			elseif entry.source.name == "luasnip" then
+				vim_item.kind = " " .. "" .. " "
 			else
 				kind.kind = " " .. (strings[1] or "") .. " "
 			end
@@ -341,6 +352,9 @@ cmp.setup({
 			return kind
 		end,
 	},
+	completion = {
+		completeopt = 'menu,menuone,noinsert'
+	}
 })
 
 local ALLOWED_PATH_FILES = {
