@@ -19,9 +19,9 @@ local ensured_lsps = {
 	"bashls",
 	"nil_ls",
 
-    -- Javascript, Typescript and JSON
-    "tsserver",
-    "lemminx",
+	-- Javascript, Typescript and JSON
+	"tsserver",
+	"lemminx",
 }
 
 if not IS_RUNNING_ON_LIMITED_HARDWARE then
@@ -57,6 +57,8 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "ansiblels")
 
 	table.insert(ensured_lsps, "gopls")
+
+	table.insert(ensured_lsps, "nginx_language_server")
 
 	-- table.insert(ensured_lsps, "crystalline")
 end
@@ -281,6 +283,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
                 usePlaceholders = true,
             }
         }
+	})
+
+	lspconfig["nginx_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
 	})
 end
 
