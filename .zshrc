@@ -247,6 +247,10 @@ if [[ -x "$(command -v fzf)" ]]; then
     eval "$(fzf --zsh)"
 fi
 
+gt() {
+    gtrash put $@
+}
+
 yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
