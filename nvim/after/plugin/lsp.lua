@@ -39,7 +39,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	-- texlab
 	table.insert(ensured_lsps, "ltex")
 	table.insert(ensured_lsps, "typst_lsp")
-	table.insert(ensured_lsps, "marksman")
+	-- table.insert(ensured_lsps, "marksman")
 
 	-- table.insert(ensured_lsps, "kotlin_language_server")
 
@@ -204,10 +204,10 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["marksman"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
+	-- lspconfig["marksman"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- })
 
 	lspconfig["texlab"].setup({
 		capabilities = capabilities,

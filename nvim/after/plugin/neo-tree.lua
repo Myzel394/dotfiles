@@ -22,7 +22,6 @@ require("neo-tree").setup({
 	popup_border_style = "rounded",
 	enable_git_status = true,
 	enable_diagnostics = true,
-	enable_normal_mode_for_inputs = false, -- Enable normal mode for input dialogs.
 	open_files_do_not_replace_types = { "terminal", "trouble", "qf" }, -- when opening files, do not use windows containing these filetypes or buftypes
 	sort_case_insensitive = false, -- used when sorting files and directories in the tree
 	sort_function = nil, -- use a custom function for sorting files and directories in the tree
@@ -288,12 +287,3 @@ require("neo-tree").setup({
 	},
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-        local buffer = vim.api.nvim_get_current_buf()
-
-        print("buffer", buffer)
-
-        -- vim.api.nvim_command("Neotree current")
-	end,
-})
