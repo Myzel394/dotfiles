@@ -237,6 +237,16 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
 
+alias gp="git pull"
+alias gu="git push"
+alias gi="git status --untracked-files=no"
+alias gs="git switch"
+alias gd="git diff"
+alias gdn="git diff --name-only"
+alias gds="git diff --staged"
+alias gdns="git diff --staged --name-only"
+alias gdsn="git diff --staged --name-only"
+
 compdef _zbnc_zsh_better_npm_completion pnpm
 
 SELECT() {
