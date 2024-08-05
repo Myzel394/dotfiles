@@ -12,26 +12,6 @@ require("lazy").setup({
         "Myzel394/jsonfly",
     },
     {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "debugloop/telescope-undo.nvim",
-            "Myzel394/telescope-last-positions",
-            --"nvim-telescope/telescope-frecency.nvim",
-            "xiyaowong/telescope-emoji.nvim",
-        },
-        keys = {
-            {
-                "<leader>o",
-                "<cmd>Telescope jsonfly<cr>",
-                desc = "Open json(fly)",
-                ft = { "json", "yaml" },
-                mode = "n"
-            },
-        }
-    },
-    {
         "kylechui/nvim-surround",
         version = "*",
         config = function()
@@ -166,7 +146,6 @@ require("lazy").setup({
     },
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
         dependencies = {
             "zbirenbaum/copilot-cmp",
             "SergioRibera/cmp-dotenv",
