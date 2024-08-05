@@ -294,10 +294,11 @@ end
 ------- CMP -------
 local cmp = require("cmp")
 
-local default_sources = cmp.config.sources({
+
+local default_sources = {
 	-- { name = "copilot"},
-	{ name = "nvim_lsp" },
 	{ name = "async_path" },
+	{ name = "nvim_lsp" },
 	{ name = "nvim_lua" },
 	{
 		name = "luasnip",
@@ -305,9 +306,9 @@ local default_sources = cmp.config.sources({
 			show_autosnippets = true,
 		},
 	},
-	{ name = "dotenv" },
+	-- { name = "dotenv" },
 	{ name = "calc" },
-})
+}
 
 -- require("copilot_cmp").setup()
 cmp.setup({
@@ -348,13 +349,15 @@ cmp.setup({
 			else
 				kind.kind = " " .. (strings[1] or "") .. " "
 			end
+			
 
+			
 			return kind
 		end,
 	},
 	completion = {
 		completeopt = 'menu,menuone,noinsert'
-	}
+	},
 })
 
 local ALLOWED_PATH_FILES = {
@@ -392,7 +395,7 @@ end
 -- Add `path` only if in markdown or text buffers
 vim.api.nvim_create_autocmd("BufReadPre", {
 	callback = function(context)
-		local sources = table.simply_clone(default_sources)
+		local sources = default_sources
 		local name = vim.api.nvim_buf_get_name(context.buf)
 
 		if #name >= 3 and M:is_name_allowed(name) then
@@ -462,3 +465,6 @@ vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = "#DDE5F5", bg = "#6C8ED4"
 vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = "#D8EEEB", bg = "#58B5A8" })
 vim.api.nvim_set_hl(0, "CmpItemKindColor", { fg = "#D8EEEB", bg = "#58B5A8" })
 vim.api.nvim_set_hl(0, "CmpItemKindTypeParameter", { fg = "#D8EEEB", bg = "#58B5A8" })
+
+vim.keymap.set("n", "<leader>jlp", vim.diagnostic.goto_prev, { silent = true, desc = "Go to previous diagnostic" })
+vim.keymap.set("n", "<leader>jln", vim.diagnostic.goto_next, { silent = true, desc = "Go to next diagnostic" })

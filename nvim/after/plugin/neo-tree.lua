@@ -200,7 +200,7 @@ require("neo-tree").setup({
 			--               -- the current file is changed while the tree is open.
 			leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
 		},
-		group_empty_dirs = true, -- when true, empty folders will be grouped together
+		group_empty_dirs = false, -- when true, empty folders will be grouped together
 		scan_mode = "deep",
 		hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
 		-- in whatever position is specified in window.position
