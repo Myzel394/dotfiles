@@ -152,6 +152,7 @@ paths=(
     "$HOME/../linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin"
     "/home/linuxbrew/.linuxbrew/bin"
     "/home/linuxbrew/.linuxbrew/sbin"
+    "$HOME/.config/bat-extras/bin"
 )
 
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
