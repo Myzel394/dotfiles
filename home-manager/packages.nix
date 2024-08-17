@@ -45,17 +45,19 @@
     if variant == "full" then with pkgs; [
         numbat
         imagemagick
-        conda
+        # conda
         typst
         sops
+        ansible
+        cloudflared
+        wireguard-tools
+        go
 
-        (python3.withPackages (python-pkgs: [
-           python-pkgs.libtmux
-           python-pkgs.pip
-           python-pkgs.requests
+        (pkgs.python311.withPackages (python-pkgs: [
+          python-pkgs.libtmux
         ]))
 
-        nodejs_22
+        nodejs_20
     ] else []
     ) ++ (
     if pkgs.stdenv.isLinux then with pkgs; [
