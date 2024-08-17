@@ -42,6 +42,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	-- table.insert(ensured_lsps, "marksman")
 
 	-- table.insert(ensured_lsps, "kotlin_language_server")
+	table.insert(ensured_lsps, "intelephense")
 
 	---- Python ----
 	-- Formatter
@@ -49,7 +50,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	-- Linter
 	table.insert(ensured_lsps, "jedi_language_server")
 
-	table.insert(ensured_lsps, "solargraph")
+	-- table.insert(ensured_lsps, "solargraph")
 
 	table.insert(ensured_lsps, "clangd")
 
@@ -204,6 +205,10 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
+	lspconfig["intelephense"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
 	-- lspconfig["marksman"].setup({
 	-- 	capabilities = capabilities,
 	-- 	on_attach = on_attach,
@@ -246,10 +251,10 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["solargraph"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
+	-- lspconfig["solargraph"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- })
 
 	lspconfig["clangd"].setup({
 		capabilities = capabilities,
