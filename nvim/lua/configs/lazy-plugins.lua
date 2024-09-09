@@ -85,7 +85,12 @@ require("lazy").setup({
         "numToStr/Comment.nvim",
         lazy = true,
         dependencies = {
-            "JoosepAlviste/nvim-ts-context-commentstring",
+            {
+                "JoosepAlviste/nvim-ts-context-commentstring",
+                opts = {
+                    enable_autocmd = false,
+                },
+            }
         },
     },
     {
@@ -194,6 +199,19 @@ require("lazy").setup({
         ft = { "svelte" },
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
+    {
+        "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
+        opts = {
+            always_trigger = true,
+            hint_enable = true,
+            hint_prefix = " ",
+        },
+        config = function(_, opts) require'lsp_signature'.setup(opts) end
+    },
+
+
+
     {
         "petertriho/nvim-scrollbar",
         dependencies = {
