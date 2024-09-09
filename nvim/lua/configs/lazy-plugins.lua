@@ -124,7 +124,12 @@ require("lazy").setup({
             ts_update()
         end,
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-context",
+            {
+                "nvim-treesitter/nvim-treesitter-context",
+                opts = {
+                    max_lines = 3,
+                },
+            },
         }
     },
     -- {
@@ -197,7 +202,10 @@ require("lazy").setup({
     {
         "petertriho/nvim-scrollbar",
         dependencies = {
-            "kevinhwang91/nvim-hlslens",
+            {
+                "kevinhwang91/nvim-hlslens",
+                opts = {},
+            }
         },
     },
     "tiagovla/scope.nvim",
@@ -214,6 +222,7 @@ require("lazy").setup({
     {
         "jackMort/ChatGPT.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
+        event = "BufEnter",
     },
     "akinsho/git-conflict.nvim",
     {
