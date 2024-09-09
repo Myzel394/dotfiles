@@ -5,7 +5,6 @@ return {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
         "Myzel394/telescope-last-positions",
-        "nvim-telescope/telescope-frecency.nvim",
         "xiyaowong/telescope-emoji.nvim",
     },
     keys = {
@@ -63,15 +62,15 @@ return {
                         vim.api.nvim_put({ emoji.value }, "c", false, true)
                     end,
                 },
-                frecency = {
-                    ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*", "*/.venv/*" },
-                    db_root = vim.fn.stdpath("data") .. "/frecency",
-                    layout_strategy = "vertical",
-                    layout_config = {
-                        mirror = true,
-                        prompt_position = "top",
-                    },
-                },
+                -- frecency = {
+                --     ignore_patterns = { "*.git/*", "*/tmp/*", "*/node_modules/*", "*/.venv/*" },
+                --     db_root = vim.fn.stdpath("data") .. "/frecency",
+                --     layout_strategy = "vertical",
+                --     layout_config = {
+                --         mirror = true,
+                --         prompt_position = "top",
+                --     },
+                -- },
                 jsonfly = {
                     layout_strategy = "horizontal",
                     prompt_position = "top",
@@ -142,7 +141,6 @@ return {
         telescope.load_extension("last_positions")
         telescope.load_extension("emoji")
         telescope.load_extension("jsonfly")
-        telescope.load_extension("frecency")
 
         local delta = previewers.new_termopen_previewer {
             get_command = function(entry)
