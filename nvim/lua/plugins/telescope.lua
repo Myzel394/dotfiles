@@ -98,6 +98,14 @@ return {
                         mirror = true,
                         prompt_position = "top",
                     },
+                    find_command = {
+                        "rg",
+                        "--files",
+                        "--hidden",
+                        "--glob",
+                        "!**/{node_modules,.git}/*",
+                        "--sortr=path",
+                    },
                 },
                 git_status = {
                     layout_config = {
@@ -124,6 +132,7 @@ return {
                     "--smart-case",
                     -- Own additions
                     "--trim",
+                    "--sortr=path",
                 },
             },
         })
