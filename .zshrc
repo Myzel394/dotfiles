@@ -30,6 +30,7 @@ plugins=(
     per-directory-history
     z
     safe-paste
+    # zsh-vi-mode
 )
 
 if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
@@ -198,6 +199,8 @@ if ! [[ -x "$(command -v python)" ]]; then
     )
 fi
 
+export NVM_DIR="$HOME/.nvm"
+
 if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
     sources+=(
         # Not required, as this only loads ".cargo/bin" into the PATH
@@ -206,7 +209,7 @@ if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
         "$HOME/anaconda3/bin/activate"
     )
 
-    if ! [[ -x "$(command -v node)" ]]; then
+    if ! [[ -x "$(command -v nvm)" ]]; then
         sources+=(
             "$NVM_DIR/nvm.sh"
         )
@@ -325,3 +328,6 @@ if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
     source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
 fi
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/.zsh-copilot/zsh-copilot.plugin.zsh
