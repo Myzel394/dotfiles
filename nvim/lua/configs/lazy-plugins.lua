@@ -14,9 +14,16 @@ require("lazy").setup({
     {
         "kylechui/nvim-surround",
         version = "*",
-        config = function()
-            require("nvim-surround").setup({})
-        end,
+        opts = {
+            keymaps = {
+                normal = "ys",
+                delete = "ds",
+                visual = "S",
+                visual_line = "gS",
+                change = "cs",
+                change_line = "cS",
+            }
+        }
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
