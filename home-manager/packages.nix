@@ -32,14 +32,20 @@
 
         age
         sox
+        gnupg
 
         cargo
 
         gtrash
+
+        atuin
     ] else []
     ) ++ (
     if withGUI then with pkgs; [
         # nerdfonts.override { fonts = ["JetBrainsMono"]; }
+	kitty
+        neovide
+        keepassxc
     ] else []
     ) ++ (
     if variant == "full" then with pkgs; [
