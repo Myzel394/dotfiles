@@ -66,4 +66,4 @@
 	url = https://github.com/tmux-plugins/tmux-sensible
 [submodule "bat-extras"]
 	path = bat-extras
-	url = ./bat-extras
+	url = https://github.com/eth-p/bat-extras
