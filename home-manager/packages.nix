@@ -23,6 +23,7 @@
         ripgrep
         eza
         jq
+        yq
         ijq
         curl
         delta
@@ -37,11 +38,10 @@
         cargo
 
         gtrash
-
         atuin
     ] else []
     ) ++ (
-    if withGUI then with pkgs; [
+    if withGUI then [
         # nerdfonts.override { fonts = ["JetBrainsMono"]; }
 	kitty
         neovide
@@ -58,6 +58,13 @@
         cloudflared
         wireguard-tools
         go
+
+        # Audio conversion
+        lame
+        sox
+        mediainfo
+
+        antlr
 
         (pkgs.python311.withPackages (python-pkgs: [
           python-pkgs.libtmux
