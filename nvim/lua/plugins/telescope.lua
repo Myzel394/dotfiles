@@ -5,6 +5,7 @@ return {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
         "Myzel394/telescope-last-positions",
+        "Myzel394/jsonfly.nvim",
         "xiyaowong/telescope-emoji.nvim",
     },
     keys = {
@@ -21,6 +22,13 @@ return {
             desc = "Find frecent files",
             mode = "n",
         },
+        {
+            "<leader>j",
+            "<cmd>Telescope jsonfly<cr>",
+            desc = "Open jsonfly",
+            ft = { "json" },
+            mode = "n",
+        }
     },
     config = function()
         local builtin = require("telescope.builtin")
