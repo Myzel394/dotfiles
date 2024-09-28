@@ -1,4 +1,7 @@
 { pkgs, withGUI, variant, ... }: 
+let
+    diffnav = (import ./diffnav.nix) { inherit pkgs; };
+in
     with pkgs; [
         openssl
         pkg-config
@@ -39,6 +42,8 @@
 
         gtrash
         atuin
+
+        diffnav
     ] else []
     ) ++ (
     if withGUI then [
