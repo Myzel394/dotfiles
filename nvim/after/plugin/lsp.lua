@@ -293,6 +293,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	lspconfig["nginx_language_server"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+		root_dir = function() return vim.loop.cwd() end,
 	})
 end
 
@@ -303,7 +304,7 @@ if not configs.systemd_ls then
     default_config = {
       cmd = { 'systemd-language-server' },
       filetypes = { 'systemd' },
-      root_dir = function() return nil end,
+      root_dir = function() return vim.loop.cwd() end,
       single_file_support = true,
       settings = {},
     },
