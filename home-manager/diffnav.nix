@@ -7,7 +7,7 @@ let
 in
 buildGoModule rec {
   pname = "diffnav";
-  version = "0.1.1";
+  version = "0.2.4";
 
   src = fetchFromGitHub {
     owner = "dlvhdr";
