@@ -26,7 +26,6 @@ plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
     zsh-autocomplete
-    # docker
     # per-directory-history
     z
     safe-paste
