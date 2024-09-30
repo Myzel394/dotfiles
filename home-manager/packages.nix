@@ -6,12 +6,12 @@
         git
         zsh
         neovim
+        wget
         curl
         zip
         xz
         unzip
-
-        crystal
+        tmux
     ] ++ (
     if (variant == "full" || variant == "minimal") then with pkgs; [
         bat
@@ -28,7 +28,6 @@
         delta
         tldr
         yt-dlp
-        tmux
 
         age
         sox
@@ -59,11 +58,18 @@
         wireguard-tools
         go
 
-        (pkgs.python311.withPackages (python-pkgs: [
-          python-pkgs.libtmux
+        (python311.withPackages (p: with p; [
+            libtmux
+            yq
         ]))
 
         nodejs_20
+
+        # Docker
+        colima
+
+        neovim
+        tree-sitter
     ] else []
     ) ++ (
     if pkgs.stdenv.isLinux then with pkgs; [

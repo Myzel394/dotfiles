@@ -25,7 +25,7 @@ in {
 # environment.
     home.packages = (import ./packages.nix) { inherit pkgs variant withGUI; };
 
-    programs.firefox = (import ./firefox.nix) { inherit pkgs; };
+    #programs.firefox = (import ./firefox.nix) { inherit pkgs; };
     
 
 # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -68,4 +68,8 @@ in {
     programs.home-manager.enable = true;
 
     nixpkgs.config.allowUnfree = true;
+    nix = {
+        package = pkgs.nix;
+        settings.experimental-features = [ "nix-command" "flakes" ];
+    };
 }
