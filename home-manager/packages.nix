@@ -1,4 +1,7 @@
 { pkgs, withGUI, variant, ... }: 
+let
+    diffnav = (import ./diffnav.nix) { inherit pkgs; };
+in
     with pkgs; [
         openssl
         pkg-config
@@ -23,6 +26,7 @@
         ripgrep
         eza
         jq
+        yq
         ijq
         curl
         delta
@@ -36,11 +40,12 @@
         cargo
 
         gtrash
-
         atuin
+
+        diffnav
     ] else []
     ) ++ (
-    if withGUI then with pkgs; [
+    if withGUI then [
         # nerdfonts.override { fonts = ["JetBrainsMono"]; }
 	kitty
         neovide
@@ -52,13 +57,12 @@
         imagemagick
         # conda
         typst
-        sops
         ansible
         cloudflared
         wireguard-tools
         go
 
-        (python311.withPackages (p: with p; [
+        (python312.withPackages (p: with p; [
             libtmux
             yq
         ]))
@@ -70,6 +74,12 @@
 
         neovim
         tree-sitter
+
+        # Audio conversion
+        lame
+        sox
+        mediainfo
+        ffmpeg
     ] else []
     ) ++ (
     if pkgs.stdenv.isLinux then with pkgs; [
