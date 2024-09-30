@@ -149,6 +149,7 @@ paths=(
     "$HOME/.config/scripts"
     "/usr/local/bin"
     "$HOME/bin"
+    "$HOME/go/bin"
     "$HOME/go/pkg/mod"
     "$HOME/../linuxbrew/.linuxbrew/lib/ruby/gems/3.3.0/bin"
     "/home/linuxbrew/.linuxbrew/bin"
@@ -324,8 +325,8 @@ if [[ -f "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" && "$IN_NIX
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
-if [[ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
-    source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+if [[ -f "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]]; then
+    source /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh
 fi
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
