@@ -415,7 +415,7 @@ require("lazy").setup({
         cmd = "Silicon",
         config = function()
             require("silicon").setup {
-                font = "JetBrainsMono Nerd Font=24",
+                -- font = "JetBrainsMono Nerd Font Mono=24",
                 background = "#0E1117",
                 theme = "TwoDark",
                 pad_horiz = 40,
