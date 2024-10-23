@@ -29,7 +29,6 @@ require("lazy").setup({
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "canary",
         dependencies = {
-            "github/copilot.vim",
             "nvim-lua/plenary.nvim",
             "ibhagwan/fzf-lua",
         },
@@ -102,7 +101,6 @@ require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        lazy = true,
     },
     {
         "HiPhish/rainbow-delimiters.nvim",
@@ -164,7 +162,6 @@ require("lazy").setup({
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "zbirenbaum/copilot-cmp",
             "SergioRibera/cmp-dotenv",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-calc",
@@ -176,6 +173,7 @@ require("lazy").setup({
             "kdheepak/cmp-latex-symbols",
             "uga-rosa/cmp-dictionary",
             "roobert/tailwindcss-colorizer-cmp.nvim",
+            -- "lukas-reineke/cmp-rg"
         },
     },
     {
@@ -213,13 +211,12 @@ require("lazy").setup({
     },
     {
         "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
         opts = {
             always_trigger = true,
             hint_enable = true,
             hint_prefix = " ",
+            toggle_key = "<C-k>",
         },
-        config = function(_, opts) require'lsp_signature'.setup(opts) end
     },
 
 
