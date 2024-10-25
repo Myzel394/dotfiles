@@ -1,12 +1,20 @@
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
 return {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.8",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
-        "Myzel394/telescope-last-positions",
+        {
+            "Myzel394/telescope-last-positions",
+            enabled = not RUNNING_LIMITED_HARDWARE,
+        },
         "Myzel394/jsonfly.nvim",
-        "xiyaowong/telescope-emoji.nvim",
+        {
+            "xiyaowong/telescope-emoji.nvim",
+            enabled = not RUNNING_LIMITED_HARDWARE,
+        },
     },
     keys = {
         {
@@ -146,9 +154,12 @@ return {
         -- require("telescope").load_extension("frecency")
         telescope.load_extension("yank_history")
         telescope.load_extension("undo")
-        telescope.load_extension("last_positions")
-        telescope.load_extension("emoji")
         telescope.load_extension("jsonfly")
+
+        if not RUNNING_LIMITED_HARDWARE then
+            telescope.load_extension("last_positions")
+            telescope.load_extension("emoji")
+        end
 
         local delta = previewers.new_termopen_previewer {
             get_command = function(entry)
