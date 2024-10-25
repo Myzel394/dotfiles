@@ -1,3 +1,9 @@
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
+if RUNNING_LIMITED_HARDWARE then
+    return
+end
+
 vim.api.nvim_set_hl(0, "DiffText", { fg = "#ffffff", bg = "#1d3b40" })
 vim.api.nvim_set_hl(0, "DiffAdd", { fg = "#ffffff", bg = "#12401c" })
 vim.api.nvim_set_hl(0, "DiffDelete", { fg = "#ffffff", bg = "#4f1c1c" })
