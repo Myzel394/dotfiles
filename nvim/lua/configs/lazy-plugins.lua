@@ -10,6 +10,7 @@ require("lazy").setup({
     { import = "plugins" },
     {
         "Myzel394/jsonfly",
+        enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
         "kylechui/nvim-surround",
@@ -27,6 +28,7 @@ require("lazy").setup({
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         branch = "canary",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -142,12 +144,6 @@ require("lazy").setup({
             },
         }
     },
-    -- {
-    --     "nvim-treesitter/nvim-treesitter-textobjects",
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --     },
-    -- },
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
@@ -164,14 +160,12 @@ require("lazy").setup({
         dependencies = {
             "SergioRibera/cmp-dotenv",
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-calc",
             "https://codeberg.org/FelipeLema/cmp-async-path",
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
             "rafamadriz/friendly-snippets",
             "onsails/lspkind.nvim",
             "kdheepak/cmp-latex-symbols",
-            "uga-rosa/cmp-dictionary",
             "roobert/tailwindcss-colorizer-cmp.nvim",
             -- "lukas-reineke/cmp-rg"
         },
@@ -394,18 +388,6 @@ require("lazy").setup({
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
-        "folke/neodev.nvim",
-        enabled = not RUNNING_LIMITED_HARDWARE,
-        opts = {
-            override = function(root_dir, library)
-                if root_dir:find("~/CodeProjects/", 1, true) == 1 then
-                    library.enabled = true
-                    library.plugins = true
-                end
-            end,
-        },
-    },
-    {
         "michaelrommel/nvim-silicon",
         enabled = not RUNNING_LIMITED_HARDWARE,
         lazy = true,
@@ -447,10 +429,6 @@ require("lazy").setup({
         ft = {"go", 'gomod'},
         build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
     }
-    -- {
-    --     "vim-crystal/vim-crystal",
-    --     enabled = not RUNNING_LIMITED_HARDWARE,
-    -- }
 }, {
     dev = {
         path = "~/CodeProjects"
