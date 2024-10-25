@@ -13,20 +13,6 @@ require("lazy").setup({
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
-        "kylechui/nvim-surround",
-        version = "*",
-        opts = {
-            keymaps = {
-                normal = "ys",
-                delete = "ds",
-                visual = "S",
-                visual_line = "gS",
-                change = "cs",
-                change_line = "cS",
-            }
-        }
-    },
-    {
         "CopilotC-Nvim/CopilotChat.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
         branch = "canary",
@@ -87,7 +73,10 @@ require("lazy").setup({
         event = "BufEnter",
         keys = { "s", "S", "gs" },
     },
-    "windwp/nvim-ts-autotag",
+    {
+        "windwp/nvim-ts-autotag",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+    },
     "gbprod/yanky.nvim",
     {
         "numToStr/Comment.nvim",
@@ -138,6 +127,7 @@ require("lazy").setup({
         dependencies = {
             {
                 "nvim-treesitter/nvim-treesitter-context",
+                enabled = not RUNNING_LIMITED_HARDWARE,
                 opts = {
                     max_lines = 3,
                 },
@@ -152,21 +142,27 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
-            "L3MON4D3/LuaSnip",
         },
     },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "SergioRibera/cmp-dotenv",
+            {
+                "SergioRibera/cmp-dotenv",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
             "hrsh7th/cmp-nvim-lsp",
             "https://codeberg.org/FelipeLema/cmp-async-path",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
+            -- "rafamadriz/friendly-snippets",
             "onsails/lspkind.nvim",
-            "kdheepak/cmp-latex-symbols",
-            "roobert/tailwindcss-colorizer-cmp.nvim",
+            {
+                "kdheepak/cmp-latex-symbols",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
+            {
+                "roobert/tailwindcss-colorizer-cmp.nvim",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
             -- "lukas-reineke/cmp-rg"
         },
     },
@@ -205,6 +201,7 @@ require("lazy").setup({
     },
     {
         "ray-x/lsp_signature.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         opts = {
             always_trigger = true,
             hint_enable = true,
@@ -232,7 +229,10 @@ require("lazy").setup({
     --     ft = "mchat",
     -- },
     "mawkler/modicator.nvim",
-    "xiyaowong/nvim-cursorword",
+    {
+        "xiyaowong/nvim-cursorword",
+        event = "BufEnter",
+    },
     "tzachar/highlight-undo.nvim",
     "jinh0/eyeliner.nvim",
     {
@@ -322,13 +322,8 @@ require("lazy").setup({
         }
     },
     {
-        "yorickpeterse/nvim-tree-pairs",
-        lazy = true,
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "iamcco/markdown-preview.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         ft = { "markdown", "text" },
         build = function()
             vim.fn["mkdp#util#install"]()
@@ -346,6 +341,7 @@ require("lazy").setup({
     {
         "yorickpeterse/nvim-tree-pairs",
         lazy = true,
+        enabled = not RUNNING_LIMITED_HARDWARE,
         event = "VeryLazy",
         opts = {},
     },

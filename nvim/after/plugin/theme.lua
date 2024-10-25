@@ -366,7 +366,7 @@ vim.api.nvim_set_hl(0, "EyelinerDimmed", { link = "Comment" })
 
 ---- bufferline needs to be set up after theme ----
 
-require("scope").setup({})
+-- require("scope").setup({})
 
 local bufferline = require("bufferline")
 bufferline.setup({
