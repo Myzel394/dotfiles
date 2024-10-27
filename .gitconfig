@@ -4,7 +4,7 @@
 	signingkey = F9548F0658364C507920CC02DEC4AAB876F73185
 [core]
 	autocrlf = input
-    pager = delta
+    pager = diffnav
 
 [credential]
 	helper = /usr/libexec/git-core/git-credential-libsecret
