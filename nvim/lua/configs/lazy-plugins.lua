@@ -77,7 +77,15 @@ require("lazy").setup({
         "windwp/nvim-ts-autotag",
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
-    "gbprod/yanky.nvim",
+    {
+        "gbprod/yanky.nvim",
+        opts = {
+            ring = {
+                -- I'm using yankbank for history
+                history_length = 0,
+            }
+        }
+    },
     {
         "numToStr/Comment.nvim",
         lazy = true,
@@ -329,14 +337,6 @@ require("lazy").setup({
             vim.fn["mkdp#util#install"]()
         end,
         lazy = true,
-        setup = {
-            vim.keymap.set(
-                "n",
-                "<leader>y",
-                function() vim.fn.setreg("+", require("jsonpath").get()) end,
-                { desc = "Copy JSON path", buffer = true }
-            )
-        }
     },
     {
         "yorickpeterse/nvim-tree-pairs",
