@@ -1,6 +1,9 @@
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
+  enabled = not RUNNING_LIMITED_HARDWARE,
   build = "make",
   opts = {
     provider = "openai",

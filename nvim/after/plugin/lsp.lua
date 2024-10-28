@@ -61,6 +61,9 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	table.insert(ensured_lsps, "nginx_language_server")
 
+	table.insert(ensured_lsps, "asm_lsp")
+	table.insert(ensured_lsps, "r_language_server")
+
 	-- table.insert(ensured_lsps, "crystalline")
 end
 
@@ -295,6 +298,18 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 		root_dir = function() return vim.loop.cwd() end,
 	})
+
+	lspconfig["asm_lsp"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		root_dir = function() return vim.loop.cwd() end,
+	})
+
+	lspconfig["r_language_server"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		root_dir = function() return vim.loop.cwd() end,
+	})
 end
 
 local configs = require("lspconfig.configs")
@@ -318,7 +333,25 @@ Language Server for Systemd unit files.
   }
 end
 
+if not configs.config_lsp then
+	configs.config_lsp = {
+		default_config = {
+				cmd = { 'config-lsp' },
+				filetypes = {
+					"sshconfig",
+					"sshdconfig",
+					"fstab",
+					"aliases",
+					-- Matches wireguard configs and /etc/hosts
+					"conf",
+				},
+				-- root_dir = vim.loop.cwd,
+		},
+	}
+end
+
 lspconfig.systemd_ls.setup {}
+lspconfig.config_lsp.setup {}
 
 
 ------- CMP -------
@@ -337,7 +370,7 @@ local default_sources = {
 		},
 	},
 	-- { name = "dotenv" },
-	{ name = "calc" },
+	-- { name = "rg" }
 }
 
 -- require("copilot_cmp").setup()
@@ -429,10 +462,10 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 		local name = vim.api.nvim_buf_get_name(context.buf)
 
 		if #name >= 3 and M:is_name_allowed(name) then
-			table.insert(sources, {
-				name = "dictionary",
-				keyword_length = 2,
-			})
+			-- table.insert(sources, {
+			-- 	name = "dictionary",
+			-- 	keyword_length = 2,
+			-- })
 			table.insert(sources, {
 				name = "latex_symbols",
 				option = {
@@ -447,12 +480,12 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 	end,
 })
 
-require("cmp_dictionary").setup({
-	paths = {
-		vim.fn.expand("$HOME/.config/nvim/dicts/german.dict"),
-		vim.fn.expand("$HOME/.config/nvim/dicts/english.dict"),
-	},
-})
+-- require("cmp_dictionary").setup({
+-- 	paths = {
+-- 		vim.fn.expand("$HOME/.config/nvim/dicts/german.dict"),
+-- 		vim.fn.expand("$HOME/.config/nvim/dicts/english.dict"),
+-- 	},
+-- })
 
 -- Customization for Pmenu
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#282C34", fg = "NONE" })
