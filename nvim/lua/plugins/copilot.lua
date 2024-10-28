@@ -1,5 +1,8 @@
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
 return {
     "supermaven-inc/supermaven-nvim",
+    enabled = not RUNNING_LIMITED_HARDWARE,
     opts = {
         keymaps = {
             accept_suggestion = "<C-o>",

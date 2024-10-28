@@ -10,23 +10,11 @@ require("lazy").setup({
     { import = "plugins" },
     {
         "Myzel394/jsonfly",
-    },
-    {
-        "kylechui/nvim-surround",
-        version = "*",
-        opts = {
-            keymaps = {
-                normal = "ys",
-                delete = "ds",
-                visual = "S",
-                visual_line = "gS",
-                change = "cs",
-                change_line = "cS",
-            }
-        }
+        enabled = not RUNNING_LIMITED_HARDWARE,
     },
     {
         "CopilotC-Nvim/CopilotChat.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         branch = "canary",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -85,8 +73,19 @@ require("lazy").setup({
         event = "BufEnter",
         keys = { "s", "S", "gs" },
     },
-    "windwp/nvim-ts-autotag",
-    "gbprod/yanky.nvim",
+    {
+        "windwp/nvim-ts-autotag",
+        enabled = not RUNNING_LIMITED_HARDWARE,
+    },
+    {
+        "gbprod/yanky.nvim",
+        opts = {
+            ring = {
+                -- I'm using yankbank for history
+                history_length = 0,
+            }
+        }
+    },
     {
         "numToStr/Comment.nvim",
         lazy = true,
@@ -136,18 +135,13 @@ require("lazy").setup({
         dependencies = {
             {
                 "nvim-treesitter/nvim-treesitter-context",
+                enabled = not RUNNING_LIMITED_HARDWARE,
                 opts = {
                     max_lines = 3,
                 },
             },
         }
     },
-    -- {
-    --     "nvim-treesitter/nvim-treesitter-textobjects",
-    --     dependencies = {
-    --         "nvim-treesitter/nvim-treesitter",
-    --     },
-    -- },
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
@@ -156,23 +150,27 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
-            "L3MON4D3/LuaSnip",
         },
     },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            "SergioRibera/cmp-dotenv",
+            {
+                "SergioRibera/cmp-dotenv",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-calc",
             "https://codeberg.org/FelipeLema/cmp-async-path",
-            "L3MON4D3/LuaSnip",
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
+            -- "rafamadriz/friendly-snippets",
             "onsails/lspkind.nvim",
-            "kdheepak/cmp-latex-symbols",
-            "uga-rosa/cmp-dictionary",
-            "roobert/tailwindcss-colorizer-cmp.nvim",
+            {
+                "kdheepak/cmp-latex-symbols",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
+            {
+                "roobert/tailwindcss-colorizer-cmp.nvim",
+                enabled = not RUNNING_LIMITED_HARDWARE,
+            },
             -- "lukas-reineke/cmp-rg"
         },
     },
@@ -211,6 +209,7 @@ require("lazy").setup({
     },
     {
         "ray-x/lsp_signature.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         opts = {
             always_trigger = true,
             hint_enable = true,
@@ -238,7 +237,10 @@ require("lazy").setup({
     --     ft = "mchat",
     -- },
     "mawkler/modicator.nvim",
-    "xiyaowong/nvim-cursorword",
+    {
+        "xiyaowong/nvim-cursorword",
+        event = "BufEnter",
+    },
     "tzachar/highlight-undo.nvim",
     "jinh0/eyeliner.nvim",
     {
@@ -328,30 +330,18 @@ require("lazy").setup({
         }
     },
     {
-        "yorickpeterse/nvim-tree-pairs",
-        lazy = true,
-        event = "VeryLazy",
-        opts = {},
-    },
-    {
         "iamcco/markdown-preview.nvim",
+        enabled = not RUNNING_LIMITED_HARDWARE,
         ft = { "markdown", "text" },
         build = function()
             vim.fn["mkdp#util#install"]()
         end,
         lazy = true,
-        setup = {
-            vim.keymap.set(
-                "n",
-                "<leader>y",
-                function() vim.fn.setreg("+", require("jsonpath").get()) end,
-                { desc = "Copy JSON path", buffer = true }
-            )
-        }
     },
     {
         "yorickpeterse/nvim-tree-pairs",
         lazy = true,
+        enabled = not RUNNING_LIMITED_HARDWARE,
         event = "VeryLazy",
         opts = {},
     },
@@ -392,18 +382,6 @@ require("lazy").setup({
     {
         "levouh/tint.nvim",
         enabled = not RUNNING_LIMITED_HARDWARE,
-    },
-    {
-        "folke/neodev.nvim",
-        enabled = not RUNNING_LIMITED_HARDWARE,
-        opts = {
-            override = function(root_dir, library)
-                if root_dir:find("~/CodeProjects/", 1, true) == 1 then
-                    library.enabled = true
-                    library.plugins = true
-                end
-            end,
-        },
     },
     {
         "michaelrommel/nvim-silicon",
@@ -447,10 +425,6 @@ require("lazy").setup({
         ft = {"go", 'gomod'},
         build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
     }
-    -- {
-    --     "vim-crystal/vim-crystal",
-    --     enabled = not RUNNING_LIMITED_HARDWARE,
-    -- }
 }, {
     dev = {
         path = "~/CodeProjects"

@@ -38,7 +38,7 @@ vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 
-vim.keymap.set("n", "<leader>y", ":Telescope yank_history<CR>", { desc = "Yank history" })
+vim.keymap.set("n", "<leader>y", "<cmd>YankBank<CR>", { noremap = true })
 
 require("configs.easy-replacer")
 

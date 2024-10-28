@@ -1,3 +1,9 @@
+local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
+
+if RUNNING_LIMITED_HARDWARE then
+    return
+end
+
 if vim.bo.buftype == "markdown" or vim.bo.filetype == "neorg" or vim.bo.filetype == "orgmod" then
 	vim.cmd([[highlight Headline1 guibg=#4E4B5C]])
 	vim.cmd([[highlight Headline2 guibg=#3B384B]])
