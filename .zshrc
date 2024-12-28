@@ -240,6 +240,15 @@ alias full_clear="printf '\033[2J\033[3J\033[1;1H'"
 
 alias dccat="docker container logs --follow --tail 100"
 alias dclogs="docker-compose logs --follow --tail 100"
+alias dcls="docker container ls"
+alias dclsa="docker container ls -a"
+alias dcstop="docker container stop"
+dcexec() {
+    docker container exec -it $@
+}
+dcsh() {
+    docker container exec -it $@ sh
+}
 
 alias gp="git pull"
 alias gu="git push"
@@ -261,7 +270,9 @@ if [[ -x "$(command -v fzf)" ]]; then
     eval "$(fzf --zsh)"
 fi
 
-gt() {
+export GPG_TTY=$(tty)
+
+away() {
     gtrash put $@
 }
 
