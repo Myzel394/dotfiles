@@ -231,6 +231,8 @@ if [[ -d "$TMUX_PLUGIN_MANAGER_PATH" ]]; then
     add-zsh-hook chpwd tmux-window-name
 fi
 
+export GPG_TTY=$(tty)
+
 export EDITOR=nvim
 
 alias ll="eza -l --icons --git --binary --group --header --flags --mounts --octal-permissions --changed --created --time-style iso --group-directories-first"
@@ -273,7 +275,7 @@ fi
 export GPG_TTY=$(tty)
 
 away() {
-    gtrash put $@
+    gtrash put $@ --force
 }
 
 yy() {
