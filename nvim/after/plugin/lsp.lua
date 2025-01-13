@@ -20,7 +20,7 @@ local ensured_lsps = {
 	"nil_ls",
 
 	-- Javascript, Typescript and JSON
-	"tsserver",
+	"ts_ls",
 	"lemminx",
 }
 
@@ -142,7 +142,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["tsserver"].setup({
+	lspconfig["ts_ls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
