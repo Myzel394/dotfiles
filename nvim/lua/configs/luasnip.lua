@@ -1,6 +1,6 @@
-local luasnip = require("luasnip")
-
-luasnip.filetype_extend("javascript", { "jsdoc", "javascript" })
+-- local luasnip = require("luasnip")
+--
+-- luasnip.filetype_extend("javascript", { "jsdoc", "javascript" })
 -- luasnip.filetype_extend("javascriptreact", { "jsdoc" })
 -- luasnip.filetype_extend("typescript", { "tsdoc" })
 -- luasnip.filetype_extend("typescriptreact", { "tsdoc" })

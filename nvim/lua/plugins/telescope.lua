@@ -54,7 +54,7 @@ return {
                 undo = {
                     use_delta = true,
                     side_by_side = true,
-                    diff_context_lines = 10,
+                    ctxlen = 10,
                     layout_strategy = "vertical",
                     layout_config = {
                         mirror = true,

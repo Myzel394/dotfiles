@@ -38,7 +38,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	-- texlab
 	table.insert(ensured_lsps, "ltex")
-	table.insert(ensured_lsps, "typst_lsp")
+	table.insert(ensured_lsps, "tinymist")
 	-- table.insert(ensured_lsps, "marksman")
 
 	-- table.insert(ensured_lsps, "kotlin_language_server")
@@ -46,7 +46,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	---- Python ----
 	-- Formatter
-	table.insert(ensured_lsps, "ruff_lsp")
+	table.insert(ensured_lsps, "ruff")
 	-- Linter
 	table.insert(ensured_lsps, "jedi_language_server")
 
@@ -145,6 +145,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	lspconfig["ts_ls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+		root_dir = function() return vim.loop.cwd() end,
 	})
 	--
 	-- configure typescript server with plugin
@@ -177,7 +178,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["ruff_lsp"].setup({
+	lspconfig["ruff"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
@@ -243,7 +244,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["typst_lsp"].setup({
+	lspconfig["tinymist"].setup({
         filetypes = {"typst"},
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -333,21 +334,28 @@ Language Server for Systemd unit files.
   }
 end
 
+-- Split after the last /
+local current_path = vim.loop.cwd()
+local slash_index = current_path:len() - current_path:reverse():find("/") + 1
+local current_folder = current_path:sub(slash_index + 1)
+
 if not configs.config_lsp then
-	configs.config_lsp = {
+	if not (current_folder == "config-lsp") and not (current_folder == "server") then
+	    configs.config_lsp = {
 		default_config = {
-				cmd = { 'config-lsp' },
-				filetypes = {
-					"sshconfig",
-					"sshdconfig",
-					"fstab",
-					"aliases",
-					-- Matches wireguard configs and /etc/hosts
-					"conf",
-				},
-				-- root_dir = vim.loop.cwd,
+		    cmd = { 'config-lsp' },
+		    filetypes = {
+			"sshconfig",
+			"sshdconfig",
+			"fstab",
+			"aliases",
+			-- Matches wireguard configs and /etc/hosts
+			"conf",
+		    },
+		    root_dir = vim.loop.cwd,
 		},
-	}
+	    }
+	end
 end
 
 lspconfig.systemd_ls.setup {}
@@ -383,11 +391,11 @@ cmp.setup({
 		["<C-j>"] = cmp.mapping.scroll_docs(6),
 		["<C-k>"] = cmp.mapping.scroll_docs(-6),
 	}),
-	snippet = {
-		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
-		end,
-	},
+	-- snippet = {
+	-- 	expand = function(args)
+	-- 		require("luasnip").lsp_expand(args.body)
+	-- 	end,
+	-- },
 	window = {
 		documentation = cmp.config.window.bordered(),
 		completion = cmp.config.window.bordered({
