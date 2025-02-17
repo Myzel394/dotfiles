@@ -245,9 +245,8 @@ alias dclogs="docker-compose logs --follow --tail 100"
 alias dcls="docker container ls"
 alias dclsa="docker container ls -a"
 alias dcstop="docker container stop"
-dcexec() {
-    docker container exec -it $@
-}
+alias dcexec="docker container exec -it"
+alias dcrnrm="docker container run --rm -it"
 dcsh() {
     docker container exec -it $@ sh
 }
