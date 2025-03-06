@@ -260,6 +260,8 @@ alias gdn="git diff --name-only"
 alias gds="git diff --staged"
 alias gdns="git diff --staged --name-only"
 alias gdsn="git diff --staged --name-only"
+alias gcb="git checkout -b"
+alias gco="git commit -S -m"
 
 compdef _zbnc_zsh_better_npm_completion pnpm
 
