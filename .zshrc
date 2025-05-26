@@ -189,9 +189,11 @@ sources=(
     "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
     "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
     "$HOME/.p10k.zsh"
-    "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
+    # "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
     "$HOME/.config/secrets.txt"
 )
+
+alias python3="python"
 
 if ! [[ -x "$(command -v python)" ]]; then
     sources+=(
@@ -346,4 +348,20 @@ fi
 
 source ~/.zsh-copilot/zsh-copilot.plugin.zsh
 eval "$(atuin init zsh --disable-up-arrow)"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/user/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/user/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/user/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/user/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
