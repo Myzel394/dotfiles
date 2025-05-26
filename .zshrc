@@ -41,8 +41,8 @@ if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
     )
 fi
 
-autoload -U compinit && compinit
-
+fpath=($HOME/.just/completions $fpath)
+autoload -Uz compinit && compinit -C
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -247,6 +247,8 @@ alias dclsa="docker container ls -a"
 alias dcstop="docker container stop"
 alias dcexec="docker container exec -it"
 alias dcrnrm="docker container run --rm -it"
+alias dcup="docker-compose up"
+alias dcupd="docker-compose up -d"
 dcsh() {
     docker container exec -it $@ sh
 }
@@ -347,3 +349,5 @@ fi
 source ~/.zsh-copilot/zsh-copilot.plugin.zsh
 eval "$(atuin init zsh --disable-up-arrow)"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

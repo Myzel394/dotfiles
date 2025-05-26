@@ -1,8 +1,9 @@
 local RUNNING_LIMITED_HARDWARE = os.getenv("DOTFILES_RUNNING_ON_LIMITED_HARDWARE") == "1"
 
 return {
-    "nvim-telescope/telescope.nvim",
+    "telescope-nvim/telescope.nvim",
     tag = "0.1.8",
+    dev = true,
     dependencies = {
         "nvim-lua/plenary.nvim",
         "debugloop/telescope-undo.nvim",
@@ -106,6 +107,9 @@ return {
                         preview_height = 0.7,
                         prompt_position = "top",
                     },
+                    additional_args = {
+                        "--fixed-strings"
+                    }
                 },
                 find_files = {
                     layout_strategy = "vertical",
@@ -185,7 +189,32 @@ return {
 
         -- vim.keymap.set("n", "<leader>f", "<cmd>Telescope frecency<cr>", { desc = "Find frecent files" })
         vim.keymap.set("n", "<leader>i", builtin.find_files, { desc = "Find files" })
+        vim.keymap.set(
+            "v",
+            "<leader>i",
+            function()
+                local text = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))[1]
+
+                builtin.find_files({
+                    default_text = text,
+                });
+            end,
+            { desc = "Find files" }
+        )
         vim.keymap.set("n", "<leader>s", builtin.live_grep, { desc = "Find files with live grep" })
+        vim.keymap.set(
+            "v",
+            "<leader>s",
+            function()
+                -- Get selected text
+                local text = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."))[1]
+
+                builtin.live_grep({
+                    default_text = text,
+                });
+            end,
+            { desc = "Find files with live grep" }
+        )
         vim.keymap.set("n", "<leader>w", builtin.resume, { desc = "Resume your last search" })
 
         vim.keymap.set("n", "<leader>cb", builtin.buffers, { desc = "Show buffers" })

@@ -291,7 +291,7 @@ require("lazy").setup({
     {
         "mcauley-penney/visual-whitespace.nvim",
         config = true,
-        enabled = not RUNNING_LIMITED_HARDWARE,
+        enabled = not RUNNING_LIMITED_HARDWARE and false,
         opts = {
             highlight = { link = "VisualWhitespace" },
         },
@@ -358,11 +358,11 @@ require("lazy").setup({
         "rust-lang/rust.vim",
         enabled = not RUNNING_LIMITED_HARDWARE,
     },
-    {
-        "fabridamicelli/cronex.nvim",
-         opts = {},
-         enabled = not RUNNING_LIMITED_HARDWARE,
-    },
+    -- {
+    --     "fabridamicelli/cronex.nvim",
+    --      opts = {},
+    --      enabled = not RUNNING_LIMITED_HARDWARE,
+    -- },
     {
         "saecki/crates.nvim",
         event = { "BufRead Cargo.toml" },
