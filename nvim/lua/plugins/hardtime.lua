@@ -7,6 +7,18 @@ return {
     lazy = false,
     opts = {
         restriction_mode = "hint",
+        restricted_keys = {
+            ["h"] = { "n", "x" },
+            ["j"] = { "x" },
+            ["k"] = { "x" },
+            ["l"] = { "n", "x" },
+            ["+"] = { "n", "x" },
+            ["gj"] = { "n", "x" },
+            ["gk"] = { "n", "x" },
+            ["<C-M>"] = { "n", "x" },
+            ["<C-N>"] = { "n", "x" },
+            ["<C-P>"] = { "n", "x" },
+        },
     },
     dependencies = {
         "MunifTanjim/nui.nvim",
