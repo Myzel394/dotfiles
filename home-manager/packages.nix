@@ -13,6 +13,8 @@ in
         curl
         zip
         xz
+        gnumake
+        gcc
         unzip
         tmux
     ] ++ (
@@ -26,7 +28,6 @@ in
         ripgrep
         eza
         jq
-        yq
         ijq
         curl
         delta
@@ -39,17 +40,80 @@ in
 
         cargo
 
+
+        dive
         gtrash
         atuin
+        gnome-tweaks
 
         diffnav
+        bat-extras.prettybat
+        bat-extras.batwatch
+        bat-extras.batpipe
+        bat-extras.batman
+        bat-extras.batgrep
+        bat-extras.batdiff
+        exiftool
+        flac
+        silicon
+
+        mosh
+        monero-gui
+        exodus
+        electrum
+        libsecret
+        wl-clipboard
+        subtitleedit
+        amberol
+        mediainfo
+        mediainfo-gui
+        tor-browser
+        tenacity
+        libreoffice-qt6
+        anki
+        telegram-desktop
+        picard
+        obs-studio
+        vscode
+        mpv
+        nextcloud-client
+        easytag
+        wxhexeditor
+        element-desktop
+        bruno
+        jetbrains.clion
+        evince
+        virtualbox
     ] else []
     ) ++ (
     if withGUI then [
-        # nerdfonts.override { fonts = ["JetBrainsMono"]; }
-	kitty
+        kitty
         neovide
         keepassxc
+        ghostty
+
+        brave
+        firefox
+        cinny-desktop
+        feishin
+        element-desktop
+        bitwarden-desktop
+        pulseeffects-legacy
+        plex
+        google-chrome
+        veracrypt
+        jellyfin-media-player
+        endeavour
+        plex-desktop
+        protonmail-desktop
+        mullvad-vpn
+        makemkv
+        gnome-pomodoro
+        mkvtoolnix
+        handbrake
+
+        wineWowPackages.stable
+        winetricks
     ] else []
     ) ++ (
     if variant == "full" then with pkgs; [
@@ -60,7 +124,10 @@ in
         ansible
         cloudflared
         wireguard-tools
+        csharp-ls
         go
+        signal-desktop
+        micromamba
 
         (python312.withPackages (p: with p; [
             libtmux
