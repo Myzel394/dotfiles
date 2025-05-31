@@ -1,10 +1,15 @@
 ; extends
 
+(("class" @keyword.declaration) (#set! conceal "󰆟 "))
+(("extends" @keyword.declaration) (#set! conceal "󱥨 "))
 (("const" @keyword.declaration) (#set! conceal "󰁃"))
 (("let" @keyword.declaration) (#set! conceal ""))
 (("export" @keyword.export.tsx) (#set! conceal "󰞕 "))
 (("default" @keyword.tsx) (#set! conceal "󰮭 "))
 (("function" @keyword.function.tsx) (#set! conceal "󰊕"))
+
+(("private" @keyword.modifier.typescript) (#set! conceal " "))
+(("public" @keyword.modifier.typescript) (#set! conceal "󰈈 "))
 
 (("async" @keyword.coroutine.tsx) (#set! conceal ""))
 (("await" @keyword.coroutine.tsx) (#set! conceal ""))
@@ -21,6 +26,11 @@
 (("if" @keyword.conditional.tsx) (#set! conceal ""))
 (("else" @keyword.conditional.tsx) (#set! conceal ""))
 
+((identifier) @variable.builtin
+  (#eq? @variable.builtin "this")
+  (#set! conceal "я")
+)
+
 ; (("true" @keyword.builtin) (#set! conceal " "))
 ; (("false" @keyword.builtin) (#set! conceal " "))
 
@@ -29,7 +39,7 @@
 ; (("true" @keyword.builtin) (#set! conceal "󰟦"))
 ; (("false" @keyword.builtin) (#set! conceal "󰟧"))
 ;
-; (("this" @keyword.builtin) (#set! conceal "󰟨"))
+; (("this" @variable.builtin) (#set! conceal "я"))
 ; (("arguments" @keyword.builtin) (#set! conceal "󰟩"))
 
 (("=>" @operator) (#set! conceal "󰧂 "))

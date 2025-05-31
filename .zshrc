@@ -41,8 +41,8 @@ if [[ $DOTFILES_RUNNING_ON_LIMITED_HARDWARE -eq 0 ]]; then
     )
 fi
 
-autoload -U compinit && compinit
-
+fpath=($HOME/.just/completions $fpath)
+autoload -Uz compinit && compinit -C
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -189,9 +189,11 @@ sources=(
     "$ZSH/custom/themes/powerlevel10k/powerlevel10k.zsh-theme"
     "$HOME/.config/oh-my-zsh/oh-my-zsh.sh"
     "$HOME/.p10k.zsh"
-    "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
+    # "$HOME/CodeProjects/zsh-copilot/zsh-copilot.plugin.zsh"
     "$HOME/.config/secrets.txt"
 )
+
+alias python3="python"
 
 if ! [[ -x "$(command -v python)" ]]; then
     sources+=(
@@ -247,6 +249,8 @@ alias dclsa="docker container ls -a"
 alias dcstop="docker container stop"
 alias dcexec="docker container exec -it"
 alias dcrnrm="docker container run --rm -it"
+alias dcup="docker-compose up"
+alias dcupd="docker-compose up -d"
 dcsh() {
     docker container exec -it $@ sh
 }
@@ -260,6 +264,8 @@ alias gdn="git diff --name-only"
 alias gds="git diff --staged"
 alias gdns="git diff --staged --name-only"
 alias gdsn="git diff --staged --name-only"
+alias gcb="git checkout -b"
+alias gco="git commit -S -m"
 
 compdef _zbnc_zsh_better_npm_completion pnpm
 
@@ -344,4 +350,19 @@ fi
 
 source ~/.zsh-copilot/zsh-copilot.plugin.zsh
 eval "$(atuin init zsh --disable-up-arrow)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/user/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/user/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/user/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/user/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
