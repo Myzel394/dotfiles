@@ -63,6 +63,130 @@ function createKittyTheme(colors) {
     };
 }
 
+function createWaybarTheme(colors) {
+    const primary = tinyColor(colors.Muted.getHex());
+    const secondary = tinyColor(colors.Vibrant.getHex());
+
+    return `
+/* Text color */
+@define-color primary_fixed_dim ${primary.clone().lighten(10).toHexString()};
+/* text:hover color */
+@define-color on_primary_container ${primary.clone().toHexString()};
+/* text:active color */
+@define-color primary_fixed ${secondary.clone().toHexString()};
+
+/* Background color */
+@define-color surface_dim ${primary.clone().darken(38).toHexString()};
+/* Background color: active */
+@define-color primary_container ${primary.clone().darken(30).toHexString()};
+    `
+}
+
+function createWofiTheme(colors) {
+    const primary = tinyColor(colors.Muted.getHex());
+    const secondary = tinyColor(colors.Vibrant.getHex());
+
+    return `
+* {
+  transition: 0.2s;
+}
+
+window {
+	font-family: "FiraCode Nerd Font Mono";
+	font-size: 13px;
+}
+
+window {
+    margin: 0px;
+    background-color: ${primary.clone().darken(30).toHexString()};
+    color: ${primary.clone().lighten(10).toHexString()};
+    border-radius: 16px;
+}
+
+#input {
+    padding: 4px;
+    margin: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
+    font-weight: bold;
+    background: ${primary.clone().darken(10).toHexString()};
+    color: ${primary.clone().lighten(20).toHexString()};
+   	outline: none;
+    border-radius: 16px;
+}
+
+#input image {
+    color: #fff;
+}
+
+#input:focus {
+    border: none;
+   	outline: none;
+}
+
+#inner-box {
+    margin: 20px;
+    margin-top: 0px;
+    border: none;
+    color: ${primary.clone().lighten(20).toHexString()};
+    border-radius: 16px;
+}
+
+#inner-box * {
+    transition: none;
+}
+
+#outer-box {
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    border-radius: 16px;
+}
+
+#scroll {
+    margin-top: 5px;
+    border: none;
+    border-radius: 16px;
+    margin-bottom: 5px;
+}
+
+#text:selected {
+    color: #fff;
+    font-weight: bold;
+}
+
+#img {
+    margin-left: 10px;
+    margin-right: 20px;
+    background: transparent;
+}
+
+#text {
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background: transparent;
+}
+
+#entry {
+    margin: 0px;
+    border: none;
+    border-radius: 16px;
+    min-height:32px;
+    font-weight: bold;
+}
+
+#entry:selected {
+    outline: none;
+    margin: 0px;
+    border: none;
+    border-radius: 16px;
+    background-color: ${primary.clone().darken(35).toHexString()};
+}
+    `
+}
+
 function createNvimTheme(colors) {
     const primary = tinyColor(colors.Muted.getHex());
     const secondary = tinyColor(colors.Vibrant.getHex());
@@ -263,17 +387,43 @@ async function main() {
     }
 
     {
-        const theme = createTmuxTheme(colors);
+        const rawText = createWaybarTheme(colors);
 
-        const colorsPath = path.resolve(
+        const themePath = path.resolve(
             os.homedir(),
             ".config",
-            "tmux",
-            "colors.conf",
+            "waybar",
+            "colors.css",
         );
 
-        fs.writeFileSync(colorsPath, theme);
+        fs.writeFileSync(themePath, rawText);
     }
+
+    {
+        const rawText = createWofiTheme(colors);
+
+        const themePath = path.resolve(
+            os.homedir(),
+            ".config",
+            "wofi",
+            "style.css",
+        );
+
+        fs.writeFileSync(themePath, rawText);
+    }
+
+    // {
+    //     const theme = createTmuxTheme(colors);
+    //
+    //     const colorsPath = path.resolve(
+    //         os.homedir(),
+    //         ".config",
+    //         "tmux",
+    //         "colors.conf",
+    //     );
+    //
+    //     fs.writeFileSync(colorsPath, theme);
+    // }
 
     // {
     //   const theme = createNvimTheme(colors);
