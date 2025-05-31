@@ -1,0 +1,188 @@
+{
+    "layer": "top",
+    "reload_style_on_change": true,
+    "spacing": 0,
+    "margin-top": 0,
+    "margin-right": 0,
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "fixed-center": true,
+    "output": "HDMI-A-2",
+    "modules-left": [
+        "custom/notification",
+        "clock",
+        "hyprland/window",
+        "mpris"
+    ],
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "custom/gammastep",
+        "pulseaudio",
+        "backlight",
+        "hyprland/language",
+        "idle_inhibitor",
+        "custom/wlogout"
+    ],
+    // Modules configuration
+    "backlight": {
+        "scroll-step": 10.0,
+        "tooltip": false,
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "battery": {
+        "states": {
+            "good": 75,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+    "clock": {
+        "interval": 1,
+        "format": "{:%A, %T}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "on-click": "swaync-client -t -sw",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b>{}</b></span>"
+            }
+        },
+        "actions": {
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "mpris": {
+        "format": "󰐊 {dynamic}",
+        "format-paused": "󰏤 {dynamic}",
+        "max-length": 30
+    },
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{volume}% {icon}  {format_source}",
+        "format-muted": "󰖁  {format_source}",
+        "format-source": "",
+        "format-source-muted": " ",
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [
+                "",
+                " ",
+                ""
+            ]
+        },
+        "on-click": "pavucontrol -t 3"
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "",
+            "none": "",
+            "dnd-notification": "",
+            "dnd-none": "",
+            "inhibited-notification": "",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+    "custom/updates": {
+        "format": "{}",
+        "interval": 3600,
+        "on-click": "kitty --class update arch-update",
+        "exec": "~/.config/waybar/scripts/checkupdates.sh",
+        "return-type": "json"
+    },
+    "custom/wlogout": {
+        "format": "",
+        "on-click": "~/.config/hypr/scripts/wlogout.sh",
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip-format-activated": "The computer is prevented from going to sleep",
+        "tooltip-format-deactivated": "The computer will go to sleep if the user is idle"
+    },
+    "hyprland/workspaces": {
+        "all-outputs": false,
+        "on-click": "activate",
+        "format": "{icon}",
+        // "format-icons": {
+        //     "active": "",
+        //     "default": ""
+        // },
+        "on-scroll-up": "hyprctl dispatch workspace r+1",
+        "on-scroll-down": "hyprctl dispatch workspace r-1",
+    },
+    "hyprland/window": {
+        "max-length": 55,
+        "separate-outputs": true,
+        "format": "{title}"
+    },
+    "hyprland/language": {
+        "format": "  <span text_transform=\"uppercase\">{short}</span> <span text_transform=\"capitalize\">{variant}</span>",
+        "on-click": "~/.config/hypr/scripts/switch-keyboard-layout.sh"
+    },
+    "custom/gammastep": {
+      "format": "{}",
+      "interval": 5,
+      "on-update": "",
+      "exec": "sleep 0.05; /home/user/.config/waybar/scripts/gammastep.sh",
+      "on-click": "/home/user/.config/waybar/scripts/gammastep.sh toggle"
+    }
+}
