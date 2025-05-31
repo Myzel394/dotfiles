@@ -1,0 +1,13 @@
+
+/* Text color */
+@define-color primary_fixed_dim #b69690;
+/* text:hover color */
+@define-color on_primary_container #a27971;
+/* text:active color */
+@define-color primary_fixed #c47c58;
+
+/* Background color */
+@define-color surface_dim #312320;
+/* Background color: active */
+@define-color primary_container #4a3430;
+    

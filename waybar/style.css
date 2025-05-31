@@ -1,0 +1,192 @@
+@import "colors.css";
+
+* {
+    font-family: "Montserrat", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    border: none;
+    border-radius: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+window#waybar {
+    background: alpha(@surface_dim, 0.89);
+}
+
+/* Default for all modules */
+#clock,
+#custom-notification,
+#custom-updates,
+#tray,
+#window,
+#workspaces,
+#mpris,
+#pulseaudio,
+#backlight,
+#battery,
+#language,
+#idle_inhibitor,
+#custom-wlogout,
+#custom-gammastep {
+    min-height: 0;
+    min-width: 0;
+    padding: 8px 22px;
+    margin: 5px 0;
+    color: @primary_fixed_dim;
+    background-color: alpha(@surface_dim, 0.9);
+    border-radius: 20px;
+}
+
+#clock:hover,
+#custom-notification:hover,
+#custom-updates:hover,
+#tray:hover,
+#window:hover,
+#mpris:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#battery:hover,
+#language:hover,
+#idle_inhibitor:hover,
+#custom-wlogout:hover, 
+#custom-gammastep:hover {
+    color: @on_primary_container;
+    background-color: alpha(shade(@surface_dim, 1.2), 0.9);
+}
+
+/* Remove margin if first or last */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* Don't show window's name if there's not one */
+window#waybar.empty #window {
+    background-color: transparent;
+    border: none;
+}
+
+/* Customize each module */
+#clock {
+    margin-left: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 6px;
+}
+
+#custom-notification {
+    font-size: 20px;
+    margin-right: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 4px;
+}
+
+#custom-updates {
+    font-size: 14px;
+}
+
+#pulseaudio {
+    font-family: "MesloLGS Nerd Font";
+    padding-right: 14px;
+}
+
+#idle_inhibitor {
+    font-family: "MesloLGS Nerd Font";
+    font-size: 16px;
+    margin-right: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-right: 8px;
+}
+
+#custom-wlogout {
+    font-size: 16px;
+    margin-right: 0px;
+    margin-left: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 8px;
+}
+
+#custom-gammastep {
+    font-size: 16px;
+    margin-right: 0px;
+    margin-left: 0px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-left: 8px;
+}
+
+#tray menu {
+    border-radius: 10px;
+    padding: 8px 6px;
+    background-color: alpha(@surface_dim, 0.9);
+}
+
+#language {
+    font-family: "MesloLGS Nerd Font";
+}
+
+tooltip {
+    min-height: 0;
+    min-width: 0;
+    background-color: alpha(@surface_dim, 0.9);
+    border-radius: 20px;
+}
+
+tooltip label {
+    color: @primary_fixed_dim;
+    padding: 0px;
+}
+
+/* Workspaces */
+#workspaces {
+    font-size: 16px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+#workspaces button {
+    min-height: 0;
+    min-width: 0;
+    padding: 3px 8px;
+    margin: 1px 2px;
+    border-radius: 15px;
+    color: @primary_fixed_dim;
+    background-color: transparent;
+    transition: all 0.5s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @primary_fixed;
+    background: @primary_container;
+    border-radius: 15px;
+    min-width: 30px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+    color: @primary_fixed_dim;
+    background: shade(@primary_container, 1.2);
+    border-radius: 15px;
+}
+
+
+/* Some spacing at the edges */
+#custom-notification {
+    margin-left: 5px;
+}
+#custom-wlogout {
+    margin-right: 5px;
+}
+
