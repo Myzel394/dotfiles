@@ -7,6 +7,9 @@ let
     variant = (take (builtins.getEnv("NIX_HOME_MANAGER_VARIANT")) "full");
     withGUI = variant == "full" || (take (builtins.getEnv("NIX_HOME_MANAGER_WITH_GUI")) "false") == "true";
 in {
+    imports = [
+        ./gnome.nix
+    ];
 # Home Manager needs a bit of information about you and the paths it should
 # manage.
     home.username = username;
@@ -64,10 +67,16 @@ in {
         EDITOR = "nvim";
     };
 
+    programs.zsh.enable = true;
+
 # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.permittedInsecurePackages = [
+        "cinny-4.2.3"
+        "cinny-unwrapped-4.2.3"
+    ];
     nix = {
         package = pkgs.nix;
         settings.experimental-features = [ "nix-command" "flakes" ];

@@ -46,22 +46,24 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 
 	---- Python ----
 	-- Formatter
-	table.insert(ensured_lsps, "ruff")
+	-- table.insert(ensured_lsps, "ruff")
 	-- Linter
-	table.insert(ensured_lsps, "jedi_language_server")
+	-- table.insert(ensured_lsps, "ruff")
 
 	-- table.insert(ensured_lsps, "solargraph")
 
-	table.insert(ensured_lsps, "clangd")
+	-- table.insert(ensured_lsps, "clangd")
 
 	-- table.insert(ensured_lsps, "zls")
 	table.insert(ensured_lsps, "ansiblels")
 
+	table.insert(ensured_lsps, "csharp-ls")
+
 	table.insert(ensured_lsps, "gopls")
 
-	table.insert(ensured_lsps, "nginx_language_server")
+	-- table.insert(ensured_lsps, "nginx_language_server")
 
-	table.insert(ensured_lsps, "asm_lsp")
+	-- table.insert(ensured_lsps, "asm_lsp")
 	-- table.insert(ensured_lsps, "r_language_server")
 
 	-- table.insert(ensured_lsps, "crystalline")
@@ -173,14 +175,25 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
-	lspconfig["jedi_language_server"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-	})
+	-- lspconfig["pyright"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- })
 
 	lspconfig["ruff"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
+	})
+
+	-- lspconfig["jedi_language_server"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- })
+
+	lspconfig["pyright"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+		filetypes = {"python"},
 	})
 
 	-- configure lua server (with special settings)
@@ -280,6 +293,11 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 		on_attach = on_attach,
 	})
 
+	lspconfig["csharp_ls"].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+
 	lspconfig["gopls"].setup({
 		capabilities = capabilities,
 		on_attach = on_attach,
@@ -294,23 +312,23 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
         }
 	})
 
-	lspconfig["nginx_language_server"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		root_dir = function() return vim.loop.cwd() end,
-	})
+	-- lspconfig["nginx_language_server"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- 	root_dir = function() return vim.loop.cwd() end,
+	-- })
 
-	lspconfig["asm_lsp"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		root_dir = function() return vim.loop.cwd() end,
-	})
+	-- lspconfig["asm_lsp"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- 	root_dir = function() return vim.loop.cwd() end,
+	-- })
 
-	lspconfig["r_language_server"].setup({
-		capabilities = capabilities,
-		on_attach = on_attach,
-		root_dir = function() return vim.loop.cwd() end,
-	})
+	-- lspconfig["r_language_server"].setup({
+	-- 	capabilities = capabilities,
+	-- 	on_attach = on_attach,
+	-- 	root_dir = function() return vim.loop.cwd() end,
+	-- })
 end
 
 local configs = require("lspconfig.configs")
@@ -334,32 +352,45 @@ Language Server for Systemd unit files.
   }
 end
 
--- Split after the last /
-local current_path = vim.loop.cwd()
-local slash_index = current_path:len() - current_path:reverse():find("/") + 1
-local current_folder = current_path:sub(slash_index + 1)
+local IGNORE_CONFIG_LSP = os.getenv("DOTFILES_IGNORE_CONFIG_LSP") == "1"
 
-if not configs.config_lsp then
-	if not (current_folder == "config-lsp") and not (current_folder == "server") then
-	    configs.config_lsp = {
-		default_config = {
-		    cmd = { 'config-lsp' },
-		    filetypes = {
-			"sshconfig",
-			"sshdconfig",
-			"fstab",
-			"aliases",
-			-- Matches wireguard configs and /etc/hosts
-			"conf",
-		    },
-		    root_dir = vim.loop.cwd,
-		},
-	    }
-	end
+if not IGNORE_CONFIG_LSP then
+    configs.config_lsp = {
+	default_config = {
+	    cmd = { 'config-lsp' },
+	    filetypes = {
+		"sshconfig",
+		"sshdconfig",
+		"fstab",
+		"aliases",
+		-- Matches wireguard configs and /etc/hosts
+		"conf",
+	    },
+	    root_dir = vim.loop.cwd,
+	},
+    }
+	lspconfig.config_lsp.setup {}
 end
 
+
+if not configs.just_lsp then
+  configs.just_lsp = {
+    default_config = {
+      cmd = { '~/.cargo/bin/just-lsp' },
+      filetypes = { 'just' },
+      root_dir = function(fname)
+        return utils.find_git_ancestor(fname)
+      end,
+      settings = {},
+    },
+  }
+end
+
+lspconfig.just_lsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
 lspconfig.systemd_ls.setup {}
-lspconfig.config_lsp.setup {}
 
 
 ------- CMP -------

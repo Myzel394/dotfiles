@@ -154,6 +154,7 @@ paths=(
     "/home/linuxbrew/.linuxbrew/bin"
     "/home/linuxbrew/.linuxbrew/sbin"
     "$HOME/.config/bat-extras/bin"
+    "$HOME/.cargo/bin"
 )
 
 if [[ "$DOTFILES_RUNNING_ON_LIMITED_HARDWARE" -eq 0 ]]; then
@@ -267,6 +268,7 @@ alias gdsn="git diff --staged --name-only"
 alias gcb="git checkout -b"
 alias gco="git commit -S -m"
 
+
 compdef _zbnc_zsh_better_npm_completion pnpm
 
 SELECT() {
@@ -365,4 +367,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+eval "$(/home/user/.nix-profile/bin/micromamba shell hook -s posix)"
 
