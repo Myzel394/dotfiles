@@ -1,3 +1,10 @@
-[font]
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 normal = "JetBrainsMonoNL Nerd Font Mono"
 size = 12.0
+=======
+[font]
+normal = "FiraCode Nerd Font Light"
+size = 11.0
+>>>>>>> Stashed changes
+
