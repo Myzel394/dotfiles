@@ -17,7 +17,7 @@ local ensured_lsps = {
 	"docker_compose_language_service",
 	"yamlls",
 	"bashls",
-	"nil_ls",
+	-- "nil_ls",
 
 	-- Javascript, Typescript and JSON
 	"ts_ls",
@@ -62,7 +62,7 @@ if not IS_RUNNING_ON_LIMITED_HARDWARE then
 	table.insert(ensured_lsps, "nginx_language_server")
 
 	table.insert(ensured_lsps, "asm_lsp")
-	table.insert(ensured_lsps, "r_language_server")
+	-- table.insert(ensured_lsps, "r_language_server")
 
 	-- table.insert(ensured_lsps, "crystalline")
 end
